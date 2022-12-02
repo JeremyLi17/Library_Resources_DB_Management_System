@@ -34,9 +34,13 @@ public class BookService {
         }
 
         Book book = bookRepo.findById(bookId).get();
-        book.setBookName(bookDetails.getBookName());
-        book.setBookTopic(bookDetails.getBookTopic());
-        book.setId(bookDetails.getId());
+        if (bookDetails.getBookName() != null && !bookDetails.getBookName().equals(book.getBookName())) {
+            book.setBookName(bookDetails.getBookName());
+        }
+
+        if (bookDetails.getBookTopic() != null && !bookDetails.getBookTopic().equals(book.getBookTopic())) {
+            book.setBookTopic(bookDetails.getBookTopic());
+        }
 
         return bookRepo.save(book);
     }
