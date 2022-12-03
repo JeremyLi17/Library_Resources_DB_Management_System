@@ -3,8 +3,10 @@ package com.realdb.finalproject.book;
 import com.realdb.finalproject.entity.Book;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,16 +19,12 @@ public class BookService {
     }
 
     // GET ONE
-    public Book getBook(Integer bookId) {
-        return bookRepo.findById(bookId).isEmpty() ? null : bookRepo.findById(bookId).get();
+    public Optional<Book> getBook(Integer bookId) {
+        return bookRepo.findById(bookId);
     }
 
     // CREATE
-    public Book createBook(String bookName, String bookTopic) {
-        Book book = new Book();
-        book.setBookName(bookName);
-        book.setBookTopic(bookTopic);
-
+    public Book createBook(Book book) {
         return bookRepo.save(book);
     }
 
@@ -36,12 +34,14 @@ public class BookService {
     }
 
     // UPDATE
+    @Transactional
     public Book updateBook(Integer bookId, String bookName, String bookTopic) {
-        if (bookRepo.findById(bookId).isEmpty()) {
-            return null;
-        }
 
-        Book book = bookRepo.findById(bookId).get();
+
+        Book book = bookRepo.findById(bookId).orElseThrow(() -> new IllegalStateException(
+                "Book with id " + bookId + " does not exist"
+        ));
+
         if (bookName != null && !bookName.equals(book.getBookName())) {
             book.setBookName(bookName);
         }

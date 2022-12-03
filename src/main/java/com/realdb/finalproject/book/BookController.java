@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/book")
@@ -18,15 +19,13 @@ public class BookController {
     }
 
     @GetMapping()
-    public Book getBook(@RequestParam Integer id) {
+    public Optional<Book> getBook(@RequestParam Integer id) {
         return bookService.getBook(id);
     }
 
     @PostMapping()
-    public Book createBooks(@RequestParam(required = true) String bookName,
-                            @RequestParam(required = true) String bookTopic) {
-
-        return bookService.createBook(bookName, bookTopic);
+    public Book createBooks(@RequestBody Book book) {
+        return bookService.createBook(book);
     }
 
     @PutMapping()
