@@ -35,10 +35,17 @@ public class CustomerService {
                                    Long cPhoneNo, String idType, String idNo) {
 
         Customer customer = customerRepo.findById(customerId).orElseThrow(() -> new IllegalStateException(
-                        "Customer with id " + customerId + " does not exist"
-                ));
+                "Customer with id " + customerId + " does not exist"
+        ));
 
         if (cEmail != null && cEmail.length() > 0 && !cEmail.equals(customer.getCEmail())) {
+
+            Optional<Customer> customerOptional = customerRepo.findCustomerByCEmail(cEmail);
+
+            if (customerOptional.isPresent()) {
+                throw new IllegalStateException("email taken");
+            }
+
             customer.setCEmail(cEmail);
         }
         if (cFName != null && cFName.length() > 0 && !cFName.equals(customer.getCFname())) {
@@ -56,7 +63,7 @@ public class CustomerService {
         if (idType != null && idType.length() > 0 && !idType.equals(customer.getIdType())) {
             customer.setIdType(idType);
         }
-        if(idNo != null && idNo.length() > 0 && !idNo.equals(customer.getIdNo())) {
+        if (idNo != null && idNo.length() > 0 && !idNo.equals(customer.getIdNo())) {
             customer.setIdNo(idNo);
         }
 
