@@ -31,42 +31,58 @@ public class CustomerService {
     }
 
     @Transactional
-    public Customer updateCustomer(Integer customerId, String cEmail, String cFName, String cLName, String cMName,
+    public void updateCustomer(Integer customerId, String email, String cFName, String cLName, String cMName,
                                    Long cPhoneNo, String idType, String idNo) {
 
         Customer customer = customerRepo.findById(customerId).orElseThrow(() -> new IllegalStateException(
                 "Customer with id " + customerId + " does not exist"
         ));
 
-        if (cEmail != null && cEmail.length() > 0 && !cEmail.equals(customer.getCEmail())) {
+        //TODO: NEED TO MODIFY after C_EMAIL's datatype is changed to VARCHAR(30)
+        if (email != null && email.length() > 0 && (email.endsWith(".edu") || email.endsWith(".com"))) {
 
-            Optional<Customer> customerOptional = customerRepo.findCustomerByCEmail(cEmail);
+            email += " ".repeat(customer.getCEmail().length() - email.length());
 
-            if (customerOptional.isPresent()) {
-                throw new IllegalStateException("email taken");
+            if (!email.equals(customer.getCEmail())) {
+
+                Optional<Customer> studentOptional = customerRepo.findCustomerBycEmail(email);
+
+                if (studentOptional.isPresent()) {
+                    throw new IllegalStateException("email taken");
+                }
+
+                customer.setCEmail(email);
             }
-
-            customer.setCEmail(cEmail);
         }
+
         if (cFName != null && cFName.length() > 0 && !cFName.equals(customer.getCFname())) {
             customer.setCFname(cFName);
         }
-        if (cLName != null && cLName.length() > 0 && !cLName.equals(customer.getCLname())) {
-            customer.setCLname(cLName);
+
+        if (cLName != null && cLName.length() > 0) {
+
+            cLName += " ".repeat(customer.getCLname().length() - cLName.length());
+
+            if (!cLName.equals(customer.getCLname())) {
+                customer.setCLname(cLName);
+            }
         }
+
         if (cMName != null && cMName.length() > 0 && !cMName.equals(customer.getCMname())) {
             customer.setCMname(cMName);
         }
+
+        //TODO: NEED TO MODIFY after cPhoneNo's datatype is changed to CHAR(10)
         if (cPhoneNo != null && !cPhoneNo.equals(customer.getCPhoneno())) {
             customer.setCPhoneno(cPhoneNo);
         }
+
         if (idType != null && idType.length() > 0 && !idType.equals(customer.getIdType())) {
             customer.setIdType(idType);
         }
+
         if (idNo != null && idNo.length() > 0 && !idNo.equals(customer.getIdNo())) {
             customer.setIdNo(idNo);
         }
-
-        return customerRepo.save(customer);
     }
 }

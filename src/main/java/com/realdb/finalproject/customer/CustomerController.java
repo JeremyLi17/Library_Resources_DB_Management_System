@@ -29,8 +29,8 @@ public class CustomerController {
         return customerService.createCustomer(customer);
     }
 
-    @PutMapping()
-    public Customer updateCustomer(@RequestParam Integer id,
+    @PutMapping("{id}")
+    public void updateCustomer(@PathVariable("id") Integer id,
                                    @RequestParam(required = false) String cEmail,
                                    @RequestParam(required = false) String cFName,
                                    @RequestParam(required = false) String cLName,
@@ -39,7 +39,7 @@ public class CustomerController {
                                    @RequestParam(required = false) String idType,
                                    @RequestParam(required = false) String idNo) {
 
-        return customerService.updateCustomer(id, cEmail, cFName, cLName, cMName, cPhoneNo, idType, idNo);
+        customerService.updateCustomer(id, cEmail, cFName, cLName, cMName, cPhoneNo, idType, idNo);
     }
 
     @DeleteMapping()
