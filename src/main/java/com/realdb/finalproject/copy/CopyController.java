@@ -17,8 +17,8 @@ public class CopyController {
     public List<Copy> getCopies() {
         return copyService.getCopies();
     }
-    @GetMapping()
-    public Optional<Copy> getCopybyID(@RequestBody Integer id){
+    @GetMapping("/{id}")
+    public Optional<Copy> getCopyByID(@PathVariable("id") Integer id){
         return copyService.getCopybyid(id);
     }
     @PostMapping()

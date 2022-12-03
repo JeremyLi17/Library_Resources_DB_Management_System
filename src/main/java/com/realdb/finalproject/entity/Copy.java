@@ -1,5 +1,6 @@
 package com.realdb.finalproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.entity.Book;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Copy {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOK_BOOK_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book bookBook;
 
     public Integer getId() {
