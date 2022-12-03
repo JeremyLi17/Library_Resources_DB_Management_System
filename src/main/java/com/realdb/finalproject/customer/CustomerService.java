@@ -1,10 +1,13 @@
 package com.realdb.finalproject.customer;
 
+import com.realdb.finalproject.entity.Author;
 import com.realdb.finalproject.entity.Customer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +18,10 @@ public class CustomerService {
         return customerRepo.findAll();
     }
 
+    public Optional<Customer> getCustomer(Integer customerId) {
+        return customerRepo.findById(customerId);
+    }
+
     public Customer createCustomer(Customer customer) {
         return customerRepo.save(customer);
     }
@@ -23,33 +30,34 @@ public class CustomerService {
         customerRepo.deleteById(customerId);
     }
 
-    public Customer updateCustomer(Integer customerId, Customer customerDetails) {
-        if (customerRepo.findById(customerId).isEmpty()) {
-            return null;
-        }
+    @Transactional
+    public Customer updateCustomer(Integer customerId, String cEmail, String cFName, String cLName, String cMName,
+                                   Long cPhoneNo, String idType, String idNo) {
 
-        Customer customer = customerRepo.findById(customerId).get();
+        Customer customer = customerRepo.findById(customerId).orElseThrow(() -> new IllegalStateException(
+                        "Customer with id " + customerId + " does not exist"
+                ));
 
-        if (customerDetails.getCEmail() != null && !customerDetails.getCEmail().equals(customer.getCEmail())) {
-            customer.setCEmail(customerDetails.getCEmail());
+        if (cEmail != null && cEmail.length() > 0 && !cEmail.equals(customer.getCEmail())) {
+            customer.setCEmail(cEmail);
         }
-        if (customerDetails.getCFname() != null && !customerDetails.getCFname().equals(customer.getCFname())) {
-            customer.setCFname(customerDetails.getCFname());
+        if (cFName != null && cFName.length() > 0 && !cFName.equals(customer.getCFname())) {
+            customer.setCFname(cFName);
         }
-        if (customerDetails.getCLname() != null && !customerDetails.getCLname().equals(customer.getCLname())) {
-            customer.setCLname(customerDetails.getCLname());
+        if (cLName != null && cLName.length() > 0 && !cLName.equals(customer.getCLname())) {
+            customer.setCLname(cLName);
         }
-        if (customerDetails.getCMname() != null && !customerDetails.getCMname().equals(customer.getCMname())) {
-            customer.setCMname(customerDetails.getCMname());
+        if (cMName != null && cMName.length() > 0 && !cMName.equals(customer.getCMname())) {
+            customer.setCMname(cMName);
         }
-        if (customerDetails.getCPhoneno() != null && !customerDetails.getCPhoneno().equals(customer.getCPhoneno())) {
-            customer.setCPhoneno(customerDetails.getCPhoneno());
+        if (cPhoneNo != null && !cPhoneNo.equals(customer.getCPhoneno())) {
+            customer.setCPhoneno(cPhoneNo);
         }
-        if (customerDetails.getIdType() != null && !customerDetails.getIdType().equals(customer.getIdType())) {
-            customer.setIdType(customerDetails.getIdType());
+        if (idType != null && idType.length() > 0 && !idType.equals(customer.getIdType())) {
+            customer.setIdType(idType);
         }
-        if(customerDetails.getIdNo() != null && !customerDetails.getIdNo().equals(customer.getIdNo())) {
-            customer.setIdNo(customerDetails.getIdNo());
+        if(idNo != null && idNo.length() > 0 && !idNo.equals(customer.getIdNo())) {
+            customer.setIdNo(idNo);
         }
 
         return customerRepo.save(customer);
