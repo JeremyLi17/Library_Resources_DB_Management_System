@@ -11,13 +11,22 @@ import java.util.List;
 public class BookService {
     private final BookRepo bookRepo;
 
-    // GET
+    // GET ALL
     public List<Book> getBooks() {
         return bookRepo.findAll();
     }
 
+    // GET ONE
+    public Book getBook(Integer bookId) {
+        return bookRepo.findById(bookId).isEmpty() ? null : bookRepo.findById(bookId).get();
+    }
+
     // CREATE
-    public Book createBook(Book book) {
+    public Book createBook(String bookName, String bookTopic) {
+        Book book = new Book();
+        book.setBookName(bookName);
+        book.setBookTopic(bookTopic);
+
         return bookRepo.save(book);
     }
 
@@ -27,18 +36,18 @@ public class BookService {
     }
 
     // UPDATE
-    public Book updateBook(Integer bookId, Book bookDetails) {
+    public Book updateBook(Integer bookId, String bookName, String bookTopic) {
         if (bookRepo.findById(bookId).isEmpty()) {
             return null;
         }
 
         Book book = bookRepo.findById(bookId).get();
-        if (bookDetails.getBookName() != null && !bookDetails.getBookName().equals(book.getBookName())) {
-            book.setBookName(bookDetails.getBookName());
+        if (bookName != null && !bookName.equals(book.getBookName())) {
+            book.setBookName(bookName);
         }
 
-        if (bookDetails.getBookTopic() != null && !bookDetails.getBookTopic().equals(book.getBookTopic())) {
-            book.setBookTopic(bookDetails.getBookTopic());
+        if (bookTopic != null && !bookTopic.equals(book.getBookTopic())) {
+            book.setBookTopic(bookTopic);
         }
 
         return bookRepo.save(book);
