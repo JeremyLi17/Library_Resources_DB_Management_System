@@ -48,6 +48,7 @@ public class AuthorController {
             @RequestParam(required = false) String street,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) String email) {
+
         authorService.updateAuthor(id, country, zipcode, fName, lName, street, city, email);
     }
 }
