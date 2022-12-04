@@ -83,12 +83,12 @@ public class AuthorService {
         }
 
         if (email != null && email.length() > 0
-                && !Objects.equals(author.getAEmail(), email)) {
-            Optional<Author> studentOptional = authorRepo.findAuthorByAemail(email);
+                && !Objects.equals(author.getEmail(), email)) {
+            Optional<Author> studentOptional = authorRepo.findAuthorByEmail(email);
             if (studentOptional.isPresent()) {
                 throw new IllegalStateException("email taken");
             }
-            author.setAEmail(email);
+            author.setEmail(email);
         }
     }
 }

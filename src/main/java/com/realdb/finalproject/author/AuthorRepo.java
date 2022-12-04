@@ -11,5 +11,5 @@ import java.util.Optional;
  */
 @Repository
 public interface AuthorRepo extends JpaRepository<Author, Integer> {
-    Optional<Author> findAuthorByAemail(String email);
+    Optional<Author> findAuthorByEmail(String email);
 }

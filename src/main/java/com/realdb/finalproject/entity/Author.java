@@ -39,7 +39,7 @@ public class Author {
     private Integer aZipcode;
 
     @Column(name = "A_EMAIL", length = 30)
-    private String aemail;
+    private String email;
 
     public Integer getId() {
         return id;
@@ -97,12 +97,12 @@ public class Author {
         this.aZipcode = aZipcode;
     }
 
-    public String getAEmail() {
-        return aemail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAEmail(String aEmail) {
-        this.aemail = aEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
