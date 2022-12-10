@@ -134,6 +134,10 @@ public class CustomerService implements UserDetailsService {
         }
     }
 
+    public void deleteCustomer(Integer customerId) {
+        customerRepo.deleteById(customerId);
+    }
+
     private Customer validateNewUsernameAndEmail(String currentUsername,
                                              String newUsername,
                                              String newEmail)
@@ -166,10 +170,6 @@ public class CustomerService implements UserDetailsService {
             }
             return null;
         }
-    }
-
-    public void deleteCustomer(Integer customerId) {
-        customerRepo.deleteById(customerId);
     }
 
     @Override

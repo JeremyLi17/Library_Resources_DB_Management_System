@@ -40,7 +40,7 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer)
+    public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer)
             throws UserNotFoundException, EmailExistException, UsernameExistException {
         Customer registerCustomer = customerService.registerCustomer(
                 customer.getFirstName(),

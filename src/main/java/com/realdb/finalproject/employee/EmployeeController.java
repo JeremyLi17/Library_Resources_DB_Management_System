@@ -1,7 +1,69 @@
 package com.realdb.finalproject.employee;
 
+import com.realdb.finalproject.customer.Customer;
+import com.realdb.finalproject.domain.UserPrincipal;
+import com.realdb.finalproject.exception.domain.EmailExistException;
+import com.realdb.finalproject.exception.domain.UserNotFoundException;
+import com.realdb.finalproject.exception.domain.UsernameExistException;
+import com.realdb.finalproject.utility.JWTProvider;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import static com.realdb.finalproject.security.SecurityConstant.JWT_TOKEN_HEADER;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
+
 /**
  * @author jeremy on 2022/12/10
  */
+@RestController
+@RequestMapping("/api/employee")
+@AllArgsConstructor
 public class EmployeeController {
+
+    private final EmployeeService employeeService;
+    private final AuthenticationManager authenticationManager;
+    private final JWTProvider jwtProvider;
+
+    @PostMapping("/register")
+    public ResponseEntity<Employee> registerEmployee(@RequestBody Employee employee)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+        Employee registerEmployee= employeeService.registerEmployee(
+                employee.getUsername(),
+                employee.getEmail(),
+                employee.getUsername(),
+                employee.getPassword());
+        UserPrincipal userPrincipal = new UserPrincipal(registerEmployee);
+        HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
+        return new ResponseEntity<>(registerEmployee, jwtHeader, CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Employee> login(@RequestBody Customer customer) {
+        authenticate(customer.getUsername(),customer.getPassword());
+        Employee loginEmployee = employeeService
+                .findEmployeeByUsername(customer.getUsername()).get();
+        UserPrincipal userPrincipal = new UserPrincipal(loginEmployee);
+        HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
+        return new ResponseEntity<>(loginEmployee, jwtHeader, OK);
+    }
+
+    private HttpHeaders getJwtHeader(UserPrincipal user) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(JWT_TOKEN_HEADER, jwtProvider.generateJwtToken(user));
+        return headers;
+    }
+
+    private void authenticate(String username, String password) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+    }
 }
