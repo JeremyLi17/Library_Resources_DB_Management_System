@@ -1,13 +1,24 @@
 package com.realdb.finalproject.customer;
 
+import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
+import com.realdb.finalproject.utility.JWTProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.List;
+
+import static com.realdb.finalproject.security.SecurityConstant.JWT_TOKEN_HEADER;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -15,6 +26,8 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final AuthenticationManager authenticationManager;
+    private final JWTProvider jwtProvider;
 
     @GetMapping(path ="all")
     public List<Customer> getCustomers() {
@@ -22,15 +35,15 @@ public class CustomerController {
     }
 
     @GetMapping()
-    public Optional<Customer> getCustomer(@RequestParam Integer id) {
-        return customerService.getCustomer(id);
+    public Optional<Customer> findCustomerByUsername(@RequestParam String username) {
+        return customerService.findCustomerByUsername(username);
     }
 
-    @PostMapping()
-    public Customer createCustomer(@RequestBody Customer customer)
+    @PostMapping("/register")
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer)
             throws UserNotFoundException, EmailExistException, UsernameExistException {
-        return customerService.registerCustomer(
-                customer.getFName(),
+        Customer registerCustomer = customerService.registerCustomer(
+                customer.getFirstName(),
                 customer.getLastName(),
                 customer.getEmail(),
                 customer.getPhoneNo(),
@@ -38,6 +51,19 @@ public class CustomerController {
                 customer.getIdNo(),
                 customer.getUsername(),
                 customer.getPassword());
+        UserPrincipal userPrincipal = new UserPrincipal(registerCustomer);
+        HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
+        return new ResponseEntity<>(registerCustomer, jwtHeader, CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Customer> login(@RequestBody Customer customer) {
+        authenticate(customer.getUsername(),customer.getPassword());
+        Customer loginCustomer = customerService
+                .findCustomerByUsername(customer.getUsername()).get();
+        UserPrincipal userPrincipal = new UserPrincipal(loginCustomer);
+        HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
+        return new ResponseEntity<>(loginCustomer, jwtHeader, OK);
     }
 
     @PutMapping("{id}")
@@ -56,5 +82,17 @@ public class CustomerController {
     @DeleteMapping()
     public void deleteCustomer(@RequestParam Integer id) {
         customerService.deleteCustomer(id);
+    }
+
+    private HttpHeaders getJwtHeader(UserPrincipal user) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(JWT_TOKEN_HEADER, jwtProvider.generateJwtToken(user));
+        return headers;
+    }
+
+    private void authenticate(String username, String password) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
     }
 }

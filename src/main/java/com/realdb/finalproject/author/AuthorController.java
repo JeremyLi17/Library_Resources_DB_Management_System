@@ -41,7 +41,7 @@ public class AuthorController {
     public void updateAuthor(
             @PathVariable("id") Integer id,
             @RequestParam(required = false) String country,
-            @RequestParam(required = false) Integer zipcode,
+            @RequestParam(required = false) String zipcode,
             @RequestParam(required = false) String fName,
             @RequestParam(required = false) String lName,
             @RequestParam(required = false) String street,

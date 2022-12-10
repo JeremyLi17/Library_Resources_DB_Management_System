@@ -57,9 +57,9 @@ public class Customer extends User {
 
     public Customer() {}
 
-    public Customer(String CFname,
-                    String CMname,
-                    String CLname,
+    public Customer(String firstName,
+                    String middleName,
+                    String lastName,
                     String email,
                     String phoneNo,
                     String idType,
@@ -69,9 +69,9 @@ public class Customer extends User {
                     boolean isNotLocked,
                     boolean isActive,
                     String role) {
-        this.firstName = CFname;
-        this.middleName = CMname;
-        this.lastName = CLname;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
         this.email = email;
         this.phoneNo = phoneNo;
         this.idType = idType;
@@ -80,7 +80,15 @@ public class Customer extends User {
         this.password = password;
         this.isNotLocked = isNotLocked;
         this.isActive = isActive;
-        Role = role;
+        this.Role = role;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     @Override
@@ -134,14 +142,6 @@ public class Customer extends User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getFName() {
-        return firstName;
-    }
-
-    public void setFName(String CFname) {
-        this.firstName = CFname;
     }
 
     public String getMiddleName() {
