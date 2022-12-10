@@ -1,6 +1,6 @@
 package com.realdb.finalproject.relationship;
 
-import com.realdb.finalproject.entity.Author;
+import com.realdb.finalproject.author.Author;
 import com.realdb.finalproject.entity.Seminar;
 
 import javax.persistence.*;
