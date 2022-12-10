@@ -51,6 +51,7 @@ public class CustomerController {
                 customer.getIdNo(),
                 customer.getUsername(),
                 customer.getPassword());
+
         UserPrincipal userPrincipal = new UserPrincipal(registerCustomer);
         HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
         return new ResponseEntity<>(registerCustomer, jwtHeader, CREATED);

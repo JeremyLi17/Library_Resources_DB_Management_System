@@ -57,18 +57,18 @@ public class EmployeeService implements UserDetailsService {
 
     public Employee registerEmployee(String username,
                                      String email,
-                                     String username1,
                                      String password)
             throws UserNotFoundException, EmailExistException, UsernameExistException {
         validateNewUsernameAndEmail(StringUtils.EMPTY, username, email);
         Employee employee = new Employee();
+
         employee.setUsername(username);
         employee.setEmail(email);
+        String encodePassword = passwordEncoder.encode(password);
+        employee.setPassword(encodePassword);
         employee.setRole(Role.ROLE_EMPLOYEE.getText());
         employee.setActive(true);
         employee.setNotLocked(true);
-        String encodePassword = passwordEncoder.encode(password);
-        employee.setPassword(encodePassword);
 
         employeeRepo.save(employee);
         return employee;
@@ -76,16 +76,16 @@ public class EmployeeService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Employee> employeeOpt = employeeRepo.findEmployeeByUsername(username);
+        Optional<Employee> employeeOpt = findEmployeeByUsername(username);
         if (employeeOpt.isEmpty()) {
             logger.error(NO_USER_FOUND_BY_USERNAME + username);
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
         } else {
-            Employee user = employeeOpt.get();
-            validateLoginAttempt(user);
-            employeeRepo.save(user);
+            Employee employee = employeeOpt.get();
+            validateLoginAttempt(employee);
+            employeeRepo.save(employee);
 
-            UserPrincipal userPrincipal = new UserPrincipal(user);
+            UserPrincipal userPrincipal = new UserPrincipal(employee);
             logger.info(RETURNING_FOUND_USER_BY_USERNAME + username);
             return userPrincipal;
         }

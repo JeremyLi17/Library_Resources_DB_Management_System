@@ -1,6 +1,5 @@
 package com.realdb.finalproject.employee;
 
-import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
@@ -38,7 +37,6 @@ public class EmployeeController {
         Employee registerEmployee= employeeService.registerEmployee(
                 employee.getUsername(),
                 employee.getEmail(),
-                employee.getUsername(),
                 employee.getPassword());
         UserPrincipal userPrincipal = new UserPrincipal(registerEmployee);
         HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
@@ -46,10 +44,10 @@ public class EmployeeController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Employee> login(@RequestBody Customer customer) {
-        authenticate(customer.getUsername(),customer.getPassword());
+    public ResponseEntity<Employee> login(@RequestBody Employee employee) {
+        authenticate(employee.getUsername(), employee.getPassword());
         Employee loginEmployee = employeeService
-                .findEmployeeByUsername(customer.getUsername()).get();
+                .findEmployeeByUsername(employee.getUsername()).get();
         UserPrincipal userPrincipal = new UserPrincipal(loginEmployee);
         HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
         return new ResponseEntity<>(loginEmployee, jwtHeader, OK);
