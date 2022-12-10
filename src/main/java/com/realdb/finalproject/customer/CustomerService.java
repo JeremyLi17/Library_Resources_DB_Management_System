@@ -38,21 +38,49 @@ public class CustomerService implements UserDetailsService {
     private final LoginAttemptService loginAttemptService;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    // all get methods
     public List<Customer> getCustomers() {
         return customerRepo.findAll();
     }
-
-    public Optional<Customer> getCustomer(Integer customerId) {
-        return customerRepo.findById(customerId);
+    public Optional<Customer> findCustomerByUsername(String username) {
+        return customerRepo.findCustomerByUsername(username);
+    }
+    public Optional<Customer> findCustomerByEmail(String email) {
+        return customerRepo.findCustomerByEmail(email);
     }
 
-    public void deleteCustomer(Integer customerId) {
-        customerRepo.deleteById(customerId);
+    public Customer registerCustomer(String firstName,
+                             String lastName,
+                             String email,
+                             String phoneNo,
+                             String idType,
+                             String idNo,
+                             String username,
+                             String password)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+        validateNewUsernameAndEmail(StringUtils.EMPTY, username, email);
+        Customer customer = new Customer();
+        customer.setUsername(username);
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setEmail(email);
+        customer.setPhoneNo(phoneNo);
+        customer.setIdType(idType);
+        customer.setIdNo(idNo);
+        customer.setRole(Role.ROLE_CUSTOMER.getText());
+
+        customer.setActive(true);
+        customer.setNotLocked(true);
+
+        String encodePassword = passwordEncoder.encode(password);
+        customer.setPassword(encodePassword);
+        customerRepo.save(customer);
+        return customer;
     }
 
     @Transactional
     public void updateCustomer(Integer customerId, String email, String cFName, String cLName, String cMName,
-                                   String cPhoneNo, String idType, String idNo) {
+                               String cPhoneNo, String idType, String idNo) {
 
         Customer customer = customerRepo.findById(customerId).orElseThrow(() -> new IllegalStateException(
                 "Customer with id " + customerId + " does not exist"
@@ -65,7 +93,7 @@ public class CustomerService implements UserDetailsService {
 
             if (!email.equals(customer.getEmail())) {
 
-                Optional<Customer> studentOptional = customerRepo.findCustomerBycEmail(email);
+                Optional<Customer> studentOptional = findCustomerByEmail(email);
 
                 if (studentOptional.isPresent()) {
                     throw new IllegalStateException("email taken");
@@ -75,8 +103,8 @@ public class CustomerService implements UserDetailsService {
             }
         }
 
-        if (cFName != null && cFName.length() > 0 && !cFName.equals(customer.getFName())) {
-            customer.setFName(cFName);
+        if (cFName != null && cFName.length() > 0 && !cFName.equals(customer.getFirstName())) {
+            customer.setFirstName(cFName);
         }
 
         if (cLName != null && cLName.length() > 0) {
@@ -106,45 +134,19 @@ public class CustomerService implements UserDetailsService {
         }
     }
 
-//    public Customer createCustomer(Customer customer) {
-//        return customerRepo.save(customer);
-//    }
-
-    public Customer registerCustomer(String firstName,
-                             String lastName,
-                             String email,
-                             String phoneNo,
-                             String idType,
-                             String idNo,
-                             String username,
-                             String password)
-            throws UserNotFoundException, EmailExistException, UsernameExistException {
-        validateNewUsernameAndEmail(StringUtils.EMPTY, username, email);
-        Customer customer = new Customer();
-        customer.setUsername(username);
-        customer.setFName(firstName);
-        customer.setLastName(lastName);
-        customer.setEmail(email);
-        customer.setPhoneNo(phoneNo);
-        customer.setIdType(idType);
-        customer.setIdNo(idNo);
-        customer.setRole(Role.ROLE_CUSTOMER.getText());
-
-        String encodePassword = passwordEncoder.encode(password);
-        customer.setPassword(encodePassword);
-        customerRepo.save(customer);
-        return customer;
+    public void deleteCustomer(Integer customerId) {
+        customerRepo.deleteById(customerId);
     }
 
     private Customer validateNewUsernameAndEmail(String currentUsername,
                                              String newUsername,
                                              String newEmail)
             throws UsernameExistException, EmailExistException, UserNotFoundException {
-        Optional<Customer> customerByNewUsername = customerRepo.findCustomerByUsername(newUsername);
-        Optional<Customer> customerByNewEmail = customerRepo.findCustomerBycEmail(newEmail);
+        Optional<Customer> customerByNewUsername = findCustomerByUsername(newUsername);
+        Optional<Customer> customerByNewEmail = findCustomerByEmail(newEmail);
         if (isNotBlank(currentUsername)) {
             // update process
-            Optional<Customer> currentCustomer = customerRepo.findCustomerByUsername(currentUsername);
+            Optional<Customer> currentCustomer = findCustomerByUsername(currentUsername);
             if (currentCustomer.isEmpty()) {
                 throw new UserNotFoundException(NO_USER_FOUND_BY_USERNAME + currentUsername);
             }
@@ -172,7 +174,7 @@ public class CustomerService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Customer> userOpt = customerRepo.findCustomerBycEmail(username);
+        Optional<Customer> userOpt = findCustomerByUsername(username);
         if (userOpt.isEmpty()) {
             logger.error(NO_USER_FOUND_BY_USERNAME + username);
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);

@@ -1,10 +1,8 @@
 package com.realdb.finalproject.reservation;
-import com.realdb.finalproject.entity.Customer;
 import com.realdb.finalproject.entity.Reservation;
 import com.realdb.finalproject.entity.StudyRoom;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 

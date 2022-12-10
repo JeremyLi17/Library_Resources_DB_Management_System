@@ -93,11 +93,6 @@ public class Employee extends User {
     }
 
     @Override
-    public String[] getAuthorities() {
-        return new String[]{this.getRole()};
-    }
-
-    @Override
     public boolean isNotLocked() {
         return isNotLocked;
     }
@@ -105,5 +100,10 @@ public class Employee extends User {
     @Override
     public void setNotLocked(boolean notLocked) {
         isNotLocked = notLocked;
+    }
+
+    @Override
+    public String[] getAuthorities() {
+        return new String[]{this.getRole()};
     }
 }
