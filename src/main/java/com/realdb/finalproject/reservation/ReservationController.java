@@ -33,7 +33,7 @@ public class ReservationController {
     public void updateReservation(
             @PathVariable("id") Integer id,
             @RequestParam(required = false) LocalDate resDate,
-            @RequestParam(required = false) String resTimeslot,
+            @RequestParam(required =  false) String resTimeslot,
             @RequestParam(required = false) StudyRoom studyRoomRoom
            ) {
 
