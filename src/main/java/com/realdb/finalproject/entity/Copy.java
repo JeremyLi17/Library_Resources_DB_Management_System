@@ -1,6 +1,6 @@
 package com.realdb.finalproject.entity;
 
-import com.realdb.finalproject.entity.Book;
+import com.realdb.finalproject.book.Book;
 
 import javax.persistence.*;
 

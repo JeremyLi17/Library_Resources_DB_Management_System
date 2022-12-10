@@ -1,7 +1,6 @@
 package com.realdb.finalproject.entity;
 
-import com.realdb.finalproject.entity.Copy;
-import com.realdb.finalproject.entity.Customer;
+import com.realdb.finalproject.customer.Customer;
 
 import javax.persistence.*;
 import java.time.LocalDate;

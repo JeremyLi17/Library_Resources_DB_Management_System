@@ -1,69 +1,68 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Input from './Input'
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import './Form.css';
 
-class Form extends Component {
+export default function Form() {
 
-    render() {
-        return (
-            <div className="Form-Page">
-                <header className="Sign_in_Title">
-                    <h1>
-                        Sign in to Real Management System
-                    </h1>
-                </header>
-                <form className='Input' >
-                    <div className="InputBox">
-                        <div>
-                            <label for="uname"> Username </label>
-                        </div>
-                        <input
-                        type="text"
-                        id="uname"
-                        name="name"
-                        placeholder="Username"
-                        className="InputBox"/>
-                        <div>
-                            <label for="pwd"> Password </label>
-                        </div>
-                        <input
-                        type="text"
-                        id="pwd"
-                        name="name"
-                        placeholder="Password"
-                        className="InputBox"/>
-                        <div>
-                            <button>Submit</button>
-                        </div>
+    const navigate = useNavigate();
+
+    const navigateToPwd_error = () => {
+        navigate('/wrong_pwd');
+    }
+
+    return (
+        <div className="Form-Page">
+            <header className="Sign_in_Title">
+                <h1>
+                    Sign in to Real Management System
+                </h1>
+            </header>
+            <form className='Input' >
+                <div className="InputBox">
+                    <div>
+                        <label for="uname"> Username </label>
                     </div>
-                </form>
-            </div>
-        )
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault()
-        if(!this.state.errcount) {
-            const data = new FormData(this.form)
-            fetch(this.form.action, {
-              method: this.form.method,
-              body: new URLSearchParams(data)
-            })
-            .then(v => {
-                if(v.redirected) window.location = v.url
-            })
-            .catch(e => console.warn(e))
-        }
-    }
+                    <input
+                    type="text"
+                    id="uname"
+                    name="name"
+                    placeholder="Username"
+                    className="InputBox"/>
+                    <div>
+                        <label for="pwd"> Password </label>
+                    </div>
+                    <input
+                    type="text"
+                    id="pwd"
+                    name="name"
+                    placeholder="Password"
+                    className="InputBox"/>
+                    <div>
+                        <button onClick={navigateToPwd_error}>Customer Sign in</button>
+                        <button>Employee Sign in</button>
+                    </div>
+                    <div>
+                        <button>Forgot Password</button>
+                    </div>
+                    <div>
+                        <button>Register for Customer</button>
+                        <button>Register for Employee</button>
+                    </div>
+                    <Routes>
+                        <Route path="/wrong_pwd" element={<Pwd_error />} />
+                    </Routes>
+                </div>
+            </form>
+        </div>
+    )
 }
 
-Form.propTypes = {
-  name: PropTypes.string,
-  action: PropTypes.string,
-  method: PropTypes.string,
-  inputs: PropTypes.array,
-  error: PropTypes.string
+function Pwd_error() {
+    return <h2 className="wrong_pwd">wrong username or password</h2>;
 }
 
-export default Form
+function Home() {
+    return <h2></h2>;
+}
