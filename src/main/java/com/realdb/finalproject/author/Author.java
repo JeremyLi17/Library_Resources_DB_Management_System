@@ -1,4 +1,4 @@
-package com.realdb.finalproject.entity;
+package com.realdb.finalproject.author;
 
 import javax.persistence.*;
 
@@ -15,28 +15,28 @@ public class Author {
     @SequenceGenerator(
             name = "AUTHOR_SEQUENCE",
             sequenceName = "AUTHOR_SEQUENCE",
-            initialValue = 13,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "AUTHOR_ID", nullable = false)
     private Integer id;
 
     @Column(name = "A_FNAME", nullable = false, length = 30)
-    private String aFname;
+    private String firstName;
 
     @Column(name = "A_LNAME", nullable = false, length = 30)
-    private String aLname;
+    private String lastName;
 
     @Column(name = "A_STREET", nullable = false, length = 100)
-    private String aStreet;
+    private String street;
 
     @Column(name = "A_CITY", nullable = false, length = 30)
-    private String aCity;
+    private String city;
 
     @Column(name = "A_COUNTRY", nullable = false, length = 30)
-    private String aCountry;
+    private String country;
 
     @Column(name = "A_ZIPCODE", nullable = false)
-    private Integer aZipcode;
+    private String zipcode;
 
     @Column(name = "A_EMAIL", length = 30)
     private String email;
@@ -50,51 +50,51 @@ public class Author {
     }
 
     public String getAFname() {
-        return aFname;
+        return firstName;
     }
 
     public void setAFname(String aFname) {
-        this.aFname = aFname;
+        this.firstName = aFname;
     }
 
     public String getALname() {
-        return aLname;
+        return lastName;
     }
 
     public void setALname(String aLname) {
-        this.aLname = aLname;
+        this.lastName = aLname;
     }
 
     public String getAStreet() {
-        return aStreet;
+        return street;
     }
 
     public void setAStreet(String aStreet) {
-        this.aStreet = aStreet;
+        this.street = aStreet;
     }
 
     public String getACity() {
-        return aCity;
+        return city;
     }
 
     public void setACity(String aCity) {
-        this.aCity = aCity;
+        this.city = aCity;
     }
 
     public String getACountry() {
-        return aCountry;
+        return country;
     }
 
     public void setACountry(String aCountry) {
-        this.aCountry = aCountry;
+        this.country = aCountry;
     }
 
-    public Integer getAZipcode() {
-        return aZipcode;
+    public String getAZipcode() {
+        return zipcode;
     }
 
-    public void setAZipcode(Integer aZipcode) {
-        this.aZipcode = aZipcode;
+    public void setAZipcode(String aZipcode) {
+        this.zipcode = aZipcode;
     }
 
     public String getEmail() {

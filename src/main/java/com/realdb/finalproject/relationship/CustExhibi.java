@@ -1,6 +1,6 @@
 package com.realdb.finalproject.relationship;
 
-import com.realdb.finalproject.entity.Customer;
+import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.Exhibition;
 
 import javax.persistence.*;

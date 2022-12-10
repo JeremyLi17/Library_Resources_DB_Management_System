@@ -1,6 +1,5 @@
 package com.realdb.finalproject.author;
 
-import com.realdb.finalproject.entity.Author;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

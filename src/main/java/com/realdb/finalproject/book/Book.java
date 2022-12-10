@@ -1,4 +1,4 @@
-package com.realdb.finalproject.entity;
+package com.realdb.finalproject.book;
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ public class Book {
     @SequenceGenerator(
             name = "BOOK_SEQUENCE",
             sequenceName = "BOOK_SEQUENCE",
-            initialValue = 11,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "BOOK_ID", nullable = false)
     private Integer id;

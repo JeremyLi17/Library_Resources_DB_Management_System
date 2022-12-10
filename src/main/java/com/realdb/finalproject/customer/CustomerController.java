@@ -1,6 +1,8 @@
 package com.realdb.finalproject.customer;
 
-import com.realdb.finalproject.entity.Customer;
+import com.realdb.finalproject.exception.domain.EmailExistException;
+import com.realdb.finalproject.exception.domain.UserNotFoundException;
+import com.realdb.finalproject.exception.domain.UsernameExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +27,17 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public Customer createCustomer(@RequestBody Customer customer)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+        return customerService.registerCustomer(
+                customer.getFName(),
+                customer.getLastName(),
+                customer.getEmail(),
+                customer.getPhoneNo(),
+                customer.getIdType(),
+                customer.getIdNo(),
+                customer.getUsername(),
+                customer.getPassword());
     }
 
     @PutMapping("{id}")
@@ -35,7 +46,7 @@ public class CustomerController {
                                    @RequestParam(required = false) String cFName,
                                    @RequestParam(required = false) String cLName,
                                    @RequestParam(required = false) String cMName,
-                                   @RequestParam(required = false) Long cPhoneNo,
+                                   @RequestParam(required = false) String cPhoneNo,
                                    @RequestParam(required = false) String idType,
                                    @RequestParam(required = false) String idNo) {
 
