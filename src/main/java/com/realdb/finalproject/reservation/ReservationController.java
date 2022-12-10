@@ -1,7 +1,4 @@
 package com.realdb.finalproject.reservation;
-import com.realdb.finalproject.reservation.ReservationService;
-import com.realdb.finalproject.entity.Author;
-import com.realdb.finalproject.entity.Customer;
 import com.realdb.finalproject.entity.StudyRoom;
 import com.realdb.finalproject.entity.Reservation;
 import lombok.AllArgsConstructor;
