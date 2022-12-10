@@ -1,6 +1,5 @@
 package com.realdb.finalproject.author;
 
-import com.realdb.finalproject.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

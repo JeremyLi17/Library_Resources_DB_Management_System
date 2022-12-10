@@ -1,6 +1,5 @@
 package com.realdb.finalproject.author;
 
-import com.realdb.finalproject.entity.Author;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +41,7 @@ public class AuthorService {
     @Transactional
     public void updateAuthor(Integer id,
                              String country,
-                             Integer zipcode,
+                             String zipcode,
                              String fName,
                              String lName,
                              String street,
