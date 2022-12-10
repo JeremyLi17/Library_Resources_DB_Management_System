@@ -9,7 +9,7 @@ export default function Form() {
     const navigate = useNavigate();
 
     const navigateToPwd_error = () => {
-        navigate('/wrong_pwd');
+        navigate('/wrong_pwd', {replace: true});
     }
 
     return (
