@@ -1,4 +1,4 @@
-package com.realdb.finalproject.entity;
+package com.realdb.finalproject.entity.Rental;
 
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.copy.Copy;
