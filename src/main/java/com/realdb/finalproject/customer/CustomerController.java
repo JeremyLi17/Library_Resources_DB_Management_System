@@ -104,7 +104,7 @@ public class CustomerController {
         return new ResponseEntity<>(updateCustomer, OK);
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/delete")
     public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam Integer id) {
         customerService.deleteCustomer(id);
         return response(NO_CONTENT, USER_DELETED_SUCCESSFULLY);

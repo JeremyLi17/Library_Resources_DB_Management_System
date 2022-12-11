@@ -1,5 +1,6 @@
 package com.realdb.finalproject.entity.author;
 
+import com.realdb.finalproject.exception.domain.AuthorNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,19 +22,18 @@ public class AuthorService {
         return authorRepo.findAll();
     }
 
-    public Optional<Author> getAuthor(Integer id) {
-        return authorRepo.findById(id);
+    public Optional<Author> getAuthor(String lastName, String firstName) {
+        return authorRepo.findAuthorByLastNameAndFirstName(lastName, firstName);
     }
 
     public void saveAuthor(Author author) {
         authorRepo.save(author);
     }
 
-    public void deleteAuthor(Integer id) {
+    public void deleteAuthor(Integer id) throws AuthorNotFoundException {
         boolean exists = authorRepo.existsById(id);
         if (!exists) {
-            throw new IllegalStateException(
-                    "Author with id " + id + " does not exists");
+            throw new AuthorNotFoundException("Author with id " + id + " does not exists");
         }
         authorRepo.deleteById(id);
     }

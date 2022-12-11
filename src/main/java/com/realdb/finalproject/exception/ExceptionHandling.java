@@ -31,6 +31,7 @@ import static org.springframework.http.HttpStatus.*;
 public class ExceptionHandling implements ErrorController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public static final String AUTHOR_NAME_NOT_FOUND = "Author not found";
     public static final String STUDY_ROOM_NOT_FOUND = "Study room not found";
     private static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration";
     private static final String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. "
@@ -78,6 +79,11 @@ public class ExceptionHandling implements ErrorController {
 //    public ResponseEntity<HttpResponse> noHandlerFoundException() {
 //        return createHttpResponse(BAD_REQUEST, PAGE_NOT_FOUNT_MSG);
 //    }
+
+    @ExceptionHandler(AuthorNotFoundException.class)
+    public ResponseEntity<HttpResponse> authorNameNotFoundException(AuthorNotFoundException exception) {
+        return createHttpResponse(BAD_REQUEST, AUTHOR_NAME_NOT_FOUND);
+    }
 
     @ExceptionHandler(UsernameExistException.class)
     public ResponseEntity<HttpResponse> usernameExistException(UsernameExistException exception) {
