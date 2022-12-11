@@ -2,6 +2,7 @@ package com.realdb.finalproject.entity.studyroom;
 
 import com.realdb.finalproject.domain.HttpResponse;
 import com.realdb.finalproject.exception.domain.StudyRoomNotFoundException;
+import com.realdb.finalproject.utility.BuildResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.realdb.finalproject.utility.BuildResponse.build;
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
@@ -47,18 +49,13 @@ public class StudyRoomController {
             @RequestParam(name = "capacity") Integer capacity)
             throws StudyRoomNotFoundException {
         studyroomService.updateCapacity(id, capacity);
-        return response(ACCEPTED, CAPACITY_UPDATE_SUCCESSFULLY);
+        return build(ACCEPTED, CAPACITY_UPDATE_SUCCESSFULLY);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpResponse> deleteStudyRoom(@RequestParam("id") Integer id)
             throws StudyRoomNotFoundException {
         studyroomService.deleteStudyRoom(id);
-        return response(NO_CONTENT, DELETE_SUCCESSFULLY);
-    }
-
-    private ResponseEntity<HttpResponse> response(HttpStatus status, String message) {
-        return new ResponseEntity<>(new HttpResponse(status.value(), status,
-                status.getReasonPhrase().toUpperCase(), message.toUpperCase()), status);
+        return build(NO_CONTENT, DELETE_SUCCESSFULLY);
     }
 }
