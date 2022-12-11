@@ -16,14 +16,14 @@ public class Invoice {
     @SequenceGenerator(
             name = "INVOICE_SEQUENCE",
             sequenceName = "INVOICE_SEQUENCE",
-            initialValue = 11,
+            initialValue = 1,
             allocationSize = 1)
-    @Column(name = "RENTAL_R_ID", nullable = false)
+    @Column(name = "RENTAL_ID", nullable = false)
     private Long id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "RENTAL_R_ID", nullable = false)
+    @JoinColumn(name = "RENTAL_ID", nullable = false)
     private Rental rental;
 
     @Column(name = "AMOUNT", nullable = false, precision = 15, scale = 2)

@@ -15,13 +15,13 @@ public class StudyRoom {
     @SequenceGenerator(
             name = "STUDY_ROOM_SEQUENCE",
             sequenceName = "STUDY_ROOM_SEQUENCE",
-            initialValue = 11,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "ROOM_ID", nullable = false)
     private Short id;
 
     @Column(name = "ROOM_CAPACITY", nullable = false)
-    private Short roomCapacity;
+    private Short capacity;
 
     public Short getId() {
         return id;
@@ -31,12 +31,11 @@ public class StudyRoom {
         this.id = id;
     }
 
-    public Short getRoomCapacity() {
-        return roomCapacity;
+    public Short getCapacity() {
+        return capacity;
     }
 
-    public void setRoomCapacity(Short roomCapacity) {
-        this.roomCapacity = roomCapacity;
+    public void setCapacity(Short capacity) {
+        this.capacity = capacity;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relationship;
+package com.realdb.finalproject.relation;
 
 import org.hibernate.Hibernate;
 
@@ -8,13 +8,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class CustExhibiId implements Serializable {
+public class CustomerExhibitionId implements Serializable {
     private static final long serialVersionUID = -7689577400550935944L;
     @Column(name = "REGISTRATION_ID", nullable = false)
     private Integer registrationId;
 
-    @Column(name = "CUSTOMER_C_ID", nullable = false)
-    private Integer customerCId;
+    @Column(name = "CUSTOMER_ID", nullable = false)
+    private Integer customerId;
 
     public Integer getRegistrationId() {
         return registrationId;
@@ -24,26 +24,26 @@ public class CustExhibiId implements Serializable {
         this.registrationId = registrationId;
     }
 
-    public Integer getCustomerCId() {
-        return customerCId;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerCId(Integer customerCId) {
-        this.customerCId = customerCId;
+    public void setCustomerId(Integer customerCId) {
+        this.customerId = customerCId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CustExhibiId entity = (CustExhibiId) o;
-        return Objects.equals(this.customerCId, entity.customerCId) &&
+        CustomerExhibitionId entity = (CustomerExhibitionId) o;
+        return Objects.equals(this.customerId, entity.customerId) &&
                 Objects.equals(this.registrationId, entity.registrationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerCId, registrationId);
+        return Objects.hash(customerId, registrationId);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relationship;
+package com.realdb.finalproject.relation;
 
 import com.realdb.finalproject.entity.Seminar;
 import com.realdb.finalproject.entity.Sponsor;
@@ -8,14 +8,14 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "SEMI_SPONS")
-public class SemiSpon {
+public class SeminarSponsor {
     @EmbeddedId
-    private SemiSponId id;
+    private SeminarSponsorId id;
 
-    @MapsId("sponsorSponsorId")
+    @MapsId("sponsorId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SPONSOR_SPONSOR_ID", nullable = false)
-    private Sponsor sponsorSponsor;
+    private Sponsor sponsor;
 
     @MapsId("seminarEventId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -25,20 +25,20 @@ public class SemiSpon {
     @Column(name = "AMOUNT", nullable = false, precision = 15, scale = 2)
     private BigDecimal amount;
 
-    public SemiSponId getId() {
+    public SeminarSponsorId getId() {
         return id;
     }
 
-    public void setId(SemiSponId id) {
+    public void setId(SeminarSponsorId id) {
         this.id = id;
     }
 
-    public Sponsor getSponsorSponsor() {
-        return sponsorSponsor;
+    public Sponsor getSponsor() {
+        return sponsor;
     }
 
-    public void setSponsorSponsor(Sponsor sponsorSponsor) {
-        this.sponsorSponsor = sponsorSponsor;
+    public void setSponsor(Sponsor sponsor) {
+        this.sponsor = sponsor;
     }
 
     public Seminar getSeminarEvent() {

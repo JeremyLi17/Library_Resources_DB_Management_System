@@ -1,4 +1,4 @@
-package com.realdb.finalproject.book;
+package com.realdb.finalproject.entity.book;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

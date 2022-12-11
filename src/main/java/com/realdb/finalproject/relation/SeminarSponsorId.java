@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relationship;
+package com.realdb.finalproject.relation;
 
 import org.hibernate.Hibernate;
 
@@ -8,20 +8,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class SemiSponId implements Serializable {
+public class SeminarSponsorId implements Serializable {
     private static final long serialVersionUID = -2269424324792490002L;
-    @Column(name = "SPONSOR_SPONSOR_ID", nullable = false)
-    private Integer sponsorSponsorId;
+    @Column(name = "SPONSOR_ID", nullable = false)
+    private Integer sponsorId;
 
     @Column(name = "SEMINAR_EVENT_ID", nullable = false)
     private Integer seminarEventId;
 
-    public Integer getSponsorSponsorId() {
-        return sponsorSponsorId;
+    public Integer getSponsorId() {
+        return sponsorId;
     }
 
-    public void setSponsorSponsorId(Integer sponsorSponsorId) {
-        this.sponsorSponsorId = sponsorSponsorId;
+    public void setSponsorId(Integer sponsorId) {
+        this.sponsorId = sponsorId;
     }
 
     public Integer getSeminarEventId() {
@@ -36,14 +36,14 @@ public class SemiSponId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        SemiSponId entity = (SemiSponId) o;
-        return Objects.equals(this.sponsorSponsorId, entity.sponsorSponsorId) &&
+        SeminarSponsorId entity = (SeminarSponsorId) o;
+        return Objects.equals(this.sponsorId, entity.sponsorId) &&
                 Objects.equals(this.seminarEventId, entity.seminarEventId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sponsorSponsorId, seminarEventId);
+        return Objects.hash(sponsorId, seminarEventId);
     }
 
 }

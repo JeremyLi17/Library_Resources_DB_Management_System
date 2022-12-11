@@ -1,4 +1,4 @@
-package com.realdb.finalproject.reservation;
+package com.realdb.finalproject.entity.reservation;
 import com.realdb.finalproject.entity.StudyRoom;
 import com.realdb.finalproject.entity.Reservation;
 import lombok.AllArgsConstructor;

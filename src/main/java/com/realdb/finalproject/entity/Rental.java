@@ -18,7 +18,7 @@ public class Rental {
     @SequenceGenerator(
             name = "RENTAL_SEQUENCE",
             sequenceName = "RENTAL_SEQUENCE",
-            initialValue = 16,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "R_ID", nullable = false)
     private Long id;
@@ -36,12 +36,12 @@ public class Rental {
     private LocalDate actReturnDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CUSTOMER_C_ID", nullable = false)
-    private Customer customerC;
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "COPY_COPY_ID", nullable = false)
-    private Copy copyCopy;
+    @JoinColumn(name = "COPY_ID", nullable = false)
+    private Copy copy;
 
     public Long getId() {
         return id;
@@ -83,20 +83,19 @@ public class Rental {
         this.actReturnDate = actReturnDate;
     }
 
-    public Customer getCustomerC() {
-        return customerC;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerC(Customer customerC) {
-        this.customerC = customerC;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Copy getCopyCopy() {
-        return copyCopy;
+    public Copy getCopy() {
+        return copy;
     }
 
-    public void setCopyCopy(Copy copyCopy) {
-        this.copyCopy = copyCopy;
+    public void setCopy(Copy copy) {
+        this.copy = copy;
     }
-
 }

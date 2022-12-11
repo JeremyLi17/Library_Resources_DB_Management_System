@@ -25,20 +25,20 @@ public class Payment {
     private Integer id;
 
     @Column(name = "PAYMENT_METHOD", nullable = false, length = 10)
-    private String paymentMethod;
+    private String method;
 
     @Column(name = "PAYMENT_DATE", nullable = false)
     private LocalDate paymentDate;
 
     @Column(name = "CARD_HOLDER_FULLNAME", length = 30)
-    private String cardHolderFullname;
+    private String cardHolderFullName;
 
     @Column(name = "PAYMENT_AMOUNT", nullable = false, precision = 15, scale = 2)
     private BigDecimal paymentAmount;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "INVOICE_R_ID", nullable = false)
-    private Invoice invoiceR;
+    @JoinColumn(name = "INVOICE_ID", nullable = false)
+    private Invoice invoice;
 
     public Integer getId() {
         return id;
@@ -48,12 +48,12 @@ public class Payment {
         this.id = id;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public String getMethod() {
+        return method;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public LocalDate getPaymentDate() {
@@ -64,12 +64,12 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    public String getCardHolderFullname() {
-        return cardHolderFullname;
+    public String getCardHolderFullName() {
+        return cardHolderFullName;
     }
 
-    public void setCardHolderFullname(String cardHolderFullname) {
-        this.cardHolderFullname = cardHolderFullname;
+    public void setCardHolderFullName(String cardHolderFullName) {
+        this.cardHolderFullName = cardHolderFullName;
     }
 
     public BigDecimal getPaymentAmount() {
@@ -80,12 +80,11 @@ public class Payment {
         this.paymentAmount = paymentAmount;
     }
 
-    public Invoice getInvoiceR() {
-        return invoiceR;
+    public Invoice getInvoice() {
+        return invoice;
     }
 
-    public void setInvoiceR(Invoice invoiceR) {
-        this.invoiceR = invoiceR;
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
-
 }

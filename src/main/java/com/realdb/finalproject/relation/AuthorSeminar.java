@@ -1,6 +1,6 @@
-package com.realdb.finalproject.relationship;
+package com.realdb.finalproject.relation;
 
-import com.realdb.finalproject.author.Author;
+import com.realdb.finalproject.entity.author.Author;
 import com.realdb.finalproject.entity.Seminar;
 
 import javax.persistence.*;
@@ -11,18 +11,18 @@ public class AuthorSeminar {
     @EmbeddedId
     private AuthorSeminarId id;
 
-    @MapsId("authorAuthorId")
+    @MapsId("authorId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "AUTHOR_AUTHOR_ID", nullable = false)
-    private Author authorAuthor;
+    @JoinColumn(name = "AUTHOR_ID", nullable = false)
+    private Author author;
 
     @MapsId("seminarEventId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SEMINAR_EVENT_ID", nullable = false)
     private Seminar seminarEvent;
 
-    @Column(name = "IVITATION_ID", nullable = false)
-    private Integer ivitationId;
+    @Column(name = "INVITATION_ID", nullable = false)
+    private Integer invitationId;
 
     public AuthorSeminarId getId() {
         return id;
@@ -32,12 +32,12 @@ public class AuthorSeminar {
         this.id = id;
     }
 
-    public Author getAuthorAuthor() {
-        return authorAuthor;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorAuthor(Author authorAuthor) {
-        this.authorAuthor = authorAuthor;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public Seminar getSeminarEvent() {
@@ -48,12 +48,12 @@ public class AuthorSeminar {
         this.seminarEvent = seminarEvent;
     }
 
-    public Integer getIvitationId() {
-        return ivitationId;
+    public Integer getInvitationId() {
+        return invitationId;
     }
 
-    public void setIvitationId(Integer ivitationId) {
-        this.ivitationId = ivitationId;
+    public void setInvitationId(Integer invitationId) {
+        this.invitationId = invitationId;
     }
 
 }
