@@ -16,7 +16,6 @@ public class Event {
     @SequenceGenerator(
             name = "EVENT_SEQUENCE",
             sequenceName = "EVENT_SEQUENCE",
-            initialValue = 1,
             allocationSize = 1)
     @Column(name = "EVENT_ID", nullable = false)
     private Integer id;

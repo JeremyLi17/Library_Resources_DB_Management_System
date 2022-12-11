@@ -1,23 +1,20 @@
 package com.realdb.finalproject.entity;
 
-import com.realdb.finalproject.entity.Sponsor;
-
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "ORGANI_SPONSOR")
-public class OrganiSponsor {
+public class OrganizationSponsor {
     @Id
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "ORGANIZE_SPONSOR_SEQUENCE"
+            generator = "SPONSOR_SEQUENCE"
     )
     @SequenceGenerator(
-            name = "ORGANIZE_SPONSOR_SEQUENCE",
-            sequenceName = "ORGANIZE_SPONSOR_SEQUENCE",
-            initialValue = 1,
+            name = "SPONSOR_SEQUENCE",
+            sequenceName = "SPONSOR_SEQUENCE",
             allocationSize = 1)
     @Column(name = "SPONSOR_ID", nullable = false)
     private Integer id;

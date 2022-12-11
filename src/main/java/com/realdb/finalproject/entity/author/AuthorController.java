@@ -45,7 +45,8 @@ public class AuthorController {
 
     // /api/author?id=1
     @DeleteMapping("/delete")
-    public ResponseEntity<HttpResponse> deleteAuthor(@RequestParam Integer id) throws AuthorNotFoundException {
+    public ResponseEntity<HttpResponse> deleteAuthor(@RequestParam Integer id)
+            throws AuthorNotFoundException {
         authorService.deleteAuthor(id);
         return build(NO_CONTENT, AUTHOR_DELETED_SUCCESSFUL);
     }

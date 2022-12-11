@@ -10,12 +10,11 @@ public class IndividualSponsor {
     @Id
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "INDIVI_SPONSOR_SEQUENCE"
+            generator = "SPONSOR_SEQUENCE"
     )
     @SequenceGenerator(
-            name = "INDIVI_SPONSOR_SEQUENCE",
-            sequenceName = "INDIVI_SPONSOR_SEQUENCE",
-            initialValue = 1,
+            name = "SPONSOR_SEQUENCE",
+            sequenceName = "SPONSOR_SEQUENCE",
             allocationSize = 1)
     @Column(name = "SPONSOR_ID", nullable = false)
     private Integer id;
