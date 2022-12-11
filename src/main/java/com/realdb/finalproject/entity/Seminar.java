@@ -12,11 +12,11 @@ public class Seminar {
     @Id
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "SEMINAR_SEQUENCE"
+            generator = "EVENT_SEQUENCE"
     )
     @SequenceGenerator(
-            name = "SEMINAR_SEQUENCE",
-            sequenceName = "SEMINAR_SEQUENCE",
+            name = "EVENT_SEQUENCE",
+            sequenceName = "EVENT_SEQUENCE",
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "EVENT_ID", nullable = false)
