@@ -29,6 +29,9 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
+    public static final String RENTAL_NOT_FOUND = "Rental not found";
+    public static final String CUSTOMER_NOT_FOUND = "Customer not found";
+    public static final String COPY_NOT_FOUND = "Copy not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final String BOOK_NOT_FOUND = "Book not found";
@@ -95,6 +98,21 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(PaymentNotFoundException.class)
     public ResponseEntity<HttpResponse> paymentNotFoundException() {
         return createHttpResponse(BAD_REQUEST, PAYMENT_NOT_FOUND);
+    }
+
+    @ExceptionHandler(RentalNotFoundException.class)
+    public ResponseEntity<HttpResponse> rentalNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, RENTAL_NOT_FOUND);
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<HttpResponse> customerNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, CUSTOMER_NOT_FOUND);
+    }
+
+    @ExceptionHandler(CopyNotFoundException.class)
+    public ResponseEntity<HttpResponse> copyNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, COPY_NOT_FOUND);
     }
 
     @ExceptionHandler(UsernameExistException.class)

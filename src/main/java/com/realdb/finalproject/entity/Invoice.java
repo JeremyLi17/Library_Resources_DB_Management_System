@@ -1,5 +1,7 @@
 package com.realdb.finalproject.entity;
 
+import com.realdb.finalproject.entity.Rental.Rental;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
