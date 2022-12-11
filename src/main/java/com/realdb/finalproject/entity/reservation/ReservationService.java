@@ -1,5 +1,4 @@
 package com.realdb.finalproject.entity.reservation;
-import com.realdb.finalproject.entity.Reservation;
 import com.realdb.finalproject.entity.studyroom.StudyRoom;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,15 +13,15 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ReservationService {
     private final ReservationRepo reservationRepo;
+
     public void addReservation(Reservation reservation){
         reservationRepo.save(reservation);
     }
+
     public List<Reservation> findAllResByUserID (Integer id){
         return reservationRepo.findAllResByUserID(id);
     }
-    public Optional<Reservation> getReservation(Integer id){
-        return reservationRepo.findById(id);
-    }
+
     public void updateReservation (
             @PathVariable("id") Integer id,
             @RequestParam(required = false) LocalDate resDate,
@@ -42,5 +41,9 @@ public class ReservationService {
             reservation.setStudyRoom(studyRoomRoom);
         }
 
+    }
+
+    public void deleteById(Integer id) {
+        reservationRepo.deleteById(id);
     }
 }
