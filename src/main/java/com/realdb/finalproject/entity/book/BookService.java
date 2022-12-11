@@ -1,6 +1,8 @@
 package com.realdb.finalproject.entity.book;
 
+import com.realdb.finalproject.exception.domain.BookNotFoundException;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +20,12 @@ public class BookService {
     }
 
     // GET ONE
-    public Optional<Book> getBook(Integer bookId) {
-        return bookRepo.findById(bookId);
+    public Book getBookByName(String name) throws BookNotFoundException {
+        Optional<Book> book = bookRepo.findBookByBookName(name);
+        if (book.isEmpty()) {
+            throw new BookNotFoundException("Book not found with book name: " + name);
+        }
+        return book.get();
     }
 
     // CREATE
@@ -34,18 +40,16 @@ public class BookService {
 
     // UPDATE
     @Transactional
-    public Book updateBook(Integer bookId, String bookName, String bookTopic) {
-
-
-        Book book = bookRepo.findById(bookId).orElseThrow(() -> new IllegalStateException(
-                "Book with id " + bookId + " does not exist"
+    public Book updateBook(String currentBookName, String newBookName, String bookTopic)
+            throws BookNotFoundException {
+        Book book = bookRepo.findBookByBookName(currentBookName).orElseThrow(() -> new BookNotFoundException(
+                "Book with name " + currentBookName + " does not exist"
         ));
 
-        if (bookName != null && !bookName.equals(book.getBookName())) {
-            book.setBookName(bookName);
+        if (StringUtils.isNotBlank(newBookName) && !newBookName.equals(book.getBookName())) {
+            book.setBookName(newBookName);
         }
-
-        if (bookTopic != null && !bookTopic.equals(book.getBookTopic())) {
+        if (StringUtils.isNotBlank(bookTopic) && !bookTopic.equals(book.getBookTopic())) {
             book.setBookTopic(bookTopic);
         }
 

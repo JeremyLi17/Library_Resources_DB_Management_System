@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,14 +27,14 @@ public class AuthorController {
 
     private final AuthorService authorService;
 
-    @GetMapping("/getAll")
+    @GetMapping("/list")
     public List<Author> getAuthors() {
         return authorService.getAuthors();
     }
 
-    @GetMapping("/get")
-    public Optional<Author> getAuthorByName(@RequestParam("lastName") String lastName,
-                                            @RequestParam("firstName") String firstName) {
+    @GetMapping("/find/{lastName}-{firstName}")
+    public Optional<Author> getAuthorByName(@PathVariable("lastName") String lastName,
+                                            @PathVariable("firstName") String firstName) {
         return authorService.getAuthor(lastName, firstName);
     }
 

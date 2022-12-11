@@ -29,6 +29,7 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
+    public static final String BOOK_NOT_FOUND = "Book not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final String AUTHOR_NAME_NOT_FOUND = "Author not found";
@@ -81,8 +82,13 @@ public class ExceptionHandling implements ErrorController {
 //    }
 
     @ExceptionHandler(AuthorNotFoundException.class)
-    public ResponseEntity<HttpResponse> authorNameNotFoundException(AuthorNotFoundException exception) {
+    public ResponseEntity<HttpResponse> authorNameNotFoundException() {
         return createHttpResponse(BAD_REQUEST, AUTHOR_NAME_NOT_FOUND);
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<HttpResponse> bookNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, BOOK_NOT_FOUND);
     }
 
     @ExceptionHandler(UsernameExistException.class)
