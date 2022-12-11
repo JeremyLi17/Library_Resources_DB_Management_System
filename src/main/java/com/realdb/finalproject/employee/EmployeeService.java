@@ -1,6 +1,5 @@
 package com.realdb.finalproject.employee;
 
-import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.domain.Role;
 import com.realdb.finalproject.domain.User;
 import com.realdb.finalproject.domain.UserPrincipal;
@@ -12,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +26,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * @author jeremy on 2022/12/10
  */
 @Service
+@Qualifier("employeeService")
 public class EmployeeService implements UserDetailsService {
 
     public static final String NO_USER_FOUND_BY_USERNAME = "No user found by username: ";
