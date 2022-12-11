@@ -29,9 +29,10 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
-    public static final String BOOK_NOT_FOUND = "Book not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public static final String BOOK_NOT_FOUND = "Book not found";
+    public static final String PAYMENT_NOT_FOUND = "Payment not found";
     public static final String AUTHOR_NAME_NOT_FOUND = "Author not found";
     public static final String STUDY_ROOM_NOT_FOUND = "Study room not found";
     private static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration";
@@ -89,6 +90,11 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(BookNotFoundException.class)
     public ResponseEntity<HttpResponse> bookNotFoundException() {
         return createHttpResponse(BAD_REQUEST, BOOK_NOT_FOUND);
+    }
+
+    @ExceptionHandler(PaymentNotFoundException.class)
+    public ResponseEntity<HttpResponse> paymentNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, PAYMENT_NOT_FOUND);
     }
 
     @ExceptionHandler(UsernameExistException.class)
