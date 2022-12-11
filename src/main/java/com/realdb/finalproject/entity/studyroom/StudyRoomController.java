@@ -2,9 +2,7 @@ package com.realdb.finalproject.entity.studyroom;
 
 import com.realdb.finalproject.domain.HttpResponse;
 import com.realdb.finalproject.exception.domain.StudyRoomNotFoundException;
-import com.realdb.finalproject.utility.BuildResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +29,8 @@ public class StudyRoomController {
         return new ResponseEntity<>(rooms, OK);
     }
 
-    @GetMapping ResponseEntity<StudyRoom> findRoomById(Integer id)
+    @GetMapping ("/find/{id}")
+    ResponseEntity<StudyRoom> findRoomById(@PathVariable("id") Integer id)
             throws StudyRoomNotFoundException {
         StudyRoom room = studyroomService.findRoomById(id);
         return new ResponseEntity<>(room, OK);
