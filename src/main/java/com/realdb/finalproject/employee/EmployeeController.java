@@ -1,13 +1,11 @@
 package com.realdb.finalproject.employee;
 
 import com.realdb.finalproject.customer.Customer;
-import com.realdb.finalproject.customer.CustomerService;
 import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.utility.JWTProvider;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;

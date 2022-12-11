@@ -29,6 +29,8 @@ public class Copy {
     @JoinColumn(name = "BOOK_ID", nullable = false)
     private Book book;
 
+    public Copy() {}
+
     public Copy(String copyStatus, Book book) {
         this.copyStatus = copyStatus;
         this.book = book;
