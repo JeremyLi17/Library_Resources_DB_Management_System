@@ -1,5 +1,6 @@
 package com.realdb.finalproject.employee;
 
+import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.customer.CustomerService;
 import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
@@ -13,14 +14,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 import static com.realdb.finalproject.security.SecurityConstant.JWT_TOKEN_HEADER;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 /**
  * @author jeremy on 2022/12/10
@@ -43,6 +43,16 @@ public class EmployeeController {
         this.jwtProvider = jwtProvider;
     }
 
+    @GetMapping(path ="/list")
+    public List<Employee> getCustomers() {
+        return employeeService.findAllEmployees();
+    }
+
+    @GetMapping("/find/{username}")
+    public Optional<Employee> findCustomerByUsername(@PathVariable("username") String username) {
+        return employeeService.findEmployeeByUsername(username);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Employee> registerEmployee(@RequestBody Employee employee)
             throws UserNotFoundException, EmailExistException, UsernameExistException {
@@ -63,6 +73,24 @@ public class EmployeeController {
         UserPrincipal userPrincipal = new UserPrincipal(loginEmployee);
         HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
         return new ResponseEntity<>(loginEmployee, jwtHeader, OK);
+    }
+
+    @PostMapping("/resetpassword")
+    public ResponseEntity<Employee> resetPassword(@RequestBody Customer customer) {
+        Employee updateCustomer = employeeService.resetPassword(customer.getUsername(),
+                customer.getPassword());
+        return new ResponseEntity<>(updateCustomer, ACCEPTED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Employee> updateCustomer(
+            @RequestParam String currentUsername,
+            @RequestParam(required = false) String newUsername,
+            @RequestParam(required = false) String newEmail)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+
+        Employee updateEmployee = employeeService.updateEmployee(currentUsername, newUsername, newEmail);
+        return new ResponseEntity<>(updateEmployee, OK);
     }
 
     private HttpHeaders getJwtHeader(UserPrincipal user) {

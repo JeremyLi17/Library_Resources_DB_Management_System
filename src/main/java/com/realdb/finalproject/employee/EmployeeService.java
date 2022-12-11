@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
@@ -73,6 +74,34 @@ public class EmployeeService implements UserDetailsService {
 
         employeeRepo.save(employee);
         return employee;
+    }
+
+    public List<Employee> findAllEmployees() {
+        return employeeRepo.findAll();
+    }
+
+    public Employee resetPassword(String username, String newpassword) {
+        Optional<Employee> employeeOpt = findEmployeeByUsername(username);
+        if (employeeOpt.isEmpty()) {
+            throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
+        }
+        Employee employee = employeeOpt.get();
+        employee.setPassword(passwordEncoder.encode(newpassword));
+        employeeRepo.save(employee);
+        return employee;
+    }
+
+    public Employee updateEmployee(String currentUsername, String newUsername, String newEmail)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+        Employee updatedEmployee = validateNewUsernameAndEmail(currentUsername,
+                newUsername, newEmail);
+
+        assert updatedEmployee != null;
+        if (StringUtils.isNotBlank(newUsername)) updatedEmployee.setUsername(newUsername);
+        if (StringUtils.isNotBlank(newEmail)) updatedEmployee.setUsername(newEmail);
+
+        employeeRepo.save(updatedEmployee);
+        return updatedEmployee;
     }
 
     @Override
