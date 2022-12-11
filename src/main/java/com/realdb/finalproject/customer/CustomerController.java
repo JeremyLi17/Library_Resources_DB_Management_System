@@ -6,6 +6,8 @@ import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.utility.JWTProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,12 +24,21 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/customer")
-@AllArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
+
+    @Autowired
+    public CustomerController(CustomerService customerService,
+                              @Qualifier("authManagerForCustomer")
+                                      AuthenticationManager authenticationManager,
+                              JWTProvider jwtProvider) {
+        this.customerService = customerService;
+        this.authenticationManager = authenticationManager;
+        this.jwtProvider = jwtProvider;
+    }
 
     @GetMapping(path ="all")
     public List<Customer> getCustomers() {

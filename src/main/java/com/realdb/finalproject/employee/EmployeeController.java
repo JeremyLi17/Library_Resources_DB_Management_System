@@ -1,11 +1,14 @@
 package com.realdb.finalproject.employee;
 
+import com.realdb.finalproject.customer.CustomerService;
 import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.utility.JWTProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,12 +27,21 @@ import static org.springframework.http.HttpStatus.OK;
  */
 @RestController
 @RequestMapping("/api/employee")
-@AllArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
+
+    @Autowired
+    public EmployeeController(EmployeeService employeeService,
+                              @Qualifier("authManagerForEmployee")
+                                      AuthenticationManager authenticationManager,
+                              JWTProvider jwtProvider) {
+        this.employeeService = employeeService;
+        this.authenticationManager = authenticationManager;
+        this.jwtProvider = jwtProvider;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<Employee> registerEmployee(@RequestBody Employee employee)
