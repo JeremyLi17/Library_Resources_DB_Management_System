@@ -2,10 +2,7 @@ package com.realdb.finalproject.exception;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.realdb.finalproject.domain.HttpResponse;
-import com.realdb.finalproject.exception.domain.EmailExistException;
-import com.realdb.finalproject.exception.domain.EmailNotFoundException;
-import com.realdb.finalproject.exception.domain.UserNotFoundException;
-import com.realdb.finalproject.exception.domain.UsernameExistException;
+import com.realdb.finalproject.exception.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -34,6 +31,7 @@ import static org.springframework.http.HttpStatus.*;
 public class ExceptionHandling implements ErrorController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public static final String STUDY_ROOM_NOT_FOUND = "Study room not found";
     private static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration";
     private static final String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. "
             + "Please send a '%s' request";
@@ -89,6 +87,11 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(EmailNotFoundException.class)
     public ResponseEntity<HttpResponse> emailNotFoundException(EmailNotFoundException exception) {
         return createHttpResponse(BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(StudyRoomNotFoundException.class)
+    public ResponseEntity<HttpResponse> studyRoomNotFoundException(StudyRoomNotFoundException exception) {
+        return createHttpResponse(BAD_REQUEST, STUDY_ROOM_NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundException.class)

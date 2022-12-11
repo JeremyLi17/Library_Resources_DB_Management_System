@@ -1,4 +1,4 @@
-package com.realdb.finalproject.entity;
+package com.realdb.finalproject.entity.studyroom;
 
 import javax.persistence.*;
 
@@ -18,24 +18,24 @@ public class StudyRoom {
             initialValue = 1,
             allocationSize = 1)
     @Column(name = "ROOM_ID", nullable = false)
-    private Short id;
+    private Integer id;
 
     @Column(name = "ROOM_CAPACITY", nullable = false)
-    private Short capacity;
+    private Integer capacity;
 
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Short getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(Short capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 }
