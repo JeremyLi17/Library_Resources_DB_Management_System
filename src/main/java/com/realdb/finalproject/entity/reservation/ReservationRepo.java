@@ -1,6 +1,5 @@
 package com.realdb.finalproject.entity.reservation;
 
-import com.realdb.finalproject.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
