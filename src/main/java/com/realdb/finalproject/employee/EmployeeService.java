@@ -91,6 +91,10 @@ public class EmployeeService implements UserDetailsService {
         return employee;
     }
 
+    public void deleteEmployee(Integer id) {
+        employeeRepo.deleteById(id);
+    }
+
     public Employee updateEmployee(String currentUsername, String newUsername, String newEmail)
             throws UserNotFoundException, EmailExistException, UsernameExistException {
         Employee updatedEmployee = validateNewUsernameAndEmail(currentUsername,

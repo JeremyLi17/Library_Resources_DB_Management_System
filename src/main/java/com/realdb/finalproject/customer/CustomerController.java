@@ -25,7 +25,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/customer")
 public class CustomerController {
 
-    public static final String USER_DELETED_SUCCESSFULLY = "User deleted successfully";
+    public static final String CUSTOMER_DELETED_SUCCESSFULLY = "Customer deleted successfully";
 
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
@@ -107,7 +107,7 @@ public class CustomerController {
     @DeleteMapping("/delete")
     public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam Integer id) {
         customerService.deleteCustomer(id);
-        return response(NO_CONTENT, USER_DELETED_SUCCESSFULLY);
+        return response(NO_CONTENT, CUSTOMER_DELETED_SUCCESSFULLY);
     }
 
     private ResponseEntity<HttpResponse> response(HttpStatus status, String message) {

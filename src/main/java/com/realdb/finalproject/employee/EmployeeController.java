@@ -1,10 +1,12 @@
 package com.realdb.finalproject.employee;
 
 import com.realdb.finalproject.customer.Customer;
+import com.realdb.finalproject.domain.HttpResponse;
 import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
+import com.realdb.finalproject.utility.BuildResponse;
 import com.realdb.finalproject.utility.JWTProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.realdb.finalproject.security.SecurityConstant.JWT_TOKEN_HEADER;
+import static com.realdb.finalproject.utility.BuildResponse.build;
 import static org.springframework.http.HttpStatus.*;
 
 /**
@@ -27,6 +30,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/employee")
 public class EmployeeController {
 
+    public static final String EMPLOYEE_DELETED_SUCCESSFULLY = "Employee deleted successfully";
     private final EmployeeService employeeService;
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
@@ -89,6 +93,12 @@ public class EmployeeController {
 
         Employee updateEmployee = employeeService.updateEmployee(currentUsername, newUsername, newEmail);
         return new ResponseEntity<>(updateEmployee, OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam Integer id) {
+        employeeService.deleteEmployee(id);
+        return build(NO_CONTENT, EMPLOYEE_DELETED_SUCCESSFULLY);
     }
 
     private HttpHeaders getJwtHeader(UserPrincipal user) {
