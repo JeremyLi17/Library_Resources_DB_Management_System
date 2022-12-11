@@ -1,0 +1,22 @@
+.Employee {
+  text-align: center;
+}
+
+.Home {
+  position: relative;
+  top: 0;
+  background-color: antiquewhite;
+  height: 50px;
+}
+
+.Home_Header {
+  position: relative;
+  top: 10px;
+  left: 20px;
+  font-size: 24px;
+  color: #a47070;
+}
+
+/* .wrapper {
+  padding: 20px;
+} */
