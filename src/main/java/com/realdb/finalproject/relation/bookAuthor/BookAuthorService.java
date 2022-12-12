@@ -4,7 +4,6 @@ import com.realdb.finalproject.entity.author.Author;
 import com.realdb.finalproject.entity.author.AuthorRepo;
 import com.realdb.finalproject.entity.book.Book;
 import com.realdb.finalproject.entity.book.BookRepo;
-import com.realdb.finalproject.entity.event.Seminar;
 import com.realdb.finalproject.exception.domain.AuthorNotFoundException;
 import com.realdb.finalproject.exception.domain.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relation;
+package com.realdb.finalproject.relation.customerExhibition;
 
 import org.hibernate.Hibernate;
 
