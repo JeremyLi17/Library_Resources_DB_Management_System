@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {Routes, Route, useNavigate} from 'react-router-dom';
-import './Login.css';
+import '../layout_attributes/Login.css';
 import Employee from './Employee'
 import {useState} from 'react';
 
