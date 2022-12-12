@@ -30,6 +30,9 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
     public static final String EVENT_NOT_FOUND = "Event not found";
+    public static final String SPONSOR_NOT_FOUND = "Sponsor not found";
+    public static final String ORGANIZATION_SPONSOR_NOT_FOUND = "Organization Sponsor not found";
+    public static final String INDIVIDUAL_SPONSOR_NOT_FOUND = "Individual Sponsor not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final String RENTAL_NOT_FOUND = "Rental not found";
@@ -147,6 +150,21 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(EventNotFoundException.class)
     public ResponseEntity<HttpResponse> eventNotFoundException() {
         return createHttpResponse(BAD_REQUEST, EVENT_NOT_FOUND);
+    }
+
+    @ExceptionHandler(SponsorNotFoundException.class)
+    public ResponseEntity<HttpResponse> sponsorNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, SPONSOR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(OrganizationSponsorNotFoundException.class)
+    public ResponseEntity<HttpResponse> organizationSponsorNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, ORGANIZATION_SPONSOR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(IndividualSponsorNotFoundException.class)
+    public ResponseEntity<HttpResponse> individualSponsorNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, INDIVIDUAL_SPONSOR_NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundException.class)

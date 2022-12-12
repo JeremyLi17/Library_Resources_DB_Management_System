@@ -1,7 +1,7 @@
 package com.realdb.finalproject.relation;
 
 import com.realdb.finalproject.entity.event.Seminar;
-import com.realdb.finalproject.entity.Sponsor;
+import com.realdb.finalproject.entity.sponsor.Sponsor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
