@@ -1,4 +1,4 @@
-package com.realdb.finalproject.entity;
+package com.realdb.finalproject.entity.sponsor;
 
 import javax.persistence.*;
 
