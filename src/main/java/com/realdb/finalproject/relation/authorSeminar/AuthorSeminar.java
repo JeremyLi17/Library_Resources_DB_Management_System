@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relation;
+package com.realdb.finalproject.relation.authorSeminar;
 
 import com.realdb.finalproject.entity.author.Author;
 import com.realdb.finalproject.entity.event.Seminar;
