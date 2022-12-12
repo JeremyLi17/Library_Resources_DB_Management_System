@@ -1,14 +1,14 @@
 import {createRoot} from 'react-dom/client';
-import './index.css';
-import Login from './Login';
-import Employee from './Employee';
-import Reservation from './Reservation'
+import './layout_attributes/index.css';
+import Login from './layout/Login';
+import Employee from './layout/Employee';
+import Reservation from './layout/Reservation'
 import {BrowserRouter as Router} from 'react-router-dom';
 import {Routes, Route} from 'react-router-dom';
 
 
 const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
+const root = createRoot(rootElement); 
 
 root.render(
   <Router>
