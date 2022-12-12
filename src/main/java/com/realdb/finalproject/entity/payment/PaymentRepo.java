@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface PaymentRepo extends JpaRepository<Payment, Integer> {
 
-    @Query("SELECT p FROM Payment p WHERE Payment.invoice.id = :invoiceId")
-    List<Payment> findPaymentByInvoiceId(@Param("invoiceId") Integer invoiceId);
+    @Query("SELECT p FROM Payment p WHERE p.invoice.id = ?1")
+    List<Payment> findPaymentByInvoiceId(Integer invoiceId);
 }

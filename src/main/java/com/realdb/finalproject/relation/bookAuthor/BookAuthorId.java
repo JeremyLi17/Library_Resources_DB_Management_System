@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relation;
+package com.realdb.finalproject.relation.bookAuthor;
 
 import org.hibernate.Hibernate;
 
