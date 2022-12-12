@@ -1,15 +1,12 @@
-package com.realdb.finalproject.entity;
-
-import com.realdb.finalproject.entity.Event;
+package com.realdb.finalproject.entity.event;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
-@Table(name = "EXHIBITION")
-public class Exhibition {
+@Table(name = "SEMINAR")
+public class Seminar {
     @Id
     @GeneratedValue(
             strategy = SEQUENCE,
@@ -28,9 +25,6 @@ public class Exhibition {
     @JoinColumn(name = "EVENT_ID", nullable = false)
     private Event event;
 
-    @Column(name = "EXPENSE", nullable = false, precision = 15, scale = 2)
-    private BigDecimal expense;
-
     public Integer getId() {
         return id;
     }
@@ -45,14 +39,6 @@ public class Exhibition {
 
     public void setEvent(Event event) {
         this.event = event;
-    }
-
-    public BigDecimal getExpense() {
-        return expense;
-    }
-
-    public void setExpense(BigDecimal expense) {
-        this.expense = expense;
     }
 
 }

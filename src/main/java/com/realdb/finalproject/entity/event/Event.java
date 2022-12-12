@@ -1,4 +1,4 @@
-package com.realdb.finalproject.entity;
+package com.realdb.finalproject.entity.event;
 
 import javax.persistence.*;
 import java.time.LocalDate;

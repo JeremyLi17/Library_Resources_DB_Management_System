@@ -29,10 +29,14 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
+    public static final String EVENT_NOT_FOUND = "Event not found";
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public static final String RENTAL_NOT_FOUND = "Rental not found";
     public static final String CUSTOMER_NOT_FOUND = "Customer not found";
     public static final String COPY_NOT_FOUND = "Copy not found";
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    public static final String SEMINAR_NOT_FOUND = "Seminar not found";
+    public static final String EXHIBITION_NOT_FOUND = "Exhibition not found";
 
     public static final String BOOK_NOT_FOUND = "Book not found";
     public static final String PAYMENT_NOT_FOUND = "Payment not found";
@@ -126,8 +130,23 @@ public class ExceptionHandling implements ErrorController {
     }
 
     @ExceptionHandler(StudyRoomNotFoundException.class)
-    public ResponseEntity<HttpResponse> studyRoomNotFoundException(StudyRoomNotFoundException exception) {
+    public ResponseEntity<HttpResponse> studyRoomNotFoundException() {
         return createHttpResponse(BAD_REQUEST, STUDY_ROOM_NOT_FOUND);
+    }
+
+    @ExceptionHandler(SeminarNotFoundException.class)
+    public ResponseEntity<HttpResponse> seminarNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, SEMINAR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(ExhibitionNotFoundException.class)
+    public ResponseEntity<HttpResponse> exhibitionNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, EXHIBITION_NOT_FOUND);
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<HttpResponse> eventNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, EVENT_NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
