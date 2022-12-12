@@ -9,6 +9,7 @@ import com.realdb.finalproject.exception.domain.CustomerNotFoundException;
 import com.realdb.finalproject.exception.domain.RentalNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -63,6 +64,7 @@ public class RentalService {
         rentalRepo.save(rental);
     }
 
+    @Transactional
     public void updateRental(Integer id, Integer customerId, Integer copyId)
             throws CustomerNotFoundException, CopyNotFoundException, RentalNotFoundException {
         Optional<Rental> rentalOpt = rentalRepo.findById(id);

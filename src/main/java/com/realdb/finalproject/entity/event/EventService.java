@@ -6,6 +6,7 @@ import com.realdb.finalproject.exception.domain.SeminarNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -71,6 +72,7 @@ public class EventService {
         eventRepo.deleteById(id);
     }
 
+    @Transactional
     public void updateEvent(Integer eventId,
                             LocalDate startDate,
                             LocalDate endDate,

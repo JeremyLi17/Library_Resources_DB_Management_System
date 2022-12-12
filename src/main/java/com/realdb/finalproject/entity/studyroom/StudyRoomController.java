@@ -21,7 +21,7 @@ public class StudyRoomController {
 
     private final StudyRoomService studyroomService;
 
-    @GetMapping("/find")
+    @GetMapping("/list")
     public ResponseEntity<List<StudyRoom>> findAvailableRoomByDate(
             @RequestParam("date") LocalDate date,
             @RequestParam("timeslot") Integer timeslot) {

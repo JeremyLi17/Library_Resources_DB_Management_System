@@ -63,14 +63,14 @@ public class EventController {
     }
 
     @DeleteMapping("/delete/seminar")
-    public ResponseEntity<HttpResponse> deleteSeminar(@RequestParam Integer id)
+    public ResponseEntity<HttpResponse> deleteSeminar(@RequestParam("id") Integer id)
             throws SeminarNotFoundException {
         eventService.deleteSeminar(id);
         return BuildResponse.build(NO_CONTENT, SEMINAR_DELETED_SUCCESSFULLY);
     }
 
     @DeleteMapping("/delete/exhibition")
-    public ResponseEntity<HttpResponse> deleteExhibition(@RequestParam Integer id)
+    public ResponseEntity<HttpResponse> deleteExhibition(@RequestParam("id") Integer id)
             throws ExhibitionNotFoundException {
         eventService.deleteExhibition(id);
         return BuildResponse.build(NO_CONTENT, EXHIBITION_DELETED_SUCCESSFULLY);

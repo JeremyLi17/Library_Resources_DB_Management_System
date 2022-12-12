@@ -96,7 +96,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam Integer id) {
+    public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam("id") Integer id) {
         employeeService.deleteEmployee(id);
         return build(NO_CONTENT, EMPLOYEE_DELETED_SUCCESSFULLY);
     }

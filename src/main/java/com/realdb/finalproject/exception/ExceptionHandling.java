@@ -33,6 +33,7 @@ public class ExceptionHandling implements ErrorController {
     public static final String SPONSOR_NOT_FOUND = "Sponsor not found";
     public static final String ORGANIZATION_SPONSOR_NOT_FOUND = "Organization Sponsor not found";
     public static final String INDIVIDUAL_SPONSOR_NOT_FOUND = "Individual Sponsor not found";
+    public static final String RESERVATION_NOT_FOUND = "Reservation not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final String RENTAL_NOT_FOUND = "Rental not found";
@@ -165,6 +166,11 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(IndividualSponsorNotFoundException.class)
     public ResponseEntity<HttpResponse> individualSponsorNotFoundException() {
         return createHttpResponse(BAD_REQUEST, INDIVIDUAL_SPONSOR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public ResponseEntity<HttpResponse> reservationNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, RESERVATION_NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundException.class)

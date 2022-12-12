@@ -22,8 +22,12 @@ public class AuthorService {
         return authorRepo.findAll();
     }
 
-    public Optional<Author> getAuthor(String lastName, String firstName) {
-        return authorRepo.findAuthorByLastNameAndFirstName(lastName, firstName);
+    public Author getAuthor(String lastName, String firstName) throws AuthorNotFoundException {
+        Optional<Author> authorOpt = authorRepo.findAuthorByLastNameAndFirstName(lastName, firstName);
+        if (authorOpt.isEmpty()) {
+            throw new AuthorNotFoundException("Author " + firstName + " " + lastName + " not found");
+        }
+        return authorOpt.get();
     }
 
     public void saveAuthor(Author author) {

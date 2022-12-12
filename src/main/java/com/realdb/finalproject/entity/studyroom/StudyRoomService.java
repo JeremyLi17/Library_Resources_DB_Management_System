@@ -2,6 +2,7 @@ package com.realdb.finalproject.entity.studyroom;
 import com.realdb.finalproject.exception.domain.StudyRoomNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -31,6 +32,7 @@ public class StudyRoomService {
         studyroomRepo.deleteById(id);
     }
 
+    @Transactional
     public void updateCapacity(Integer id, Integer capacity) throws StudyRoomNotFoundException {
         StudyRoom room = validStudyRoomId(id);
         room.setCapacity(capacity);

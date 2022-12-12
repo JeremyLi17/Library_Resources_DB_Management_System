@@ -6,7 +6,6 @@ import com.realdb.finalproject.exception.domain.OrganizationSponsorNotFoundExcep
 import com.realdb.finalproject.exception.domain.SponsorNotFoundException;
 import com.realdb.finalproject.utility.BuildResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,14 +69,14 @@ public class SponsorController {
     }
 
     @DeleteMapping("/delete/organization")
-    public ResponseEntity<HttpResponse> deleteOrganizationSponsor(@RequestParam Integer id)
+    public ResponseEntity<HttpResponse> deleteOrganizationSponsor(@RequestParam("id") Integer id)
             throws OrganizationSponsorNotFoundException {
         sponsorService.deleteOrganizationSponsor(id);
         return BuildResponse.build(NO_CONTENT, ORGANIZATION_SPONSOR_DELETED_SUCCESSFULLY);
     }
 
     @DeleteMapping("/delete/individual")
-    public ResponseEntity<HttpResponse> deleteIndividualSponsor(@RequestParam Integer id)
+    public ResponseEntity<HttpResponse> deleteIndividualSponsor(@RequestParam("id") Integer id)
             throws IndividualSponsorNotFoundException {
         sponsorService.deleteIndividualSponsor(id);
         return BuildResponse.build(NO_CONTENT, INDIVIDUAL_SPONSOR_DELETED_SUCCESSFULLY);

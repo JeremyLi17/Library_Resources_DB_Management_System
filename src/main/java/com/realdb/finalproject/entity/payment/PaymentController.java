@@ -30,7 +30,7 @@ public class PaymentController {
 
     @PostMapping("/add")
     public ResponseEntity<Payment> addPayment(@RequestBody Payment payment) {
-        paymentService.addPayment(payment);
+        paymentService.makePayment(payment.getPaymentAmount(), payment.getMethod(), payment.getCardHolderFullName());
         return new ResponseEntity<>(payment, CREATED);
     }
 
@@ -40,7 +40,7 @@ public class PaymentController {
         return BuildResponse.build(NO_CONTENT, DELETED_SUCCESSFULLY);
     }
 
-    @GetMapping("/find/{invoiceId}")
+    @GetMapping("/list/{invoiceId}")
     public ResponseEntity<List<Payment>> findPaymentByInvoiceId(
             @PathVariable("invoiceId") Integer invoiceId) {
         List<Payment> payments = paymentService.findPaymentByInvoiceId(invoiceId);

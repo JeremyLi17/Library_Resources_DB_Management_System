@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static com.realdb.finalproject.utility.BuildResponse.build;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
 
 /**
  * @author jeremy on 2022/12/2
@@ -32,10 +33,12 @@ public class AuthorController {
         return authorService.getAuthors();
     }
 
-    @GetMapping("/find/{lastName}-{firstName}")
-    public Optional<Author> getAuthorByName(@PathVariable("lastName") String lastName,
-                                            @PathVariable("firstName") String firstName) {
-        return authorService.getAuthor(lastName, firstName);
+    @GetMapping("/find/{firstName}-{lastName}")
+    public ResponseEntity<Author> getAuthorByName(
+            @PathVariable("lastName") String lastName,
+            @PathVariable("firstName") String firstName) throws AuthorNotFoundException {
+        Author author = authorService.getAuthor(lastName, firstName);
+        return new ResponseEntity<>(author, OK);
     }
 
     @PostMapping("/add")
@@ -56,12 +59,12 @@ public class AuthorController {
             @RequestParam("id") Integer id,
             @RequestParam(required = false) String country,
             @RequestParam(required = false) String zipcode,
-            @RequestParam(required = false) String fName,
-            @RequestParam(required = false) String lName,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String street,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) String email) {
 
-        authorService.updateAuthor(id, country, zipcode, fName, lName, street, city, email);
+        authorService.updateAuthor(id, country, zipcode, firstName, lastName, street, city, email);
     }
 }

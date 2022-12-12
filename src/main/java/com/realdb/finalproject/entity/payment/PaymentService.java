@@ -4,6 +4,7 @@ import com.realdb.finalproject.exception.domain.PaymentNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,7 +23,12 @@ public class PaymentService {
         this.paymentRepo = paymentRepo;
     }
 
-    public void addPayment(Payment payment) {
+    public void makePayment(BigDecimal amount, String method, String fullName) {
+        Payment payment = new Payment();
+        payment.setPaymentDate(LocalDate.now());
+        payment.setPaymentAmount(amount);
+        payment.setMethod(method);
+        payment.setCardHolderFullName(fullName);
         paymentRepo.save(payment);
     }
 
@@ -35,6 +41,7 @@ public class PaymentService {
         return payments;
     }
 
+    @Transactional
     public void updatePayment(Integer id,
                               String newMethod,
                               String newCardHolderName,

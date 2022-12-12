@@ -24,7 +24,7 @@ public class RentalController {
     public static final String UPDATE_SUCCESSFULLY = "Rental update successfully";
     private final RentalService rentalService;
 
-    @GetMapping("/find/{customerId}")
+    @GetMapping("/list/{customerId}")
     public ResponseEntity<List<Rental>> getAllRentalByCustomerId
             (@PathVariable("customerId") Integer customerId) {
         List<Rental> rentals = rentalService.getAllRentalByCustomerId(customerId);

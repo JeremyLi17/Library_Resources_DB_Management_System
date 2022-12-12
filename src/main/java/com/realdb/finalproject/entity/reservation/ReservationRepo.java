@@ -9,5 +9,5 @@ import java.util.List;
 public interface ReservationRepo extends JpaRepository<Reservation, Integer> {
     @Transactional
     @Query("SELECT r FROM Reservation r WHERE r.customer.id = ?1")
-    List<Reservation> findAllResByUserID(Integer id);
+    List<Reservation> findAllResByCustomerID(Integer id);
 }

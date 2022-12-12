@@ -29,7 +29,7 @@ public class SeminarSponsorController {
         this.seminarSponsorService = seminarSponsorService;
     }
 
-    @GetMapping("/list/Sponsor/{id}")
+    @GetMapping("/list/sponsor/{id}")
     public ResponseEntity<List<Sponsor>> getAllSponsorForSeminar(
             @PathVariable("id") Integer seminarId) throws SeminarNotFoundException {
         List<Sponsor> sponsors = seminarSponsorService.getAllSponsorForSeminar(seminarId);

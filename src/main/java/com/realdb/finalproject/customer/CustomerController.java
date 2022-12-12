@@ -88,7 +88,7 @@ public class CustomerController {
 
     @PutMapping("/update")
     public ResponseEntity<Customer> updateCustomer(
-            @RequestParam String currentUsername,
+            @RequestParam("currentUsername") String currentUsername,
             @RequestParam(required = false) String newUsername,
             @RequestParam(required = false) String newEmail,
             @RequestParam(required = false) String newFirstName,
@@ -105,7 +105,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam Integer id) {
+    public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam("id") Integer id) {
         customerService.deleteCustomer(id);
         return response(NO_CONTENT, CUSTOMER_DELETED_SUCCESSFULLY);
     }
