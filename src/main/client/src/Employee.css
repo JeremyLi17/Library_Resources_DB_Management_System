@@ -1,0 +1,359 @@
+.Employee {
+  position: relative;
+  height: 548px;
+  width: 100%;
+  background-color: white;
+}
+
+.Home_Bar {
+  position: fixed;
+  width: 100%;
+  height: 48px;
+  background-color: #2c2c2c;
+  display: flex;
+  z-index: 4;
+  justify-content: space-between;
+  top: 0;
+  box-sizing: border-box;
+}
+
+.Home_Customer {
+  position: relative;
+  top: 48px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  /* z-index: 4; */
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.Home_Reservation {
+  position: relative;
+  top: 48px;
+  min-width: 100%;
+  height: 800px;
+  /* display: flex; */
+
+  /* z-index: 4; */
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.Home_Reservation_List {
+  position: relative;
+  /* top: 10px; */
+  /* left: 5%; */
+  min-width: 100%;
+  height: 100px;
+  /* display: flex; */
+  /* y-index: 4; */
+  /* justify-content: space-between; */
+  box-sizing: border-box;
+}
+
+.Home_Reservation_Info {
+  position: relative;
+  /* top: 10px; */
+  left: 2%;
+  width: 96%;
+  height: 100px;
+  /* display: flex; */
+  /* y-index: 4; */
+  /* justify-content: space-between; */
+  box-sizing: border-box;
+}
+
+.Home_Reservation_Info_Line {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  /* y-index: 4; */
+  /* justify-content: space-between; */
+  box-sizing: border-box;
+}
+
+.Home_Reservation_Info_Block {
+  position: relative;
+  top: 5px;
+  width: 100%;
+  height: 40px;
+  /* display: flex; */
+  /* y-index: 4; */
+  /* justify-content: space-between; */
+  box-sizing: border-box;
+}
+
+.Home_Reservation_Info_Text {
+  position: relative;
+  top: 5px;
+  width: 100%;
+  height: 30px;
+  font-size: 25px;
+  box-sizing: border-box;
+}
+
+.Home_Rental {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 500px;
+  /* display: flex; */
+
+  /* z-index: 4; */
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.Home_Customer_Detail {
+  position: relative;
+  left: 5%;
+  top: 10px;
+  width: 90%;
+  /* display: flex; */
+  height: 480px;
+}
+
+.Home_Customer_Detail_Input {
+  position: relative;
+  left: 5%;
+  top: 10px;
+  width: 90%;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  height: 150px;
+}
+
+.Home_Customer_Detail_Input_Frame {
+  position: relative;
+  /* left: 5%; */
+  top: 10px;
+  width: 100%;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  height: 25px;
+}
+
+.Home_Customer_Detail_List {
+  position: relative;
+  left: 5%;
+  top: 0px;
+  width: 90%;
+  /* justify-content: space-between; */
+  height: 300px;
+}
+
+.Customer_First_Name {
+  position: relative;
+  top: 15px;
+  min-width: 100%;
+  display: flex;
+  height: 40px;
+  font-size: 30px;
+}
+
+.Customer_Last_Name {
+  position: relative;
+  top: 15px;
+  min-width: 100%;
+  display: flex;
+  font-size: 30px;
+  height: 40px;
+}
+
+.Customer_Email {
+  position: relative;
+  top: 15px;
+  min-width: 100%;
+  display: flex;
+  font-size: 30px;
+  height: 40px;
+}
+
+.Customer_Phone_Number {
+  position: relative;
+  top: 15px;
+  min-width: 100%;
+  display: flex;
+  font-size: 30px;
+  height: 40px;
+}
+
+.Customer_Id_Type {
+  position: relative;
+  top: 15px;
+  min-width: 100%;
+  display: flex;
+  font-size: 30px;
+  height: 40px;
+}
+
+.Customer_Id_Number {
+  position: relative;
+  top: 15px;
+  min-width: 100%;
+  display: flex;
+  font-size: 30px;
+  height: 40px;
+}
+
+.Customer_Others {
+  position: relative;
+  top: 15px;
+  min-width: 100%;
+  display: flex;
+  font-size: 30px;
+  height: 40px;
+}
+
+.Home_RightBar_Emp_Detail_SignOut {
+  text-align: right;
+  position: relative;
+  width: 223px;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.Home_LeftBar {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 649px;
+  height: 48px;
+  font: inherit;
+  vertical-align: inherit;
+  outline: none;
+  letter-spacing: inherit;
+  text-decoration: none;
+  cursor: inherit;
+  border-right-color: white;
+  border-right-style: solid;
+  /* border-right: 1px; */
+}
+
+.Home_RightBar {
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 649px;
+  height: 48px;
+  font: inherit;
+  vertical-align: inherit;
+  outline: none;
+  letter-spacing: inherit;
+  text-decoration: none;
+  cursor: inherit;
+  border-left-color: white;
+  border-left-style: solid;
+}
+
+.Home_LeftBar_Emp_Detail_Name_Email {
+  position: relative;
+  width: 223px;
+  overflow: hidden;
+}
+
+.Home_LeftBar_Emp_Detail_Arrow {
+  position: relative;
+  width: 17px;
+  height: 30px;
+}
+
+.Home_LeftBar_Emp_Detail_Name {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.Home_LeftBar_Emp_Detail_Name_Span {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  left: 10px;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.Home_LeftBar_Emp_Detail_Email_Span {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  left: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 8px;
+  line-height: 16px;
+}
+
+.Home_LeftBar_Emp_Detail_Email {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.Home_LeftBar_Emp_Detail {
+  position: relative;
+  top: 8px;
+  /* bottom: 8px; */
+  width: 241px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: inherit;
+  outline: none;
+  letter-spacing: inherit;
+  text-decoration: none;
+  cursor: inherit;
+}
+
+.Home_RightBar_Emp_Detail {
+  position: relative;
+  top: 8px;
+  /* bottom: 8px; */
+  width: 241px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: inherit;
+  outline: none;
+  letter-spacing: inherit;
+  text-decoration: none;
+  cursor: inherit;
+  background-color: #2c2c2c;
+}
+
+.Home_Header {
+  position: relative;
+  top: 2px;
+  left: 20px;
+  font-size: 10px;
+  color: #a47070;
+}
+
+.Customer_Profile {
+  position: relative;
+  background-color: rgb(74, 50, 18);
+  height: 300px;
+}
+
+.Profile_Header {
+  position: relative;
+  top: 10px;
+  left: 20px;
+  font-size: 24px;
+  color: #bab7b7;
+}
+
+/* .wrapper {
+  padding: 20px;
+} */

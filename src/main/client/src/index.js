@@ -1,7 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import {createRoot} from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Login from './Login';
+import Employee from './Employee';
+import {BrowserRouter as Router} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+root.render(
+  <Router>
+    <Routes>
+      <Route path="/*" element={<Login />}/>
+      <Route path="/dashboard/*" element={<Employee />} />
+    </Routes>
+  </Router>
+);
