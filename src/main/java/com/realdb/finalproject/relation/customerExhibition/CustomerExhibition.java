@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relation;
+package com.realdb.finalproject.relation.customerExhibition;
 
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.event.Exhibition;
