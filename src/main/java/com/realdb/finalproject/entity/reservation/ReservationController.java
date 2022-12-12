@@ -38,13 +38,14 @@ public class ReservationController {
     }
 
     @GetMapping(path = "/list/{customerId}")
-    public ResponseEntity<List<Reservation>> findAllResByUserID(@PathVariable("customerId") Integer customerId){
+    public ResponseEntity<List<Reservation>> findAllResByUserID(
+            @PathVariable("customerId") Integer customerId){
         return new ResponseEntity<>(reservationService.findAllResByCustomerID(customerId), OK);
     }
 
     @PutMapping(path = "/update")
     public ResponseEntity<HttpResponse> updateReservation(
-            @RequestParam("id") Integer id,
+            @RequestParam("id") Long id,
             @RequestParam(name = "resDate", required = false) LocalDate resDate,
             @RequestParam(name = "resTimeSlot", required =  false) String resTimeSlot,
             @RequestParam(name = "studyRoomId", required = false) Integer studyRoomId)
@@ -54,7 +55,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<HttpResponse> deleteReservation(@RequestParam("id") Integer id) {
+    public ResponseEntity<HttpResponse> deleteReservation(@RequestParam("id") Long id) {
         reservationService.deleteById(id);
         return build(NO_CONTENT, DELETE_SUCCESSFULLY);
     }
