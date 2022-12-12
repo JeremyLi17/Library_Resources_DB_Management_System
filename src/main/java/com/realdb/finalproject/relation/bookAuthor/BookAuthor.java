@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relation;
+package com.realdb.finalproject.relation.bookAuthor;
 
 import com.realdb.finalproject.entity.author.Author;
 import com.realdb.finalproject.entity.book.Book;
@@ -14,12 +14,12 @@ public class BookAuthor {
     @MapsId("bookId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOK_BOOK_ID", nullable = false)
-    private Book bookBook;
+    private Book book;
 
     @MapsId("authorId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "AUTHOR_ID", nullable = false)
-    private Author authorAuthor;
+    private Author author;
 
     public BookAuthorId getId() {
         return id;
@@ -29,20 +29,19 @@ public class BookAuthor {
         this.id = id;
     }
 
-    public Book getBookBook() {
-        return bookBook;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBookBook(Book bookBook) {
-        this.bookBook = bookBook;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public Author getAuthorAuthor() {
-        return authorAuthor;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorAuthor(Author authorAuthor) {
-        this.authorAuthor = authorAuthor;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
-
 }
