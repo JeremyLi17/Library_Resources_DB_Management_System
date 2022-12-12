@@ -12,7 +12,7 @@ import java.util.List;
  * @author jeremy on 2022/12/11
  */
 @Repository
-public interface RentalRepo extends JpaRepository<Rental, Integer> {
+public interface RentalRepo extends JpaRepository<Rental, Long> {
 
     @Transactional
     @Query("SELECT r FROM Rental r WHERE r.customer.id = :id")

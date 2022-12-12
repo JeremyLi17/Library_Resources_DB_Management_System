@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface ReservationRepo extends JpaRepository<Reservation, Integer> {
+public interface ReservationRepo extends JpaRepository<Reservation, Long> {
     @Transactional
     @Query("SELECT r FROM Reservation r WHERE r.customer.id = ?1")
     List<Reservation> findAllResByCustomerID(Integer id);

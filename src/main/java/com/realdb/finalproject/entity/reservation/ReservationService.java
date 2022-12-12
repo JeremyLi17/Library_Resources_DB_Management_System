@@ -47,7 +47,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public void updateReservation(Integer id, LocalDate resDate, String resTimeslot, Integer studyRoomId)
+    public void updateReservation(Long id, LocalDate resDate, String resTimeslot, Integer studyRoomId)
             throws ReservationNotFoundException, StudyRoomNotFoundException {
         Optional<Reservation> reservationOpt = reservationRepo.findById(id);
         if (reservationOpt.isEmpty()) {
@@ -75,7 +75,7 @@ public class ReservationService {
 
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         reservationRepo.deleteById(id);
     }
 }

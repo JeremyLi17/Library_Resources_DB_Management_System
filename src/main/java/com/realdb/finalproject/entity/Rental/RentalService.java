@@ -29,7 +29,7 @@ public class RentalService {
         return rentalRepo.getAllRentalByCustomerId(customerId);
     }
 
-    public void deleteRental(Integer id) throws RentalNotFoundException {
+    public void deleteRental(Long id) throws RentalNotFoundException {
         Optional<Rental> rentalOpt = rentalRepo.findById(id);
         if (rentalOpt.isEmpty()) {
             throw new RentalNotFoundException("Rental with id: " + id + " not found");
@@ -65,7 +65,7 @@ public class RentalService {
     }
 
     @Transactional
-    public void updateRental(Integer id, Integer customerId, Integer copyId)
+    public void updateRental(Long id, Integer customerId, Integer copyId)
             throws CustomerNotFoundException, CopyNotFoundException, RentalNotFoundException {
         Optional<Rental> rentalOpt = rentalRepo.findById(id);
         if (rentalOpt.isEmpty()) {

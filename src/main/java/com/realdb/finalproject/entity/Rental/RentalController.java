@@ -40,7 +40,7 @@ public class RentalController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<HttpResponse> deleteRental(@RequestParam("id") Integer id)
+    public ResponseEntity<HttpResponse> deleteRental(@RequestParam("id") Long id)
             throws RentalNotFoundException {
         rentalService.deleteRental(id);
         return BuildResponse.build(NO_CONTENT, DELETE_SUCCESSFULLY);
@@ -48,7 +48,7 @@ public class RentalController {
 
     @PutMapping("/update")
     public ResponseEntity<HttpResponse> updateRental(
-            @RequestParam(value = "id", required = true) Integer id,
+            @RequestParam(value = "id", required = true) Long id,
             @RequestParam(value = "customerId", required = false) Integer customerId,
             @RequestParam(value = "copyId", required = false) Integer copyId)
             throws RentalNotFoundException, CopyNotFoundException, CustomerNotFoundException {
