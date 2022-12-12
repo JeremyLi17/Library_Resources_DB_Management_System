@@ -13,6 +13,7 @@ function Managerental() {
   const navigatetoback = () =>{
     navigate('/book/*');
   }
+
     return (
       <div className="Managerental">
            <header >

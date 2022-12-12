@@ -14,6 +14,9 @@ function Manageexi() {
     navigate('/exibition/*');
   }
 
+
+
+
     return (
       <div className="Manageexi">
         <header>
@@ -29,11 +32,15 @@ function Manageexi() {
           <div>
             <button onClick={navigatetologin}>sign out</button>
           </div>
-
         </form>
+
+
+
+        
 
       </div>
 
+      
     );
   }
 export default Manageexi;
