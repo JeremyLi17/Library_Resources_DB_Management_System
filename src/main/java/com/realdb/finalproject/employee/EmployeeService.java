@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -91,6 +92,11 @@ public class EmployeeService implements UserDetailsService {
         return employee;
     }
 
+    public void deleteEmployee(Integer id) {
+        employeeRepo.deleteById(id);
+    }
+
+    @Transactional
     public Employee updateEmployee(String currentUsername, String newUsername, String newEmail)
             throws UserNotFoundException, EmailExistException, UsernameExistException {
         Employee updatedEmployee = validateNewUsernameAndEmail(currentUsername,

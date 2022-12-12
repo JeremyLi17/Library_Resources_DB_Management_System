@@ -1,5 +1,6 @@
 package com.realdb.finalproject.customer;
 
+import com.realdb.finalproject.domain.HttpResponse;
 import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
@@ -8,6 +9,7 @@ import com.realdb.finalproject.utility.JWTProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +24,8 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
+
+    public static final String CUSTOMER_DELETED_SUCCESSFULLY = "Customer deleted successfully";
 
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
@@ -84,7 +88,7 @@ public class CustomerController {
 
     @PutMapping("/update")
     public ResponseEntity<Customer> updateCustomer(
-            @RequestParam String currentUsername,
+            @RequestParam("currentUsername") String currentUsername,
             @RequestParam(required = false) String newUsername,
             @RequestParam(required = false) String newEmail,
             @RequestParam(required = false) String newFirstName,
@@ -100,9 +104,15 @@ public class CustomerController {
         return new ResponseEntity<>(updateCustomer, OK);
     }
 
-    @DeleteMapping()
-    public void deleteCustomerById(@RequestParam Integer id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam("id") Integer id) {
         customerService.deleteCustomer(id);
+        return response(NO_CONTENT, CUSTOMER_DELETED_SUCCESSFULLY);
+    }
+
+    private ResponseEntity<HttpResponse> response(HttpStatus status, String message) {
+        return new ResponseEntity<>(new HttpResponse(status.value(), status,
+                status.getReasonPhrase().toUpperCase(), message.toUpperCase()), status);
     }
 
     private HttpHeaders getJwtHeader(UserPrincipal user) {

@@ -2,10 +2,7 @@ package com.realdb.finalproject.exception;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.realdb.finalproject.domain.HttpResponse;
-import com.realdb.finalproject.exception.domain.EmailExistException;
-import com.realdb.finalproject.exception.domain.EmailNotFoundException;
-import com.realdb.finalproject.exception.domain.UserNotFoundException;
-import com.realdb.finalproject.exception.domain.UsernameExistException;
+import com.realdb.finalproject.exception.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -32,8 +29,23 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
+    public static final String EVENT_NOT_FOUND = "Event not found";
+    public static final String SPONSOR_NOT_FOUND = "Sponsor not found";
+    public static final String ORGANIZATION_SPONSOR_NOT_FOUND = "Organization Sponsor not found";
+    public static final String INDIVIDUAL_SPONSOR_NOT_FOUND = "Individual Sponsor not found";
+    public static final String RESERVATION_NOT_FOUND = "Reservation not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public static final String RENTAL_NOT_FOUND = "Rental not found";
+    public static final String CUSTOMER_NOT_FOUND = "Customer not found";
+    public static final String COPY_NOT_FOUND = "Copy not found";
+    public static final String SEMINAR_NOT_FOUND = "Seminar not found";
+    public static final String EXHIBITION_NOT_FOUND = "Exhibition not found";
+
+    public static final String BOOK_NOT_FOUND = "Book not found";
+    public static final String PAYMENT_NOT_FOUND = "Payment not found";
+    public static final String AUTHOR_NAME_NOT_FOUND = "Author not found";
+    public static final String STUDY_ROOM_NOT_FOUND = "Study room not found";
     private static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration";
     private static final String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. "
             + "Please send a '%s' request";
@@ -81,6 +93,36 @@ public class ExceptionHandling implements ErrorController {
 //        return createHttpResponse(BAD_REQUEST, PAGE_NOT_FOUNT_MSG);
 //    }
 
+    @ExceptionHandler(AuthorNotFoundException.class)
+    public ResponseEntity<HttpResponse> authorNameNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, AUTHOR_NAME_NOT_FOUND);
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<HttpResponse> bookNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, BOOK_NOT_FOUND);
+    }
+
+    @ExceptionHandler(PaymentNotFoundException.class)
+    public ResponseEntity<HttpResponse> paymentNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, PAYMENT_NOT_FOUND);
+    }
+
+    @ExceptionHandler(RentalNotFoundException.class)
+    public ResponseEntity<HttpResponse> rentalNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, RENTAL_NOT_FOUND);
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<HttpResponse> customerNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, CUSTOMER_NOT_FOUND);
+    }
+
+    @ExceptionHandler(CopyNotFoundException.class)
+    public ResponseEntity<HttpResponse> copyNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, COPY_NOT_FOUND);
+    }
+
     @ExceptionHandler(UsernameExistException.class)
     public ResponseEntity<HttpResponse> usernameExistException(UsernameExistException exception) {
         return createHttpResponse(BAD_REQUEST, exception.getMessage());
@@ -89,6 +131,46 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(EmailNotFoundException.class)
     public ResponseEntity<HttpResponse> emailNotFoundException(EmailNotFoundException exception) {
         return createHttpResponse(BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(StudyRoomNotFoundException.class)
+    public ResponseEntity<HttpResponse> studyRoomNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, STUDY_ROOM_NOT_FOUND);
+    }
+
+    @ExceptionHandler(SeminarNotFoundException.class)
+    public ResponseEntity<HttpResponse> seminarNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, SEMINAR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(ExhibitionNotFoundException.class)
+    public ResponseEntity<HttpResponse> exhibitionNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, EXHIBITION_NOT_FOUND);
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<HttpResponse> eventNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, EVENT_NOT_FOUND);
+    }
+
+    @ExceptionHandler(SponsorNotFoundException.class)
+    public ResponseEntity<HttpResponse> sponsorNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, SPONSOR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(OrganizationSponsorNotFoundException.class)
+    public ResponseEntity<HttpResponse> organizationSponsorNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, ORGANIZATION_SPONSOR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(IndividualSponsorNotFoundException.class)
+    public ResponseEntity<HttpResponse> individualSponsorNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, INDIVIDUAL_SPONSOR_NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public ResponseEntity<HttpResponse> reservationNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, RESERVATION_NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
