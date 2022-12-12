@@ -5,7 +5,7 @@ import './Login.css';
 import Employee from './Employee'
 import {useState} from 'react';
 
-export default function Form() {
+export default function Login() {
 
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
@@ -14,7 +14,8 @@ export default function Form() {
     const handleSubmit = event => {
         // 👇️ prevent page refresh
         event.preventDefault();
-    
+        console.log('username is: ', username);
+        console.log('pwd is: ', pwd);
         console.log('form submitted ✅');
     };
 
