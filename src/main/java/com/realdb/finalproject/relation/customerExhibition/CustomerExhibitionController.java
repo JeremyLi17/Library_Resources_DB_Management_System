@@ -30,14 +30,14 @@ public class CustomerExhibitionController {
         this.customerExhibitionService = customerExhibitionService;
     }
 
-    @GetMapping("/find/{username}")
+    @GetMapping("/list/exhibition/{username}")
     public ResponseEntity<List<Exhibition>> getExhibitionByCustomer(
             @PathVariable("username") String username) throws CustomerNotFoundException {
         List<Exhibition> exhibitions = customerExhibitionService.getExhibitionByCustomer(username);
         return new ResponseEntity<>(exhibitions, OK);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/list/customer/{id}")
     public ResponseEntity<List<Customer>> getCustomerToExhibition(
             @PathVariable("id") Integer exhibitionId) throws ExhibitionNotFoundException {
         List<Customer> customers = customerExhibitionService.getCustomerToExhibition(exhibitionId);

@@ -28,7 +28,7 @@ public class AuthorSeminarController {
         this.authorSeminarService = authorSeminarService;
     }
 
-    @GetMapping("/find/{firstName}-{lastName}")
+    @GetMapping("/list/seminar/{firstName}-{lastName}")
     public ResponseEntity<List<Seminar>> getSeminarByAuthorName(
             @PathVariable("firstName") String firstName,
             @PathVariable("lastName") String lastName) throws AuthorNotFoundException {
@@ -36,7 +36,7 @@ public class AuthorSeminarController {
         return new ResponseEntity<>(seminars, OK);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/list/author/{id}")
     public ResponseEntity<List<Author>> getAuthorBySeminarId(
             @PathVariable("id") Integer id) throws SeminarNotFoundException {
         List<Author> authors = authorSeminarService.getAuthorBySeminarId(id);
