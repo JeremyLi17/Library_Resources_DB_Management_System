@@ -1,12 +1,15 @@
 import './Rentbook.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
+
 // import TextField from '@material-ui/core/TextField';
 
 function Rentbook() {
   const navigate = useNavigate();
   const [bookname,setbookname] = useState();
   const [targetbookname, settargetbookname] = useState();
+  const [booknum,setbooknum] = useState();
+  const [returndate, setreturndate] = useState();
   const navigatetologin = () =>{
     navigate('/*');
   }
@@ -27,6 +30,16 @@ function Rentbook() {
     console.log("book name is: ", bookname);
     console.log("submitted!")
   }
+  const dorent = event => {
+    //need to submitted to backend
+    event.preventDefault;
+    console.log(targetbookname);
+    console.log(bookname)
+    // setbookname(targetbookname);
+    console.log("book name is: ", bookname);
+    console.log("submitted!")
+  }
+
     return (
       <div className="Rentbook">
            <header >
@@ -50,6 +63,26 @@ function Rentbook() {
           </div>
 
           </form>
+
+          <form className = "rent">
+            <div>
+            <label for="choosetorent">Choose the book to rent</label>
+            <input type="text" id="myInput"  placeholder="type the number ..." value = {booknum} onChange={(e) => setbooknum(e.target.value)}></input>
+              <label for="end">Choose a date to return:</label>
+             <input type="date" id="end" name="end"
+            // value="2011-07-22"
+              value = {returndate}
+              min= "2022-12-13"
+              onChange={(e) => setreturndate(e.target.value)}
+            />
+            </div>
+              <button onClick={dorent}>rent</button>
+            <div>
+
+            </div>
+          </form>
+
+          
           
       </div>
     );

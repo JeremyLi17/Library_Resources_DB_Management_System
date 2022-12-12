@@ -1,9 +1,11 @@
 import './Manageexi.css';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 // import TextField from '@material-ui/core/TextField';
 
 function Manageexi() {
   const navigate = useNavigate();
+  const [cancelid, setcancelid] = useState();
   const navigatetologin = () =>{
     navigate('/*');
   }
@@ -12,6 +14,10 @@ function Manageexi() {
   }
   const navigatetoback = () =>{
     navigate('/exibition/*');
+  }
+  const docancel = event => {
+    //need to submitted to backend
+    
   }
 
 
@@ -33,6 +39,20 @@ function Manageexi() {
             <button onClick={navigatetologin}>sign out</button>
           </div>
         </form>
+
+        <form>
+          <div>
+          <label >cancel register</label>
+            <input type="text" id="myInput"  placeholder="type exibition id ..." value = {cancelid} onChange={(e) => setcancelid(e.target.value)}></input>
+            <div>
+            <button onClick={docancel}>cancel</button>
+            </div>
+
+          </div>
+          
+        </form>
+
+        
 
 
 

@@ -1,8 +1,10 @@
 import './Managereservation.css';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 function Managereservation() {
   const navigate = useNavigate();
+  const [reserveid, setcancelreserve] = useState();
   const navigatetologin = () =>{
     navigate('/*');
   }
@@ -11,6 +13,10 @@ function Managereservation() {
   }
   const navigatetoback = () =>{
     navigate('/studyroom/*');
+  }
+  const docancelreserve = event => {
+    //need to submitted to backend
+    
   }
   return (
     <div className="Managereservation">
@@ -29,6 +35,20 @@ function Managereservation() {
           </div>
 
         </form>
+
+        <form>
+          <div>
+          <label >cancel reservation</label>
+            <input type="text" id="myInput"  placeholder="type rental id ..." value = {reserveid} onChange={(e) => setcancelreserve(e.target.value)}></input>
+            <div>
+            <button onClick={docancelreserve}>cancel</button>
+            </div>
+
+          </div>
+          
+        </form>
+
+
 
         
 

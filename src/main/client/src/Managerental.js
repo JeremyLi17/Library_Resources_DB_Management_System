@@ -1,9 +1,12 @@
 import './Managerental.css';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 // import TextField from '@material-ui/core/TextField';
 
 function Managerental() {
   const navigate = useNavigate();
+  const [returnid, setreturnid] = useState();
+
   const navigatetologin = () =>{
     navigate('/*');
   }
@@ -12,6 +15,10 @@ function Managerental() {
   }
   const navigatetoback = () =>{
     navigate('/book/*');
+  }
+  const doreturn = event => {
+    //need to submitted to backend
+    
   }
 
     return (
@@ -32,7 +39,23 @@ function Managerental() {
 
         </form>
 
+        
+        <form>
+          <div>
+          <label >return book</label>
+            <input type="text" id="myInput"  placeholder="type rental id ..." value = {returnid} onChange={(e) => setreturnid(e.target.value)}></input>
+            <div>
+            <button onClick={doreturn}>return</button>
+            </div>
+
+          </div>
+          
+        </form>
+       
+
       </div>
+
+      
     );
   }
 export default Managerental;

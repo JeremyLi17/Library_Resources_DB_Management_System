@@ -1,11 +1,13 @@
 import './Registerexi.css';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 // import TextField from '@material-ui/core/TextField';
 
 function Registerexi() {
   const navigate = useNavigate();
-  const [exibition,setexibitionname] = useState();
+  const [exibition, setexibitionname] = useState();
   const [targetexibition, settargetexibition] = useState();
+  const [exibitionid, setregiexibition] = useState();
   const navigatetologin = () =>{
     navigate('/*');
   }
@@ -17,11 +19,13 @@ function Registerexi() {
   }
   const searchresult = event => {
     event.preventDefault;
-    console.log(targetbookname);
-    console.log(bookname)
     // setbookname(targetbookname);
     console.log("exibition name: ", exibition);
     console.log("submitted!")
+  }
+  const doregister = event => {
+    //need to submitted to backend
+    
   }
     return (
       <div className="Registerexi">
@@ -44,6 +48,15 @@ function Registerexi() {
           </div>
 
         </form>
+        <form className = "register">
+            <label >complete register</label>
+            <input type="text" id="myInput"  placeholder="type exibition id ..." value = {exibitionid} onChange={(e) => setregiexibition(e.target.value)}></input>
+            <div>
+            <button onClick={doregister}>register</button>
+            </div>
+          </form>
+
+
 
       </div>
     );
