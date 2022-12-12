@@ -1,4 +1,4 @@
-package com.realdb.finalproject.book;
+package com.realdb.finalproject.entity.book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

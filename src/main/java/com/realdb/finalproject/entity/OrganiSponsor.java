@@ -17,7 +17,7 @@ public class OrganiSponsor {
     @SequenceGenerator(
             name = "ORGANIZE_SPONSOR_SEQUENCE",
             sequenceName = "ORGANIZE_SPONSOR_SEQUENCE",
-            initialValue = 11,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "SPONSOR_ID", nullable = false)
     private Integer id;
@@ -28,7 +28,7 @@ public class OrganiSponsor {
     private Sponsor sponsor;
 
     @Column(name = "ORG_NAME", nullable = false, length = 50)
-    private String orgName;
+    private String name;
 
     public Integer getId() {
         return id;
@@ -46,12 +46,11 @@ public class OrganiSponsor {
         this.sponsor = sponsor;
     }
 
-    public String getOrgName() {
-        return orgName;
+    public String getName() {
+        return name;
     }
 
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
+    public void setName(String name) {
+        this.name = name;
     }
-
 }

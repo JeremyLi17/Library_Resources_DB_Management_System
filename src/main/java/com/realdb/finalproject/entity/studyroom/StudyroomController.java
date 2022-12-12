@@ -1,10 +1,10 @@
-package com.realdb.finalproject.studyroom;
+package com.realdb.finalproject.entity.studyroom;
 
 import com.realdb.finalproject.entity.StudyRoom;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/studyroom")
 @AllArgsConstructor

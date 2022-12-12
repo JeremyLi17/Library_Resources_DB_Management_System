@@ -5,37 +5,45 @@ import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.utility.JWTProvider;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.List;
 
 import static com.realdb.finalproject.security.SecurityConstant.JWT_TOKEN_HEADER;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/customer")
-@AllArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
 
-    @GetMapping(path ="all")
+    @Autowired
+    public CustomerController(CustomerService customerService,
+                              @Qualifier("authManagerForCustomer")
+                                      AuthenticationManager authenticationManager,
+                              JWTProvider jwtProvider) {
+        this.customerService = customerService;
+        this.authenticationManager = authenticationManager;
+        this.jwtProvider = jwtProvider;
+    }
+
+    @GetMapping(path ="/list")
     public List<Customer> getCustomers() {
         return customerService.getCustomers();
     }
 
-    @GetMapping()
-    public Optional<Customer> findCustomerByUsername(@RequestParam String username) {
+    @GetMapping("/find/{username}")
+    public Optional<Customer> findCustomerByUsername(@PathVariable("username") String username) {
         return customerService.findCustomerByUsername(username);
     }
 
@@ -67,21 +75,33 @@ public class CustomerController {
         return new ResponseEntity<>(loginCustomer, jwtHeader, OK);
     }
 
-    @PutMapping("{id}")
-    public void updateCustomer(@PathVariable("id") Integer id,
-                                   @RequestParam(required = false) String cEmail,
-                                   @RequestParam(required = false) String cFName,
-                                   @RequestParam(required = false) String cLName,
-                                   @RequestParam(required = false) String cMName,
-                                   @RequestParam(required = false) String cPhoneNo,
-                                   @RequestParam(required = false) String idType,
-                                   @RequestParam(required = false) String idNo) {
+    @PostMapping("/resetpassword")
+    public ResponseEntity<Customer> resetPassword(@RequestBody Customer customer) {
+        Customer updateCustomer = customerService.resetPassword(customer.getUsername(),
+                customer.getPassword());
+        return new ResponseEntity<>(updateCustomer, ACCEPTED);
+    }
 
-        customerService.updateCustomer(id, cEmail, cFName, cLName, cMName, cPhoneNo, idType, idNo);
+    @PutMapping("/update")
+    public ResponseEntity<Customer> updateCustomer(
+            @RequestParam String currentUsername,
+            @RequestParam(required = false) String newUsername,
+            @RequestParam(required = false) String newEmail,
+            @RequestParam(required = false) String newFirstName,
+            @RequestParam(required = false) String newLastName,
+            @RequestParam(required = false) String newMiddleName,
+            @RequestParam(required = false) String newPhoneNo,
+            @RequestParam(required = false) String newIdType,
+            @RequestParam(required = false) String newIdNo)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+
+        Customer updateCustomer = customerService.updateCustomer(currentUsername, newUsername, newEmail,
+                newFirstName, newLastName, newMiddleName, newPhoneNo, newIdType, newIdNo);
+        return new ResponseEntity<>(updateCustomer, OK);
     }
 
     @DeleteMapping()
-    public void deleteCustomer(@RequestParam Integer id) {
+    public void deleteCustomerById(@RequestParam Integer id) {
         customerService.deleteCustomer(id);
     }
 

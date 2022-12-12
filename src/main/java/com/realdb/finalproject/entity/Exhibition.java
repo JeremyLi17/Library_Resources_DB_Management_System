@@ -18,7 +18,7 @@ public class Exhibition {
     @SequenceGenerator(
             name = "EXHIBITION_SEQUENCE",
             sequenceName = "EXHIBITION_SEQUENCE",
-            initialValue = 11,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "EVENT_ID", nullable = false)
     private Integer id;

@@ -18,24 +18,24 @@ public class Reservation {
     @SequenceGenerator(
             name = "RESERVATION_SEQUENCE",
             sequenceName = "RESERVATION_SEQUENCE",
-            initialValue = 11,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "RES_ID", nullable = false)
     private Long id;
 
     @Column(name = "RES_DATE", nullable = false)
-    private LocalDate resDate;
+    private LocalDate date;
 
     @Column(name = "RES_TIMESLOT", nullable = false, length = 1)
-    private String resTimeslot;
+    private String timeslot;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "STUDY_ROOM_ROOM_ID", nullable = false)
-    private StudyRoom studyRoomRoom;
+    @JoinColumn(name = "STUDY_ROOM_ID", nullable = false)
+    private StudyRoom studyRoom;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CUSTOMER_C_ID", nullable = false)
-    private Customer customerC;
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    private Customer customer;
 
     public Long getId() {
         return id;
@@ -45,36 +45,35 @@ public class Reservation {
         this.id = id;
     }
 
-    public LocalDate getResDate() {
-        return resDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setResDate(LocalDate resDate) {
-        this.resDate = resDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public String getResTimeslot() {
-        return resTimeslot;
+    public String getTimeslot() {
+        return timeslot;
     }
 
-    public void setResTimeslot(String resTimeslot) {
-        this.resTimeslot = resTimeslot;
+    public void setTimeslot(String timeslot) {
+        this.timeslot = timeslot;
     }
 
-    public StudyRoom getStudyRoomRoom() {
-        return studyRoomRoom;
+    public StudyRoom getStudyRoom() {
+        return studyRoom;
     }
 
-    public void setStudyRoomRoom(StudyRoom studyRoomRoom) {
-        this.studyRoomRoom = studyRoomRoom;
+    public void setStudyRoom(StudyRoom studyRoom) {
+        this.studyRoom = studyRoom;
     }
 
-    public Customer getCustomerC() {
-        return customerC;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerC(Customer customerC) {
-        this.customerC = customerC;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
-
 }

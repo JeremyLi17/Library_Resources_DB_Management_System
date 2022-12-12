@@ -1,4 +1,4 @@
-package com.realdb.finalproject.studyroom;
+package com.realdb.finalproject.entity.studyroom;
 
 import com.realdb.finalproject.entity.StudyRoom;
 import org.springframework.data.jpa.repository.JpaRepository;

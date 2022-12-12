@@ -1,6 +1,6 @@
 package com.realdb.finalproject.entity;
 
-import com.realdb.finalproject.book.Book;
+import com.realdb.finalproject.entity.book.Book;
 
 import javax.persistence.*;
 
@@ -17,7 +17,7 @@ public class Copy {
     @SequenceGenerator(
             name = "COPY_SEQUENCE",
             sequenceName = "COPY_SEQUENCE",
-            initialValue = 15,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "COPY_ID", nullable = false)
     private Integer id;
@@ -26,8 +26,13 @@ public class Copy {
     private String copyStatus;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "BOOK_BOOK_ID", nullable = false)
-    private Book bookBook;
+    @JoinColumn(name = "BOOK_ID", nullable = false)
+    private Book book;
+
+    public Copy(String copyStatus, Book book) {
+        this.copyStatus = copyStatus;
+        this.book = book;
+    }
 
     public Integer getId() {
         return id;
@@ -45,12 +50,11 @@ public class Copy {
         this.copyStatus = copyStatus;
     }
 
-    public Book getBookBook() {
-        return bookBook;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBookBook(Book bookBook) {
-        this.bookBook = bookBook;
+    public void setBook(Book book) {
+        this.book = book;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.realdb.finalproject.relationship;
+package com.realdb.finalproject.relation;
 
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.Exhibition;
@@ -7,33 +7,33 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "CUST_EXHIBI")
-public class CustExhibi {
+public class CustomerExhibition {
     @EmbeddedId
-    private CustExhibiId id;
+    private CustomerExhibitionId id;
 
-    @MapsId("customerCId")
+    @MapsId("customerId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CUSTOMER_C_ID", nullable = false)
-    private Customer customerC;
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "EXHIBITION_EVENT_ID", nullable = false)
     private Exhibition exhibitionEvent;
 
-    public CustExhibiId getId() {
+    public CustomerExhibitionId getId() {
         return id;
     }
 
-    public void setId(CustExhibiId id) {
+    public void setId(CustomerExhibitionId id) {
         this.id = id;
     }
 
-    public Customer getCustomerC() {
-        return customerC;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerC(Customer customerC) {
-        this.customerC = customerC;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Exhibition getExhibitionEvent() {

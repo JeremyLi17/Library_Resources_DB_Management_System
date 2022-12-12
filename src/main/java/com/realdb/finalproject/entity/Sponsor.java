@@ -15,13 +15,13 @@ public class Sponsor {
     @SequenceGenerator(
             name = "SPONSOR_SEQUENCE",
             sequenceName = "SPONSOR_SEQUENCE",
-            initialValue = 21,
+            initialValue = 1,
             allocationSize = 1)
     @Column(name = "SPONSOR_ID", nullable = false)
     private Integer id;
 
     @Column(name = "S_TYPE", nullable = false, length = 1)
-    private String sType;
+    private String type;
 
     public Integer getId() {
         return id;
@@ -31,12 +31,11 @@ public class Sponsor {
         this.id = id;
     }
 
-    public String getSType() {
-        return sType;
+    public String getType() {
+        return type;
     }
 
-    public void setSType(String sType) {
-        this.sType = sType;
+    public void setType(String type) {
+        this.type = type;
     }
-
 }

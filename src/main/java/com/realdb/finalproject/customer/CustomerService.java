@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,6 @@ public class CustomerService implements UserDetailsService {
     private final LoginAttemptService loginAttemptService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    // all get methods
     public List<Customer> getCustomers() {
         return customerRepo.findAll();
     }
@@ -79,59 +79,42 @@ public class CustomerService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateCustomer(Integer customerId, String email, String cFName, String cLName, String cMName,
-                               String cPhoneNo, String idType, String idNo) {
+    public Customer updateCustomer(String currentUsername,
+                                   String newUsername,
+                                   String newEmail,
+                                   String newFirstName,
+                                   String newLastName,
+                                   String newMiddleName,
+                                   String newPhoneNo,
+                                   String newIdType,
+                                   String newIdNo)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+        Customer currentCustomer = validateNewUsernameAndEmail(currentUsername,
+                newUsername, newEmail);
 
-        Customer customer = customerRepo.findById(customerId).orElseThrow(() -> new IllegalStateException(
-                "Customer with id " + customerId + " does not exist"
-        ));
+        assert currentCustomer != null;
+        if (StringUtils.isNotBlank(newUsername)) currentCustomer.setUsername(newUsername);
+        if (StringUtils.isNotBlank(newFirstName)) currentCustomer.setFirstName(newFirstName);
+        if (StringUtils.isNotBlank(newLastName)) currentCustomer.setLastName(newLastName);
+        if (StringUtils.isNotBlank(newMiddleName)) currentCustomer.setEmail(newMiddleName);
+        if (StringUtils.isNotBlank(newEmail)) currentCustomer.setIdNo(newEmail);
+        if (StringUtils.isNotBlank(newPhoneNo)) currentCustomer.setPhoneNo(newPhoneNo);
+        if (StringUtils.isNotBlank(newIdType)) currentCustomer.setIdType(newIdType);
+        if (StringUtils.isNotBlank(newIdNo)) currentCustomer.setIdNo(newIdNo);
 
-        //TODO: NEED TO MODIFY after C_EMAIL's datatype is changed to VARCHAR(30)
-        if (email != null && email.length() > 0 && (email.endsWith(".edu") || email.endsWith(".com"))) {
+        customerRepo.save(currentCustomer);
+        return currentCustomer;
+    }
 
-            email += " ".repeat(customer.getEmail().length() - email.length());
-
-            if (!email.equals(customer.getEmail())) {
-
-                Optional<Customer> studentOptional = findCustomerByEmail(email);
-
-                if (studentOptional.isPresent()) {
-                    throw new IllegalStateException("email taken");
-                }
-
-                customer.setEmail(email);
-            }
+    public Customer resetPassword(String username, String newpassword) {
+        Optional<Customer> customerOpt = findCustomerByUsername(username);
+        if (customerOpt.isEmpty()) {
+            throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
         }
-
-        if (cFName != null && cFName.length() > 0 && !cFName.equals(customer.getFirstName())) {
-            customer.setFirstName(cFName);
-        }
-
-        if (cLName != null && cLName.length() > 0) {
-
-            cLName += " ".repeat(customer.getLastName().length() - cLName.length());
-
-            if (!cLName.equals(customer.getLastName())) {
-                customer.setLastName(cLName);
-            }
-        }
-
-        if (cMName != null && cMName.length() > 0 && !cMName.equals(customer.getMiddleName())) {
-            customer.setMiddleName(cMName);
-        }
-
-        //TODO: NEED TO MODIFY after cPhoneNo's datatype is changed to CHAR(10)
-        if (cPhoneNo != null && !cPhoneNo.equals(customer.getPhoneNo())) {
-            customer.setPhoneNo(cPhoneNo);
-        }
-
-        if (idType != null && idType.length() > 0 && !idType.equals(customer.getIdType())) {
-            customer.setIdType(idType);
-        }
-
-        if (idNo != null && idNo.length() > 0 && !idNo.equals(customer.getIdNo())) {
-            customer.setIdNo(idNo);
-        }
+        Customer customer = customerOpt.get();
+        customer.setPassword(passwordEncoder.encode(newpassword));
+        customerRepo.save(customer);
+        return customer;
     }
 
     public void deleteCustomer(Integer customerId) {

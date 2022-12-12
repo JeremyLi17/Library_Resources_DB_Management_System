@@ -1,4 +1,4 @@
-package com.realdb.finalproject.author;
+package com.realdb.finalproject.entity.author;
 
 import javax.persistence.*;
 

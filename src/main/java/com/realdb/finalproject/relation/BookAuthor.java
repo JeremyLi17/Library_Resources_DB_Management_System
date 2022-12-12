@@ -1,7 +1,7 @@
-package com.realdb.finalproject.relationship;
+package com.realdb.finalproject.relation;
 
-import com.realdb.finalproject.author.Author;
-import com.realdb.finalproject.book.Book;
+import com.realdb.finalproject.entity.author.Author;
+import com.realdb.finalproject.entity.book.Book;
 
 import javax.persistence.*;
 
@@ -11,14 +11,14 @@ public class BookAuthor {
     @EmbeddedId
     private BookAuthorId id;
 
-    @MapsId("bookBookId")
+    @MapsId("bookId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOK_BOOK_ID", nullable = false)
     private Book bookBook;
 
-    @MapsId("authorAuthorId")
+    @MapsId("authorId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "AUTHOR_AUTHOR_ID", nullable = false)
+    @JoinColumn(name = "AUTHOR_ID", nullable = false)
     private Author authorAuthor;
 
     public BookAuthorId getId() {

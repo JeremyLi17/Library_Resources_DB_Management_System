@@ -1,6 +1,5 @@
 package com.realdb.finalproject.employee;
 
-import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.domain.Role;
 import com.realdb.finalproject.domain.User;
 import com.realdb.finalproject.domain.UserPrincipal;
@@ -12,12 +11,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
@@ -26,6 +27,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * @author jeremy on 2022/12/10
  */
 @Service
+@Qualifier("employeeService")
 public class EmployeeService implements UserDetailsService {
 
     public static final String NO_USER_FOUND_BY_USERNAME = "No user found by username: ";
@@ -72,6 +74,34 @@ public class EmployeeService implements UserDetailsService {
 
         employeeRepo.save(employee);
         return employee;
+    }
+
+    public List<Employee> findAllEmployees() {
+        return employeeRepo.findAll();
+    }
+
+    public Employee resetPassword(String username, String newpassword) {
+        Optional<Employee> employeeOpt = findEmployeeByUsername(username);
+        if (employeeOpt.isEmpty()) {
+            throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
+        }
+        Employee employee = employeeOpt.get();
+        employee.setPassword(passwordEncoder.encode(newpassword));
+        employeeRepo.save(employee);
+        return employee;
+    }
+
+    public Employee updateEmployee(String currentUsername, String newUsername, String newEmail)
+            throws UserNotFoundException, EmailExistException, UsernameExistException {
+        Employee updatedEmployee = validateNewUsernameAndEmail(currentUsername,
+                newUsername, newEmail);
+
+        assert updatedEmployee != null;
+        if (StringUtils.isNotBlank(newUsername)) updatedEmployee.setUsername(newUsername);
+        if (StringUtils.isNotBlank(newEmail)) updatedEmployee.setUsername(newEmail);
+
+        employeeRepo.save(updatedEmployee);
+        return updatedEmployee;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.realdb.finalproject.reservation;
+package com.realdb.finalproject.entity.reservation;
 import com.realdb.finalproject.entity.Reservation;
 import com.realdb.finalproject.entity.StudyRoom;
 import lombok.AllArgsConstructor;
@@ -32,14 +32,14 @@ public class ReservationService {
         Reservation reservation = reservationRepo.findById(id).orElseThrow(() -> new IllegalStateException(
                 "Author with id " + id + " does not exist"
         ));
-        if (resDate != null && !Objects.equals(reservation.getResDate(), resDate)) {
-            reservation.setResDate(resDate);
+        if (resDate != null && !Objects.equals(reservation.getDate(), resDate)) {
+            reservation.setDate(resDate);
         }
-        if(resTimeslot != null && !Objects.equals(reservation.getResTimeslot(), resTimeslot)){
-            reservation.setResTimeslot(resTimeslot);
+        if(resTimeslot != null && !Objects.equals(reservation.getTimeslot(), resTimeslot)){
+            reservation.setTimeslot(resTimeslot);
         }
-        if(studyRoomRoom != null && !Objects.equals(reservation.getStudyRoomRoom(), studyRoomRoom)){
-            reservation.setStudyRoomRoom(studyRoomRoom);
+        if(studyRoomRoom != null && !Objects.equals(reservation.getStudyRoom(), studyRoomRoom)){
+            reservation.setStudyRoom(studyRoomRoom);
         }
 
     }
