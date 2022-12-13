@@ -1,8 +1,9 @@
 import './Manageexi.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
+import axios from 'axios';
 // import TextField from '@material-ui/core/TextField';
-
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Manageexi() {
   const navigate = useNavigate();
   const [cancelid, setcancelid] = useState();

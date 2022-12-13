@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import './customerstudyroom.css';
-
+import axios from 'axios';
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function customerstudyroom() {
     const navigate = useNavigate();
     const navigatetoreservation = () =>{

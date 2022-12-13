@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router';
 import './Payment.css';
 import { useState } from 'react';
+import axios from 'axios';
 import userRequest from "../request/user-request"
-
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Payment(){
     const [cashamount, setcashamount] = useState();
     const [cashname, setcashname] = useState();
@@ -15,6 +16,9 @@ function Payment(){
 
     const [paypalamount, setpaypalamount] = useState();
     const [paypalname, setpaypalname] = useState();
+
+    const now = moment().tz('America/New_York');
+    //need to be传回api
 
 
 

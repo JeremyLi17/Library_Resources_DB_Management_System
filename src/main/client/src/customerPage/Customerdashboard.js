@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import './Customerdashboard.css';
-
+import axios from 'axios';
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Customerdashboard() {
   const navigate = useNavigate();
   const navigatetostudyroom = () =>{

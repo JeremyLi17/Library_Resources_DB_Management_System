@@ -1,10 +1,13 @@
 import './Managereservation.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
-
-function Managereservation() {
+import axios from 'axios';
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+const Managereservation = ({reservations}) => {
   const navigate = useNavigate();
   const [reserveid, setcancelreserve] = useState();
+
+
   const navigatetologin = () =>{
     navigate('/*');
   }
@@ -14,10 +17,19 @@ function Managereservation() {
   const navigatetoback = () =>{
     navigate('/customer/studyroom/*');
   }
-  const docancelreserve = event => {
+  const docancelreserve = async(event)=> {
     //need to submitted to backend
-    
+    const url = `http://localhost:8080/api/reservation/delete?id=${reserveid}`
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+    await axios.delete(url, config)
+    navigate('/customer/studyroom/*');
+
   }
+
   return (
     <div className="Managereservation">
         <header >
@@ -36,6 +48,22 @@ function Managereservation() {
 
         </form>
 
+
+
+        <ul>
+        {reservations.map((reservation) => {
+        return (
+          <li key={reservation.id}>
+            studyroom:{reservation.studyRoom.id}
+            date:{reservation.date}
+            timeslot:{reservation.timeslot}
+          </li>
+        );
+         })}
+        </ul>
+
+
+
         <form>
           <div>
           <label >cancel reservation</label>
@@ -43,7 +71,6 @@ function Managereservation() {
             <div>
             <button onClick={docancelreserve}>cancel</button>
             </div>
-
           </div>
           
         </form>
@@ -55,4 +82,10 @@ function Managereservation() {
     </div>
   );
 }
+
+Managereservation.getInitalProps = async (context) =>{
+  const result = await axios.get(`http://localhost:8080/api/reservation/list/{customerId}`)
+  return{ reservations : result};
+}
+
 export default Managereservation;

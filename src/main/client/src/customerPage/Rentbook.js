@@ -1,9 +1,10 @@
 import './Rentbook.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
+import axios from 'axios';
 import userRequest from "../request/user-request"
 // import TextField from '@material-ui/core/TextField';
-
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Rentbook() {
   const navigate = useNavigate();
   const [bookname,setbookname] = useState();
@@ -31,7 +32,7 @@ function Rentbook() {
     console.log("submitted!")
   }
   const dorent = event => {
-    navigate('./customer/book/rent/payment/*')
+    
     //need to submitted to backend
     event.preventDefault();
     console.log(targetbookname);
@@ -50,6 +51,7 @@ function Rentbook() {
     },
     onSuccess: () => Router.push("/"),
   });
+  const now = moment().tz('America/New_York')
 
   const onsubmit = () => {
 
@@ -87,7 +89,7 @@ function Rentbook() {
              <input type="date" id="end" name="end"
             // value="2011-07-22"
               value = {returndate}
-              min= "2022-12-13"
+              min= {now}
               onChange={(e) => setreturndate(e.target.value)}
             />
             </div>

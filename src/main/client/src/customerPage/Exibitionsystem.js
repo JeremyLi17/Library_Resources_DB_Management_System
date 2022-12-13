@@ -1,6 +1,7 @@
 import './Exibitionsystem.css';
 import { useNavigate } from 'react-router';
-
+import axios from 'axios';
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Exibitionsystem() {
     const navigate = useNavigate();
     const navigatetoregister = () =>{
