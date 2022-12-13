@@ -1,5 +1,6 @@
 package com.realdb.finalproject.relation.seminarSponsor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.entity.event.Seminar;
 import com.realdb.finalproject.entity.sponsor.Sponsor;
 
@@ -15,11 +16,13 @@ public class SeminarSponsor {
     @MapsId("sponsorId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SPONSOR_SPONSOR_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Sponsor sponsor;
 
     @MapsId("seminarEventId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SEMINAR_EVENT_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Seminar seminarEvent;
 
     @Column(name = "AMOUNT", nullable = false, precision = 15, scale = 2)

@@ -10,10 +10,10 @@ function Manageexi() {
     navigate('/*');
   }
   const navigatetohome = () =>{
-    navigate('/*');
+    navigate('/customer/*');
   }
   const navigatetoback = () =>{
-    navigate('/exibition/*');
+    navigate('/customer/exibition/*');
   }
   const docancel = event => {
     //need to submitted to backend

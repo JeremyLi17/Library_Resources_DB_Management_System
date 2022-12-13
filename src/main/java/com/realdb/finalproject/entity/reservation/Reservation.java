@@ -1,11 +1,14 @@
 package com.realdb.finalproject.entity.reservation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.studyroom.StudyRoom;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static com.fasterxml.jackson.annotation.JsonFormat.Feature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -25,6 +28,10 @@ public class Reservation {
     private Long id;
 
     @Column(name = "RES_DATE", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
+    )
     private LocalDate date;
 
     @Column(name = "RES_TIMESLOT", nullable = false, length = 1)
@@ -32,10 +39,12 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "STUDY_ROOM_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private StudyRoom studyRoom;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
 
     public Long getId() {

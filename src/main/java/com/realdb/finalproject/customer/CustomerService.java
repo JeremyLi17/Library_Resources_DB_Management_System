@@ -8,6 +8,7 @@ import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.security.LoginAttemptService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Service
 @AllArgsConstructor
 @Qualifier("customerService")
+@Slf4j
 public class CustomerService implements UserDetailsService {
     public static final String NO_USER_FOUND_BY_USERNAME = "No user found by username: ";
     public static final String RETURNING_FOUND_USER_BY_USERNAME = "Returning found user by username: ";
@@ -106,13 +108,15 @@ public class CustomerService implements UserDetailsService {
         return currentCustomer;
     }
 
-    public Customer resetPassword(String username, String newpassword) {
+    public Customer resetPassword(String username, String newPassword) {
+        logger.error(username);
+        logger.info(newPassword);
         Optional<Customer> customerOpt = findCustomerByUsername(username);
         if (customerOpt.isEmpty()) {
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
         }
         Customer customer = customerOpt.get();
-        customer.setPassword(passwordEncoder.encode(newpassword));
+        customer.setPassword(passwordEncoder.encode(newPassword));
         customerRepo.save(customer);
         return customer;
     }

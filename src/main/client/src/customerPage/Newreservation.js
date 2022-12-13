@@ -12,10 +12,10 @@ function Newreservation() {
     navigate('/*');
   }
   const navigatetohome = () =>{
-    navigate('/*');
+    navigate('/customer/*');
   }
   const navigatetoback = () =>{
-    navigate('/studyroom/*');
+    navigate('/customer/studyroom/*');
   }
   const searchresult = event => {
     event.preventDefault;

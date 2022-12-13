@@ -14,13 +14,13 @@ function Rentbook() {
     navigate('/*');
   }
   const navigatetohome = () =>{
-    navigate('/*');
+    navigate('/customer/*');
   }
   const navigatetoback = () =>{
-    navigate('/book/*');
+    navigate('/customer/book/*');
   }
   const navigatetorentbook = () =>{
-    navigate('/book/rent/*')
+    navigate('/customer/book/rent/*')
   }
   const searchresult = event => {
     event.preventDefault;
@@ -31,7 +31,7 @@ function Rentbook() {
     console.log("submitted!")
   }
   const dorent = event => {
-    navigate('/book/rent/payment/*')
+    navigate('./customer/book/rent/payment/*')
     //need to submitted to backend
     event.preventDefault();
     console.log(targetbookname);

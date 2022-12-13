@@ -30,8 +30,23 @@ public class AuthorService {
         return authorOpt.get();
     }
 
-    public void saveAuthor(Author author) {
+    public Author saveAuthor(String email,
+                           String firstName,
+                           String lastName,
+                           String street,
+                           String city,
+                           String country,
+                           String zipcode) {
+        Author author = new Author();
+        author.setEmail(email);
+        author.setFirstName(firstName);
+        author.setLastName(lastName);
+        author.setCity(city);
+        author.setStreet(street);
+        author.setCountry(country);
+        author.setZipcode(zipcode);
         authorRepo.save(author);
+        return author;
     }
 
     public void deleteAuthor(Integer id) throws AuthorNotFoundException {
@@ -57,32 +72,32 @@ public class AuthorService {
                 ));
 
         if (fName != null && fName.length() > 0
-                && !Objects.equals(author.getAFname(), fName)) {
-            author.setAFname(fName);
+                && !Objects.equals(author.getFirstName(), fName)) {
+            author.setFirstName(fName);
         }
 
         if (lName != null && lName.length() > 0
-                && !Objects.equals(author.getALname(), lName)) {
-            author.setALname(lName);
+                && !Objects.equals(author.getLastName(), lName)) {
+            author.setLastName(lName);
         }
 
         if (country != null && country.length() > 0
-                && !Objects.equals(author.getACountry(), country)) {
-            author.setACountry(country);
+                && !Objects.equals(author.getCountry(), country)) {
+            author.setCountry(country);
         }
 
         if (street != null && street.length() > 0
-                && !Objects.equals(author.getAStreet(), street)) {
-            author.setAStreet(street);
+                && !Objects.equals(author.getStreet(), street)) {
+            author.setStreet(street);
         }
 
         if (city != null && city.length() > 0
-                && !Objects.equals(author.getACity(), city)) {
-            author.setACity(city);
+                && !Objects.equals(author.getCity(), city)) {
+            author.setCity(city);
         }
 
-        if (zipcode != null && !Objects.equals(author.getAZipcode(), zipcode)) {
-            author.setAZipcode(zipcode);
+        if (zipcode != null && !Objects.equals(author.getZipcode(), zipcode)) {
+            author.setZipcode(zipcode);
         }
 
         if (email != null && email.length() > 0
@@ -94,4 +109,6 @@ public class AuthorService {
             author.setEmail(email);
         }
     }
+
+
 }

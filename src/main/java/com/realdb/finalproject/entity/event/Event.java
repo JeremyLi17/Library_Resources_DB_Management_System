@@ -1,8 +1,11 @@
 package com.realdb.finalproject.entity.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static com.fasterxml.jackson.annotation.JsonFormat.Feature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -24,12 +27,20 @@ public class Event {
     private String name;
 
     @Column(name = "EVENT_TYPE", nullable = false)
-    private Boolean type = false;
+    private String type;
 
     @Column(name = "START_DATETIME", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
+    )
     private LocalDate startAt;
 
     @Column(name = "STOP_DATETIME", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
+    )
     private LocalDate stopAt;
 
     @Column(name = "EVENT_TOPIC", nullable = false, length = 30)
@@ -53,11 +64,11 @@ public class Event {
         this.name = name;
     }
 
-    public Boolean getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(String type) {
         this.type = type;
     }
 

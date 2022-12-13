@@ -1,12 +1,15 @@
-import '../layout_attributes/Employee.css';
+import '../employeePageAttribute/EmployeeDashboard.css';
 import {useState} from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 const emp_first_name = "Michael"
 const emp_middle_name = "Kun"
 const emp_last_name = "Xiao"
 
-export default function Employee() {
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
+
+export default function EmployeeDashboard() {
 
   const navigate = useNavigate();
 
@@ -56,12 +59,19 @@ export default function Employee() {
     setIdNumber(event.target.value);
   }
 
-  const navigateToReservation = () => {
-    navigate('/dashboard/reservation/*');
+  const navigateToReservation = async (e) => {
+    const res = await axios.get(
+      "http://localhost:8080/api/reservation/list",
+    ).then((res) => {
+      localStorage.setItem("reserveList", res.data);
+      navigate('/employee/reservation/*');
+    }).catch((e) => {
+      
+    })
   }
 
   const navigateToRental = () => {
-    navigate('/dashboard/rental/*');
+    navigate('/employee/rental/*');
   }
   
   const handleSearch = event => {

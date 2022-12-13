@@ -110,4 +110,16 @@ public class EventService {
             exhibitionRepo.save(exhibition);
         }
     }
+
+    public List<Seminar> getAllSeminar() {
+        return seminarRepo.findAll();
+    }
+
+    public List<Exhibition> getAllExhibition() {
+        return exhibitionRepo.findAll();
+    }
+
+    public List<Event> getAllEvent() {
+        return eventRepo.findAll();
+    }
 }

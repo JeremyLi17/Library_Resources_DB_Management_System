@@ -49,52 +49,52 @@ public class Author {
         this.id = id;
     }
 
-    public String getAFname() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setAFname(String aFname) {
-        this.firstName = aFname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getALname() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setALname(String aLname) {
-        this.lastName = aLname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getAStreet() {
+    public String getStreet() {
         return street;
     }
 
-    public void setAStreet(String aStreet) {
-        this.street = aStreet;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public String getACity() {
+    public String getCity() {
         return city;
     }
 
-    public void setACity(String aCity) {
-        this.city = aCity;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getACountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setACountry(String aCountry) {
-        this.country = aCountry;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getAZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public void setAZipcode(String aZipcode) {
-        this.zipcode = aZipcode;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getEmail() {
@@ -104,5 +104,4 @@ public class Author {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }
