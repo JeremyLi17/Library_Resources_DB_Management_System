@@ -57,8 +57,7 @@ public class SecurityConstant {
             // bookAuthor
             "/api/bookAuthor/add",
             "/api/bookAuthor/delete",
-            // customerExhibition
-            "/api/customerExhibition/delete",
+            // customerExhibition -> none
             // seminarSponsor
             "/api/seminarSponsor/add",
             "/api/seminarSponsor/delete"
