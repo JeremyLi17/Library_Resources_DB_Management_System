@@ -1,7 +1,7 @@
 package com.realdb.finalproject.entity.payment;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.realdb.finalproject.entity.Invoice;
+import com.realdb.finalproject.entity.invoice.Invoice;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
