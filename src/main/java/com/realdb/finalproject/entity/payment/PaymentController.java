@@ -34,8 +34,8 @@ public class PaymentController {
         return new ResponseEntity<>(payment, CREATED);
     }
 
-    @GetMapping("/payment")
-    public ResponseEntity<BigDecimal> getTotalPaymentById(@PathVariable("id") Integer id) {
+    @GetMapping("/totalPaymentAmount/{invoiceId}")
+    public ResponseEntity<BigDecimal> getTotalPaymentById(@PathVariable("invoiceId") Integer id) {
         BigDecimal totalPayment = paymentService.getTotalPaymentById(id);
         return new ResponseEntity<>(totalPayment, OK);
     }
