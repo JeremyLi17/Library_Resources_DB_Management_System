@@ -68,4 +68,8 @@ public class PaymentService {
         }
         paymentRepo.save(payment);
     }
+
+    public BigDecimal getTotalPaymentById(Integer id) {
+        return paymentRepo.getTotalPaymentById(id);
+    }
 }

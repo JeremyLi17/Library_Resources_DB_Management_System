@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,4 +14,7 @@ public interface PaymentRepo extends JpaRepository<Payment, Integer> {
 
     @Query("SELECT p FROM Payment p WHERE p.invoice.id = ?1")
     List<Payment> findPaymentByInvoiceId(Integer invoiceId);
+
+    @Query("SELECT SUM(p.paymentAmount) FROM Payment p WHERE p.invoice = ?1")
+    BigDecimal getTotalPaymentById(Integer id);
 }
