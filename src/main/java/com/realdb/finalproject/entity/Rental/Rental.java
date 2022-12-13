@@ -39,14 +39,14 @@ public class Rental {
 
     @Column(name = "EXP_RETURN_DATE", nullable = false)
     @JsonFormat(
-            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd",
             without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
     )
     private LocalDate expReturnDate;
 
     @Column(name = "ACT_RETURN_DATE")
     @JsonFormat(
-            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd",
             without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
     )
     private LocalDate actReturnDate;

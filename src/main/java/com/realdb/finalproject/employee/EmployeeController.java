@@ -7,6 +7,7 @@ import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.utility.BuildResponse;
+import com.realdb.finalproject.utility.EmailService;
 import com.realdb.finalproject.utility.JWTProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,15 +36,18 @@ public class EmployeeController {
     private final EmployeeService employeeService;
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
+    private final EmailService emailService;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService,
                               @Qualifier("authManagerForEmployee")
                                       AuthenticationManager authenticationManager,
-                              JWTProvider jwtProvider) {
+                              JWTProvider jwtProvider,
+                              EmailService emailService) {
         this.employeeService = employeeService;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
+        this.emailService = emailService;
     }
 
     @GetMapping(path ="/list")
@@ -78,10 +83,11 @@ public class EmployeeController {
     }
 
     @PostMapping("/resetpassword")
-    public ResponseEntity<Employee> resetPassword(@RequestBody Customer customer) {
-        Employee updateCustomer = employeeService.resetPassword(customer.getUsername(),
+    public ResponseEntity<Employee> resetPassword(@RequestBody Customer customer) throws MessagingException {
+        Employee updateEmployee = employeeService.resetPassword(customer.getUsername(),
                 customer.getPassword());
-        return new ResponseEntity<>(updateCustomer, ACCEPTED);
+        emailService.sendNewPasswordEmail(updateEmployee.getUsername(), updateEmployee.getPassword(), updateEmployee.getEmail());
+        return new ResponseEntity<>(updateEmployee, ACCEPTED);
     }
 
     @PutMapping("/update")
