@@ -31,6 +31,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
     public static final String INVOICE_NOT_FOUND = "Invoice not found";
+    public static final String CUSTOMER_EXHIBITION_RELATION_NOT_FOUND = "Customer Exhibition relation not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final String EVENT_NOT_FOUND = "Event not found";
@@ -129,6 +130,11 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(CopyNotFoundException.class)
     public ResponseEntity<HttpResponse> copyNotFoundException() {
         return createHttpResponse(BAD_REQUEST, COPY_NOT_FOUND);
+    }
+
+    @ExceptionHandler(CustomerExhibitionRelationNotFoundException.class)
+    public ResponseEntity<HttpResponse> customerExhibitionRelationNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, CUSTOMER_EXHIBITION_RELATION_NOT_FOUND);
     }
 
     @ExceptionHandler(UsernameExistException.class)

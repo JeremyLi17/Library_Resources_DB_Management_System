@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author jeremy on 2022/12/11
@@ -24,4 +25,8 @@ public interface CustomerExhibitionRepo
             "(SELECT ce.customer.id FROM CustomerExhibition ce " +
             "WHERE ce.exhibitionEvent.id = ?1)")
     List<Customer> getByExhibition(Integer id);
+
+    @Query("SELECT ce.id FROM CustomerExhibition ce " +
+            "WHERE ce.exhibitionEvent.id = ?1 AND ce.customer.id = ?2")
+    Optional<CustomerExhibitionId> findId(Integer eventId, Integer customerId);
 }

@@ -4,6 +4,7 @@ import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.customer.CustomerRepo;
 import com.realdb.finalproject.entity.event.Exhibition;
 import com.realdb.finalproject.entity.event.ExhibitionRepo;
+import com.realdb.finalproject.exception.domain.CustomerExhibitionRelationNotFoundException;
 import com.realdb.finalproject.exception.domain.CustomerNotFoundException;
 import com.realdb.finalproject.exception.domain.ExhibitionNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,12 @@ public class CustomerExhibitionService {
         return customerExhibition;
     }
 
-    public void deleteCustomerExhibition(CustomerExhibitionId customerExhibitionId) {
-        customerExhibitionRepo.deleteById(customerExhibitionId);
+    public void deleteCustomerExhibition(Integer eventId, Integer customerId)
+            throws CustomerExhibitionRelationNotFoundException {
+        Optional<CustomerExhibitionId> id = customerExhibitionRepo.findId(eventId, customerId);
+        if (id.isEmpty()) {
+            throw new CustomerExhibitionRelationNotFoundException("Customer Exhibition relation not found");
+        }
+        customerExhibitionRepo.deleteById(id.get());
     }
 }

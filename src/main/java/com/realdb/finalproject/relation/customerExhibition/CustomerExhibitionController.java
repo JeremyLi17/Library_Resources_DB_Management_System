@@ -3,6 +3,7 @@ package com.realdb.finalproject.relation.customerExhibition;
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.domain.HttpResponse;
 import com.realdb.finalproject.entity.event.Exhibition;
+import com.realdb.finalproject.exception.domain.CustomerExhibitionRelationNotFoundException;
 import com.realdb.finalproject.exception.domain.CustomerNotFoundException;
 import com.realdb.finalproject.exception.domain.ExhibitionNotFoundException;
 import com.realdb.finalproject.utility.BuildResponse;
@@ -59,8 +60,10 @@ public class CustomerExhibitionController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<HttpResponse> deleteCustomerExhibition(
-            @RequestParam("id") CustomerExhibitionId customerExhibitionId) {
-        customerExhibitionService.deleteCustomerExhibition(customerExhibitionId);
+            @RequestParam("eventId")  Integer eventId,
+            @RequestParam("customerId")  Integer customerId)
+            throws CustomerExhibitionRelationNotFoundException {
+        customerExhibitionService.deleteCustomerExhibition(eventId, customerId);
         return BuildResponse.build(NO_CONTENT, CUSTOMER_EXHIBITION_DELETED_SUCCESSFULLY);
     }
 }
