@@ -30,6 +30,9 @@ public class CustomerExhibitionService {
         this.exhibitionRepo = exhibitionRepo;
     }
 
+    public int getNextRegistrationId() {
+        return (int)customerExhibitionRepo.count() + 1;
+    }
 
     public List<Exhibition> getExhibitionByCustomer(String username) throws CustomerNotFoundException {
         Optional<Customer> customerOpt = customerRepo.findCustomerByUsername(username);
@@ -65,6 +68,12 @@ public class CustomerExhibitionService {
         CustomerExhibition customerExhibition = new CustomerExhibition();
         customerExhibition.setCustomer(customerOpt.get());
         customerExhibition.setExhibitionEvent(exhibitionOpt.get());
+
+        // set id
+        CustomerExhibitionId customerExhibitionId = new CustomerExhibitionId();
+        customerExhibition.setId(customerExhibitionId);
+        customerExhibitionId.setCustomerId(customerOpt.get().getId());
+        customerExhibitionId.setRegistrationId(getNextRegistrationId());
         customerExhibitionRepo.save(customerExhibition);
         return customerExhibition;
     }

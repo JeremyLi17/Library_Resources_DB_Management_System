@@ -2,10 +2,11 @@ package com.realdb.finalproject.relation.customerExhibition;
 
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+
+import static javax.persistence.GenerationType.*;
 
 @Embeddable
 public class CustomerExhibitionId implements Serializable {

@@ -6,6 +6,7 @@ import com.realdb.finalproject.entity.event.Exhibition;
 import com.realdb.finalproject.exception.domain.CustomerNotFoundException;
 import com.realdb.finalproject.exception.domain.ExhibitionNotFoundException;
 import com.realdb.finalproject.utility.BuildResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestController
 @RequestMapping("/api/customerExhibition")
+@Slf4j
 public class CustomerExhibitionController {
 
     public static final String CUSTOMER_EXHIBITION_DELETED_SUCCESSFULLY = "Customer Exhibition deleted successfully";
@@ -48,11 +50,11 @@ public class CustomerExhibitionController {
     public ResponseEntity<CustomerExhibition> addCustomerExhibition(
             @RequestBody CustomerExhibition customerExhibition)
             throws CustomerNotFoundException, ExhibitionNotFoundException {
-        customerExhibitionService.addCustomerExhibition(
+        CustomerExhibition newCustomerExhibition = customerExhibitionService.addCustomerExhibition(
                 customerExhibition.getCustomer().getUsername(),
                 customerExhibition.getExhibitionEvent().getId()
         );
-        return new ResponseEntity<>(customerExhibition, CREATED);
+        return new ResponseEntity<>(newCustomerExhibition, CREATED);
     }
 
     @DeleteMapping("/delete")
