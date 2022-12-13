@@ -8,6 +8,7 @@ import com.realdb.finalproject.exception.domain.CopyNotFoundException;
 import com.realdb.finalproject.exception.domain.CustomerNotFoundException;
 import com.realdb.finalproject.exception.domain.RentalNotFoundException;
 import lombok.AllArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +38,11 @@ public class RentalService {
         rentalOpt.get().getCopy().setCopyStatus("Y");
         // mark as return
         Rental rental = rentalOpt.get();
-        rental.setStatus("R");
+        if (rentalOpt.get().getExpReturnDate().isBefore(LocalDate.now())) {
+            rental.setStatus("L");
+        } else {
+            rental.setStatus("R");
+        }
         rental.setActReturnDate(LocalDate.now());
         rentalRepo.save(rental);
     }
