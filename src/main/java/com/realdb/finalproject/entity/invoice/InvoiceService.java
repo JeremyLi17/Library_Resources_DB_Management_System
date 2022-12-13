@@ -27,7 +27,7 @@ public class InvoiceService {
         return invoiceOpt.get();
     }
 
-    public List<Invoice> findAllInvoiceByCustomerId(Long id) {
+    public List<Invoice> findAllInvoiceByCustomerId(Integer id) {
         List<Invoice> invoices = invoiceRepo.findAllInvoiceByCustomerId(id);
         return invoices;
     }

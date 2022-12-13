@@ -12,6 +12,6 @@ import java.util.List;
 public interface InvoiceRepo extends JpaRepository<Invoice, Long> {
 
     @Query("SELECT i FROM Invoice i WHERE i.rental.id IN " +
-            "(SELECT r.id FROM Rental r WHERE r.customer.id = id)")
-    List<Invoice> findAllInvoiceByCustomerId(Long id);
+            "(SELECT r.id FROM Rental r WHERE r.customer.id = ?1)")
+    List<Invoice> findAllInvoiceByCustomerId(Integer id);
 }
