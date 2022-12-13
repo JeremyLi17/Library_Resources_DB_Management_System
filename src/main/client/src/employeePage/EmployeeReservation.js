@@ -1,8 +1,8 @@
-import '../layout_attributes/Reservation.css';
+import '../employeePageAttribute/EmployeeReservation.css';
 import {useState} from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
-export default function Reservation() {
+export default function EmployeeReservation() {
     return(<div className='Home_Reservation'>
                 <h1>Reservation Info:</h1>
                 <hr></hr>

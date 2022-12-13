@@ -9,10 +9,10 @@ function Managereservation() {
     navigate('/*');
   }
   const navigatetohome = () =>{
-    navigate('/*');
+    navigate('/customer/*');
   }
   const navigatetoback = () =>{
-    navigate('/studyroom/*');
+    navigate('/customer/studyroom/*');
   }
   const docancelreserve = event => {
     //need to submitted to backend

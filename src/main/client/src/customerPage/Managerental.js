@@ -11,10 +11,10 @@ function Managerental() {
     navigate('/*');
   }
   const navigatetohome = () =>{
-    navigate('/*');
+    navigate('/customer/*');
   }
   const navigatetoback = () =>{
-    navigate('/book/*');
+    navigate('/customer/book/*');
   }
   const doreturn = event => {
     //need to submitted to backend

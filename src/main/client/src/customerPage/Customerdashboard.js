@@ -1,23 +1,23 @@
 import { useNavigate } from 'react-router';
-import './App.css';
+import './Customerdashboard.css';
 
-function App() {
+function Customerdashboard() {
   const navigate = useNavigate();
   const navigatetostudyroom = () =>{
-    navigate('/studyroom/*');
+    navigate('/customer/studyroom/*');
   }
   const navigatetobookrental = () =>{
-    navigate('/book/*');
+    navigate('/customer/book/*');
   }
   const navigatetoexibition = () =>{
-    navigate('/exibition/*');
+    navigate('/customer/exibition/*');
   }
   const navigatetologin = () =>{
     navigate('/*');
   }
   return (
 
-    <div className="App">
+    <div className="Customerdashboard">
       <div className='Home_LeftBar'>
             <div className='Home_LeftBar_Emp_Detail'>
               <div className='Home_LeftBar_Emp_Detail_Name_Email'>
@@ -36,7 +36,7 @@ function App() {
           </div>
 
 
-      <header className="App-header">
+      <header className="Customerdashboard-header">
         <h1>MENU</h1>
       </header>
 
@@ -61,4 +61,4 @@ function App() {
   );
 }
 
-export default App;
+export default Customerdashboard;
