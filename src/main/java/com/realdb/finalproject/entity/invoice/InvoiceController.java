@@ -32,7 +32,7 @@ public class InvoiceController {
     }
 
      @GetMapping("/list/{id}")
-    public ResponseEntity<List<Invoice>> findAllInvoiceByCustomerId(@PathVariable("id") Long id)
+    public ResponseEntity<List<Invoice>> findAllInvoiceByCustomerId(@PathVariable("id") Integer id)
             throws InvoiceNotFoundException {
         List<Invoice> invoices = invoiceService.findAllInvoiceByCustomerId(id);
         return new ResponseEntity<>(invoices, OK);

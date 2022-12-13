@@ -3,6 +3,7 @@ package com.realdb.finalproject.customer;
 import com.realdb.finalproject.domain.Role;
 import com.realdb.finalproject.domain.User;
 import com.realdb.finalproject.domain.UserPrincipal;
+import com.realdb.finalproject.exception.domain.CustomerNotFoundException;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
@@ -19,7 +20,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -185,5 +185,13 @@ public class CustomerService implements UserDetailsService {
         } else {
             loginAttemptService.evictUserFromLoginAttemptCache(user.getUsername());
         }
+    }
+
+    public void unlockUser(String username) throws CustomerNotFoundException {
+        Optional<Customer> customerOpt = findCustomerByUsername(username);
+        if (customerOpt.isEmpty()) {
+            throw new CustomerNotFoundException("Customer: " + username + " not found");
+        }
+        customerOpt.get().setNotLocked(true);
     }
 }
