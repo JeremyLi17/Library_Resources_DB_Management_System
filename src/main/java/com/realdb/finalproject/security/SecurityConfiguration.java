@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static com.realdb.finalproject.security.SecurityConstant.PUBLIC_URLS;
+import static com.realdb.finalproject.security.SecurityConstant.UNAVAILABLE_URL_FOR_CUSTOMER;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
@@ -71,6 +72,7 @@ public class SecurityConfiguration {
                     .sessionManagement().sessionCreationPolicy(STATELESS)
                     .and()
                     .authorizeRequests().antMatchers(PUBLIC_URLS).permitAll()
+                    .antMatchers(UNAVAILABLE_URL_FOR_CUSTOMER).hasAnyAuthority("ROLE_EMPLOYEE")
                     .anyRequest().authenticated()
                     .and()
                     .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
@@ -123,6 +125,7 @@ public class SecurityConfiguration {
                     .sessionManagement().sessionCreationPolicy(STATELESS)
                     .and()
                     .authorizeRequests().antMatchers(PUBLIC_URLS).permitAll()
+                    .antMatchers(UNAVAILABLE_URL_FOR_CUSTOMER).hasAnyAuthority("ROLE_EMPLOYEE")
                     .anyRequest().authenticated()
                     .and()
                     .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
