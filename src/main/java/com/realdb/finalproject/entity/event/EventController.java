@@ -38,10 +38,28 @@ public class EventController {
         return new ResponseEntity<>(events, OK);
     }
 
+    @GetMapping("/list/event/all")
+    public ResponseEntity<List<Event>> getAllEvent() {
+        List<Event> events = eventService.getAllEvent();
+        return new ResponseEntity<>(events, OK);
+    }
+
     @GetMapping("/list/seminar")
     public ResponseEntity<List<Seminar>> getSeminarByTopic(@RequestParam("topic") String topic) {
         List<Seminar> seminars = eventService.getSeminarByTopic(topic);
         return new ResponseEntity<>(seminars, OK);
+    }
+
+    @GetMapping("/list/seminar/all")
+    public ResponseEntity<List<Seminar>> getAllSeminar() {
+        List<Seminar> seminars = eventService.getAllSeminar();
+        return new ResponseEntity<>(seminars, OK);
+    }
+
+    @GetMapping("/list/exhibition/all")
+    public ResponseEntity<List<Exhibition>> getAllExhibition() {
+        List<Exhibition> exhibitions = eventService.getAllExhibition();
+        return new ResponseEntity<>(exhibitions, OK);
     }
 
     @GetMapping("/list/exhibition")

@@ -1,5 +1,6 @@
 package com.realdb.finalproject.relation.bookAuthor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.entity.author.Author;
 import com.realdb.finalproject.entity.book.Book;
 
@@ -14,11 +15,13 @@ public class BookAuthor {
     @MapsId("bookId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "BOOK_BOOK_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Book book;
 
     @MapsId("authorId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "AUTHOR_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Author author;
 
     public BookAuthorId getId() {

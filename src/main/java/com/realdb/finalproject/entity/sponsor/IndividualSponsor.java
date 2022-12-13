@@ -1,5 +1,7 @@
 package com.realdb.finalproject.entity.sponsor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -22,6 +24,7 @@ public class IndividualSponsor {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SPONSOR_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Sponsor sponsor;
 
     @Column(name = "INDI_FNAME", nullable = false, length = 30)

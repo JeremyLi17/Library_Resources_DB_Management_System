@@ -1,5 +1,6 @@
 package com.realdb.finalproject.entity.reservation;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.studyroom.StudyRoom;
 
@@ -32,10 +33,12 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "STUDY_ROOM_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private StudyRoom studyRoom;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
 
     public Long getId() {

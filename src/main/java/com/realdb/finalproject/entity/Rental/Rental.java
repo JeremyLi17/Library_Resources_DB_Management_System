@@ -1,5 +1,6 @@
 package com.realdb.finalproject.entity.Rental;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.copy.Copy;
 
@@ -38,10 +39,12 @@ public class Rental {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "COPY_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Copy copy;
 
     public Long getId() {
