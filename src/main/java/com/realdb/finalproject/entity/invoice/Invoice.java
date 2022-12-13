@@ -1,4 +1,4 @@
-package com.realdb.finalproject.entity;
+package com.realdb.finalproject.entity.invoice;
 
 import com.realdb.finalproject.entity.Rental.Rental;
 

@@ -30,6 +30,7 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
+    public static final String INVOICE_NOT_FOUND = "Invoice not found";
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final String EVENT_NOT_FOUND = "Event not found";
@@ -108,6 +109,11 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(PaymentNotFoundException.class)
     public ResponseEntity<HttpResponse> paymentNotFoundException() {
         return createHttpResponse(BAD_REQUEST, PAYMENT_NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvoiceNotFoundException.class)
+    public ResponseEntity<HttpResponse> invoiceNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, INVOICE_NOT_FOUND);
     }
 
     @ExceptionHandler(RentalNotFoundException.class)
