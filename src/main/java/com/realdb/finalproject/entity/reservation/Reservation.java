@@ -29,7 +29,7 @@ public class Reservation {
 
     @Column(name = "RES_DATE", nullable = false)
     @JsonFormat(
-            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd",
             without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
     )
     private LocalDate date;

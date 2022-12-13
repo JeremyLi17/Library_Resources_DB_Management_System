@@ -3,6 +3,7 @@ package com.realdb.finalproject.entity.studyroom;
 import com.realdb.finalproject.domain.HttpResponse;
 import com.realdb.finalproject.exception.domain.StudyRoomNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,8 @@ public class StudyRoomController {
 
     @GetMapping("/list")
     public ResponseEntity<List<StudyRoom>> findAvailableRoomByDate(
-            @RequestParam("date") LocalDate date,
-            @RequestParam("timeslot") Integer timeslot) {
+            @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+            @RequestParam("timeslot") String timeslot) {
         List<StudyRoom> rooms = studyroomService.findAvailableRoomByDate(date, timeslot);
         return new ResponseEntity<>(rooms, OK);
     }

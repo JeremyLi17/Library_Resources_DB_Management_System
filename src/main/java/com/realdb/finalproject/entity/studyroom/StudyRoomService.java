@@ -12,7 +12,7 @@ import java.util.*;
 public class StudyRoomService {
     private final StudyRoomRepo studyroomRepo;
 
-    public List<StudyRoom> findAvailableRoomByDate(LocalDate date, Integer timeslot) {
+    public List<StudyRoom> findAvailableRoomByDate(LocalDate date, String timeslot) {
         return studyroomRepo.findAvailableRoomByDate(date,timeslot);
     }
 
