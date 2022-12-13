@@ -1,5 +1,6 @@
 package com.realdb.finalproject.entity.Rental;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.copy.Copy;
@@ -7,6 +8,7 @@ import com.realdb.finalproject.entity.copy.Copy;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static com.fasterxml.jackson.annotation.JsonFormat.Feature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -29,12 +31,24 @@ public class Rental {
     private String status;
 
     @Column(name = "BORROW_DATE", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
+    )
     private LocalDate borrowDate;
 
     @Column(name = "EXP_RETURN_DATE", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
+    )
     private LocalDate expReturnDate;
 
     @Column(name = "ACT_RETURN_DATE")
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
+    )
     private LocalDate actReturnDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
