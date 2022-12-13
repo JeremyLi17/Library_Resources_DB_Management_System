@@ -13,13 +13,14 @@ function Payment(){
     const [amount,setpaymentamount] = useState();
     const [invoiceid,setinvoiceid] = useState();
 
+    const config = {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }
 
     const getAllres = () => {
-        const config = {
-          headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-          }
-        }
+        
         const customerId = Number(localStorage.getItem("currentCustomerId"));
       
         axios.get(`http://localhost:8080/api/invoice/list/${customerId}`, config).then((response) => {
@@ -41,6 +42,7 @@ function Payment(){
 
 
     const dopay = async (event) => {
+        console.log("pay")
         event.preventDefault();
         const paymethod = document.getElementById("method").value;
         const url = `http://localhost:8080/api/payment/add`
@@ -79,7 +81,7 @@ function Payment(){
             <li key={invoice.id}>
                 rental id: {invoice.id}
                 total amount:{invoice.amount}
-                date:{reservation.date}
+            
                 {/* money paid: {getpayments} */}
             </li>
             );
@@ -91,7 +93,7 @@ function Payment(){
                 {/* <label>
                     total amount : {totalamount}
                 </label> */}
-                <select name="method" id="timeperiod" > 
+                <select name="method" id="method" > 
                 <option value="cash">cash</option>
                 <option value="creditcard">credit card</option>
                 <option value="debitcard">debit card</option>

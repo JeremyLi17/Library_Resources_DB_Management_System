@@ -40,6 +40,7 @@ function Registerexi() {
     })
   }
 
+  const username = localStorage.getItem("currentUsername")
 
   const doregister = async(event) => {
     //need to submitted to backend
@@ -53,7 +54,7 @@ function Registerexi() {
     await axios.post(url, 
       {
         "customer": {
-          "username": "audrey"
+          "username": username
         },
         "exhibitionEvent":{
           "id": exhibitionid

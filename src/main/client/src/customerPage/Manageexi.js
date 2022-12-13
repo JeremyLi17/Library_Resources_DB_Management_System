@@ -18,13 +18,16 @@ function Manageexi() {
     navigate('/customer/exibition/*');
   }
 
+  const username = localStorage.getItem("currentUsername");
+
   const getAllres = () => {
     const config = {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
     }
-    axios.get(`http://localhost:8080/api/customerExhibition/list/exhibition/${"audrey"}`, config).then((response) => {
+    
+    axios.get(`http://localhost:8080/api/customerExhibition/list/exhibition/${username}`, config).then((response) => {
       console.log(response.data)
       setregistrations([])
       var list = []
