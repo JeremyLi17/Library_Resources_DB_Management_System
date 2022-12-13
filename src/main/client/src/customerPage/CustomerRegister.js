@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Routes, Route, useNavigate} from 'react-router-dom';
-import './Login.css';
-import Employee from './employeePage/EmployeeDashboard'
+import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom';
+import './CustomerRegister.css';
 import {useState} from 'react';
-import userRequest from './request/user-request';
+// import userRequest from './request/user-request';
 import axios from 'axios';
 
+function Error() {
+    console.log('here2');
+    return <h2 className="wrong_pwd">{sessionStorage.getItem('err')}</h2>;
+}
+
 export default function CustomerRegister() {
+
+    const navigate = useNavigate();
     
     const [firstName, setFirstName] = useState();
     const [middleName, setMiddleName] = useState();
@@ -16,6 +22,8 @@ export default function CustomerRegister() {
     const [phoneNumber, setPhoneNumber] = useState();
     const [idType, setIdType] = useState();
     const [idNumber, setIdNumber] = useState();
+    const [username, setUsername] = useState();
+    const [pwd, setPwd] = useState();
 
     const handleChangeFirstName = event => {
         setFirstName(event.target.value);
@@ -34,7 +42,9 @@ export default function CustomerRegister() {
     }
 
     const handleChangePhoneNumber = event => {
-        setPhoneNumber(event.target.value);
+        if (!isNaN(event.target.value)) {
+            setPhoneNumber(event.target.value);
+        }
     }
 
     const handleChangeIdType = event => {
@@ -45,129 +55,193 @@ export default function CustomerRegister() {
         setIdNumber(event.target.value);
     }
 
-    const handleUpdate = (e) => {
-        const data = {
+    const handleChangeUsername = event => {
+        setUsername(event.target.value);
+    }
+
+    const handleChangePwd = event => {
+        setPwd(event.target.value);
+    }
+
+    const navigateToCustomerDashboard = () => {
+        navigate('/customer/*', {replace: true});
+    }
+
+    const registerRequest = async (e) => {
+        e.preventDefault();
+
+        sessionStorage.setItem('reg_pressed', true);
+
+        setFirstName(e.target.value);
+        setLastName(e.target.value);
+        setFirstName(e.target.value);
+        setEmail(e.target.value);
+        setPwd(e.target.value);
+        setUsername(e.target.value);
+        setPhoneNumber(e.target.value);
+        setIdType(e.target.value);
+        setIdNumber(e.target.value);
+
+        const registration = {
             firstName,
             middleName,
             lastName,
             email,
             phoneNo: phoneNumber,
             idType,
-            idNo: idNumber
+            idNo: idNumber,
+            username,
+            password: pwd
         }
+
+        console.log('here');
+        const res = await axios.post(
+            "http://localhost:8080/api/customer/register",
+            registration
+        ).then((res) => {
+            console.log('success');
+            localStorage.setItem("token", res.headers["jwt-token"]);
+            localStorage.setItem("currentUser", res.data);
+            sessionStorage.removeItem('err');
+            navigateToCustomerDashboard();
+        }).catch((e) => {
+            console.log(e.response.data['message']);
+            sessionStorage.setItem('err', e.response.data['message']);
+            // sessionStorage.setItem('reg_pressed', true);
+        })
+
+        console.log('here3');
     }
 
+    // if (sessionStorage.getItem('reg_pressed') === null) {
+    //     sessionStorage.removeItem('err');
+    // }
+
     return (
-        <div className='Employee'>
-            <div className='Home_Bar'>
-                <Emp_profile/>
-                <Signout/>
-            </div>
-            <div className='Home_Customer'>
-                <div className='Home_Customer_Detail'>
-                    <form className='Home_Customer_Detail_List'>
-                        <div className='Customer_First_Name'>
-                            Customer First Name:
-                            <input
-                            type="text"
-                            name="first_name"
-                            value={firstName}
-                            onChange={handleChangeFirstName}/>
-                        </div>
-                        <div className='Customer_Middle_Name'>
-                            Customer Middle Name:
-                            <input
-                            type="text"
-                            name="middle_name"
-                            value={middleName}
-                            onChange={handleChangeMiddleName}/>
-                        </div>
-                        <div className='Customer_Last_Name'>
-                            Customer Last Name:
-                            <input
-                            type="text"
-                            name="last_name"
-                            value={lastName}
-                            onChange={handleChangeLastName}/>
-                        </div>
-                        <div className='Customer_Email'>
-                            Customer Email:
-                            <input
-                            type="text"
-                            name="email"
-                            value={email}
-                            onChange={handleChangeEmail}/>
-                        </div>
-                        <div className='Customer_Phone_Number'>
-                            Customer Mobile Phone:
-                            <input
-                            type="text"
-                            name="phone"
-                            value={phoneNumber}
-                            onChange={handleChangePhoneNumber}/>
-                        </div>
-                        <div className='Customer_Id_Type'>
-                            Customer ID:
-                            <input
-                            type="text"
-                            name="id"
-                            value={idType}
-                            onChange={handleChangeIdType}/>
-                        </div>
-                        <div className='Customer_Id_Number'>
-                            Customer ID Number:
-                            <input
-                            type="text"
-                            name="id_number"
-                            value={idNumber}
-                            onChange={handleChangeIdNumber}/>
-                        </div>
-                        <div className='Customer_Others'>
-                            <button onClick={handleUpdate}>
-                                Sign Up
-                            </button>
-                        </div>
-                    </form>
+        <div className="Form-Page">
+            <header className="Sign_in_Title">
+                <h1>
+                    Sign Up for Customer
+                </h1>
+            </header>
+            <form className='Input'>
+                <div className="InputBox">
+                    <div>
+                        <label>First Name</label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="firstName"
+                    placeholder= "Michael"
+                    className="InputBox"
+                    value={firstName}
+                    onChange={handleChangeFirstName}/>
+
+                    <div>
+                        <label>Middle Name</label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="middleName"
+                    placeholder= "Leave Blank If N/A"
+                    className="InputBox"
+                    value={middleName}
+                    onChange={handleChangeMiddleName}/>
+
+                    <div>
+                        <label>Last Name</label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="lastName"
+                    placeholder= "Jorden"
+                    className="InputBox"
+                    value={lastName}
+                    onChange={handleChangeLastName}/>
+
+                    <div>
+                        <label>Email Address</label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="email"
+                    placeholder= "email"
+                    className="InputBox"
+                    value={email}
+                    onChange={handleChangeEmail}/>
+
+                    <div>
+                        <label>Phone Number</label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="phoneNumber"
+                    placeholder= "(123)456-7890"
+                    className="InputBox"
+                    value={phoneNumber}
+                    onChange={handleChangePhoneNumber}/>
+
+                    <div>
+                        <label>ID Type</label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="idType"
+                    placeholder= "Ex. Passport"
+                    className="InputBox"
+                    value={idType}
+                    onChange={handleChangeIdType}/>
+
+                    <div>
+                        <label>ID No.</label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="idNo"
+                    placeholder= "Ex. Passport No."
+                    className="InputBox"
+                    value={idNumber}
+                    onChange={handleChangeIdNumber}/>
+
+                    <div>
+                        <label> Username </label>
+                    </div>
+
+                    <input
+                    type="text"
+                    name="username"
+                    placeholder= "Username"
+                    className="InputBox"
+                    value={username}
+                    onChange={handleChangeUsername}/>
+
+                    <div>
+                        <label> Password </label>
+                    </div>
+
+                    <input
+                    type="password"
+                    name="pwd"
+                    placeholder="Password"
+                    className="InputBox"
+                    value={pwd}
+                    onChange={handleChangePwd}/>
+
+                    <div>
+                        <button onClick={registerRequest}>
+                            Register
+                        </button>
+                    </div>
+                    <h2 className="wrong_pwd">{sessionStorage.getItem('err')}</h2>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }
-
-function Emp_profile() {
-
-    return (<div className='Home_LeftBar'>
-              <div className='Home_LeftBar_Emp_Detail'>
-                <div className='Home_LeftBar_Emp_Detail_Name_Email'>
-                  <div className='Home_LeftBar_Emp_Detail_Name'>
-                    <span className='Home_LeftBar_Emp_Detail_Name_Span'>
-                      {emp_first_name} {emp_last_name}
-                    </span>
-                  </div>
-                  <div className='Home_LeftBar_Emp_Detail_Email'>
-                    <span className='Home_LeftBar_Emp_Detail_Email_Span'>
-                      kxiao855@gmail.com
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>);
-  }
-  
-  function Signout() {
-  
-    const navigate = useNavigate();
-  
-    const navigateToLogIn = () => {
-      navigate('/', {replace: true});
-    }
-  
-    return (<form className='Home_RightBar'>
-                <button className='Home_RightBar_Emp_Detail'
-                        onClick={navigateToLogIn}>
-                <div className='Home_RightBar_Emp_Detail_SignOut'>
-                    Sign Out
-                </div>
-                </button>
-            </form>);
-  }

@@ -6,6 +6,7 @@ import EmployeeReservation from './employeePage/EmployeeReservation'
 import {BrowserRouter as Router} from 'react-router-dom';
 import {Routes, Route} from 'react-router-dom';
 
+import CustomerRegister from './customerPage/CustomerRegister';
 import Customerdashboard from './customerPage/Customerdashboard';
 import Customerstudyroom from './customerPage/customerstudyroom';
 import Newreservation from './customerPage/Newreservation';
@@ -26,6 +27,7 @@ root.render(
   <Router>
     <Routes>
       <Route path = "/*" element={<Login />}/>
+      <Route path = "/customerRegister/*" element={<CustomerRegister/>}/>
       <Route path = "/employee/*" element={<EmployeeDashboard />}/>
       <Route path = "/employee/reservation/*" element={<EmployeeReservation/>}/>
       <Route path = "/customer/*" element = {<Customerdashboard/>}/>
