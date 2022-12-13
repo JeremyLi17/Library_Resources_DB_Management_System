@@ -1,6 +1,7 @@
 package com.realdb.finalproject.entity.payment;
 
 import com.realdb.finalproject.domain.HttpResponse;
+import com.realdb.finalproject.exception.domain.InvoiceNotFoundException;
 import com.realdb.finalproject.exception.domain.PaymentNotFoundException;
 import com.realdb.finalproject.utility.BuildResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,9 @@ public class PaymentController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Payment> addPayment(@RequestBody Payment payment) {
-        paymentService.makePayment(payment.getPaymentAmount(), payment.getMethod(), payment.getCardHolderFullName());
+    public ResponseEntity<Payment> addPayment(@RequestBody Payment payment) throws InvoiceNotFoundException {
+        paymentService.makePayment(payment.getPaymentAmount(), payment.getMethod(),
+                payment.getCardHolderFullName(), payment.getInvoice().getId());
         return new ResponseEntity<>(payment, CREATED);
     }
 
