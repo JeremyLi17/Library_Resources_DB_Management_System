@@ -37,6 +37,7 @@ function Managerental() {
 
 
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

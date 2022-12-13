@@ -173,7 +173,9 @@ export default function EmployeeDashboard() {
     // setUploadResponse("");
 
     const res = await axios.put(
-      "http://localhost:8080/api/customer/update?currentUsername=" + targetUsername,
+      "http://localhost:8080/api/customer/update?currentUsername=" + targetUsername + "&newUsername=" + username
+      + "&newFirstName=" + firstName + "&newLastName=" + lastName + "&newEmail=" + email + "&newIdType=" + idType 
+      + "&newIdNo=" + idNumber + "&newPhoneNo=" + phoneNumber + "&newMiddleName=" + middleName,
       upload,
       config
     ).then((res) => {

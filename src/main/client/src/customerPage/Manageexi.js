@@ -9,6 +9,7 @@ function Manageexi() {
   const [registrations, setregistrations] = useState([]);
   const [cancelid, setcancelid] = useState();
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

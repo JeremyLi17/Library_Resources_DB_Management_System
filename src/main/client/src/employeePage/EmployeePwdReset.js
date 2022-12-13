@@ -42,6 +42,7 @@ export default function EmployeePwdReset() {
     }
 
     const navigateToLogIn = event => {
+        localStorage.clear();
         navigate('/', {replace: true});
     }
 

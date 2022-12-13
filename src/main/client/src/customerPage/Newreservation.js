@@ -12,6 +12,7 @@ function Newreservation() {
   const now = moment().format('YYYY-MM-DD');  
 
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

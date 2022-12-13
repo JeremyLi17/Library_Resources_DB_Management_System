@@ -14,6 +14,7 @@ function Customerdashboard() {
     navigate('/customer/exibition/*');
   }
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   return (

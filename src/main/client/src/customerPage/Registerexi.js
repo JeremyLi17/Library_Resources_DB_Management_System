@@ -11,6 +11,7 @@ function Registerexi() {
   const [exhibitionid, setregiexibition] = useState();
   const [exhibitions, setexibitions] = useState([]);
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

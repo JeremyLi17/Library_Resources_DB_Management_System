@@ -2,7 +2,6 @@ import './Managereservation.css';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 
 
 const Managereservation = () => {
@@ -38,6 +37,7 @@ const Managereservation = () => {
   }, [])
 
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

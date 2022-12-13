@@ -12,6 +12,7 @@ function customerstudyroom() {
         navigate('/customer/studyroom/manage/*');
     }
     const navigatetologin = () =>{
+        localStorage.clear();
         navigate('/*');
     }
     const navigatetohome = () =>{
