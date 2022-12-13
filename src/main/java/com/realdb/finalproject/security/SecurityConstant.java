@@ -27,6 +27,7 @@ public class SecurityConstant {
             "/api/customer/list",
             "/api/customer/find/**",
             "/api/customer/delete",
+            "/api/customer/unlock/**",
             // employee
             "/api/employee/**",
             // author

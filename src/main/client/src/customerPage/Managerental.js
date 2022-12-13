@@ -1,11 +1,40 @@
 import './Managerental.css';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 // import TextField from '@material-ui/core/TextField';
-
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Managerental() {
   const navigate = useNavigate();
   const [returnid, setreturnid] = useState();
+  const [rentals, setrentals] = useState([]);
+  
+
+  const getAllres = () => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+    const customerId = Number(localStorage.getItem("currentCustomerId"));
+  
+    axios.get(`http://localhost:8080/api/rental/list/${customerId}`, config).then((response) => {
+      setrentals([])
+      var list = []
+      for (var obj in response.data) {
+        // reservations.push(response.data[obj])
+        list.push(response.data[obj])
+      }
+      console.log("here")
+      setrentals(list)
+  }).catch((e) => {
+    console.log(e);
+  })
+  }
+  useEffect(() => {
+    getAllres();
+  }, [])
+
 
   const navigatetologin = () =>{
     localStorage.clear();
@@ -17,9 +46,21 @@ function Managerental() {
   const navigatetoback = () =>{
     navigate('/customer/book/*');
   }
-  const doreturn = event => {
+  const doreturn  = async(event)=> {
     //need to submitted to backend
+    const url = `http://localhost:8080/api/rental/delete/${returnid}`
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+    await axios.delete(url, config)
+    navigate('/customer/book/*');
     
+    
+  }
+  const directtopayment = () =>{
+    navigate('/customer/book/rent/payment/*');
   }
 
     return (
@@ -40,6 +81,19 @@ function Managerental() {
 
         </form>
 
+        <ul>
+        {rentals.map((rental) => {
+        return (
+          <li key={rental.id}>
+            Rental id :{rental.id}, 
+            Rental Status:{rental.status}, 
+            Book name:{rental.copy.book.bookName},
+            Expectend return date:{rental.expReturnDate}
+          </li>
+        );
+         })}
+        </ul>
+
         
         <form>
           <div>
@@ -52,6 +106,10 @@ function Managerental() {
           </div>
           
         </form>
+
+        <div>
+          <button onClick = {directtopayment}>pay</button>
+        </div>
        
 
       </div>

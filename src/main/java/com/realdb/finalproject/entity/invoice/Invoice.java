@@ -1,5 +1,6 @@
 package com.realdb.finalproject.entity.invoice;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.entity.Rental.Rental;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Invoice {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "RENTAL_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Rental rental;
 
     @Column(name = "AMOUNT", nullable = false, precision = 15, scale = 2)

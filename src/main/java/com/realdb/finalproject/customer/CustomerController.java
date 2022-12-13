@@ -2,12 +2,14 @@ package com.realdb.finalproject.customer;
 
 import com.realdb.finalproject.domain.HttpResponse;
 import com.realdb.finalproject.domain.UserPrincipal;
+import com.realdb.finalproject.exception.domain.CustomerNotFoundException;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.utility.EmailService;
 import com.realdb.finalproject.utility.JWTProvider;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -31,6 +33,7 @@ import static org.springframework.http.HttpStatus.*;
 public class CustomerController {
 
     public static final String CUSTOMER_DELETED_SUCCESSFULLY = "Customer deleted successfully";
+    public static final String UNLOCK_USER_SUCCESSFULLY = "Unlock User Successfully";
 
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
@@ -97,7 +100,7 @@ public class CustomerController {
     public ResponseEntity<Customer> resetPassword(@RequestBody Customer customer) throws MessagingException {
         Customer updateCustomer = customerService.resetPassword(customer.getUsername(),
                 customer.getPassword());
-        emailService.sendNewPasswordEmail(updateCustomer.getUsername(), updateCustomer.getPassword(), updateCustomer.getEmail());
+//        emailService.sendNewPasswordEmail(updateCustomer.getUsername(), updateCustomer.getPassword(), updateCustomer.getEmail());
         return new ResponseEntity<>(updateCustomer, ACCEPTED);
     }
 
@@ -123,6 +126,13 @@ public class CustomerController {
     public ResponseEntity<HttpResponse> deleteCustomerById(@RequestParam("id") Integer id) {
         customerService.deleteCustomer(id);
         return response(NO_CONTENT, CUSTOMER_DELETED_SUCCESSFULLY);
+    }
+
+    @PostMapping("/unlock/{username}")
+    public ResponseEntity<HttpResponse> unlockUser(@PathVariable("username") String username)
+            throws CustomerNotFoundException {
+        customerService.unlockUser(username);
+        return response(ACCEPTED, UNLOCK_USER_SUCCESSFULLY);
     }
 
     private ResponseEntity<HttpResponse> response(HttpStatus status, String message) {

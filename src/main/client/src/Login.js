@@ -18,9 +18,9 @@ export default function Login() {
         setPwd(e.target.value);
         
         const data = {
-            username,
+            username: username,
             password: pwd
-        }
+        };
         
         const res = await axios.post(
             "http://localhost:8080/api/customer/login",
@@ -60,7 +60,7 @@ export default function Login() {
         console.log(username);
         console.log(pwd);
         const data = {
-            username,
+            username: username,
             password: pwd
         }
         

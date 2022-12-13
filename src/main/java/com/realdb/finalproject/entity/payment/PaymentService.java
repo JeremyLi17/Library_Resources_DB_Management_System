@@ -1,5 +1,8 @@
 package com.realdb.finalproject.entity.payment;
 
+import com.realdb.finalproject.entity.invoice.Invoice;
+import com.realdb.finalproject.entity.invoice.InvoiceRepo;
+import com.realdb.finalproject.exception.domain.InvoiceNotFoundException;
 import com.realdb.finalproject.exception.domain.PaymentNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +20,27 @@ import java.util.Optional;
 @Service
 public class PaymentService {
     private final PaymentRepo paymentRepo;
+    private final InvoiceRepo invoiceRepo;
 
     @Autowired
-    public PaymentService(PaymentRepo paymentRepo) {
+    public PaymentService(PaymentRepo paymentRepo, InvoiceRepo invoiceRepo) {
         this.paymentRepo = paymentRepo;
+        this.invoiceRepo = invoiceRepo;
     }
 
-    public void makePayment(BigDecimal amount, String method, String fullName) {
+    public void makePayment(BigDecimal amount, String method, String fullName, Long id)
+            throws InvoiceNotFoundException {
+        Optional<Invoice> invoiceOpt = invoiceRepo.findById(id);
+        if (invoiceOpt.isEmpty()) {
+            throw new InvoiceNotFoundException("Invoice with id:" + id + " not found");
+        }
+
         Payment payment = new Payment();
         payment.setPaymentDate(LocalDate.now());
         payment.setPaymentAmount(amount);
         payment.setMethod(method);
         payment.setCardHolderFullName(fullName);
+        payment.setInvoice(invoiceOpt.get());
         paymentRepo.save(payment);
     }
 
@@ -67,5 +79,9 @@ public class PaymentService {
             payment.setPaymentDate(newDate);
         }
         paymentRepo.save(payment);
+    }
+
+    public BigDecimal getTotalPaymentById(Integer id) {
+        return paymentRepo.getTotalPaymentById(id);
     }
 }

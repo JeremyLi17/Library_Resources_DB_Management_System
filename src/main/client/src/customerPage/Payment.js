@@ -1,37 +1,69 @@
 import { useNavigate } from 'react-router';
 import './Payment.css';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import moment from 'moment';
+import axios from 'axios';
 import userRequest from "../request/user-request"
-
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Payment(){
-    const [cashamount, setcashamount] = useState();
-    const [cashname, setcashname] = useState();
+    const now = moment().format('YYYY-MM-DD');  
+    const [invoices, setinvoices] = useState([]);
+    const [cardholdername,setcardholdername] = useState();
+    const [paymenttype, setpaymenttype] = useState();
+    const [amount,setpaymentamount] = useState();
+    const [invoiceid,setinvoiceid] = useState();
 
-    const [creditcardamount, setcreditcardamount] = useState();
-    const [creditcardname, setcreditcardname] = useState();
+    const config = {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      }
 
-    const [debitcardamount, setdebitcardamount] = useState();
-    const [debitcardname, setdebitcardname] = useState();
-
-    const [paypalamount, setpaypalamount] = useState();
-    const [paypalname, setpaypalname] = useState();
-
-
-
-    // const submitcashamount = event => {
+    const getAllres = () => {
         
-    // }
-    // const submitcreditcardamount = event => {
-        
-    // }
-    // const submitdebitcardamount = event => {
-        
-    
-    // const submitpaypalamount = event => {
-        
-    // }
-    const submit = event => {
-        
+        const customerId = Number(localStorage.getItem("currentCustomerId"));
+      
+        axios.get(`http://localhost:8080/api/invoice/list/${customerId}`, config).then((response) => {
+          setinvoices([])
+          var list = []
+          for (var obj in response.data) {
+            // reservations.push(response.data[obj])
+            list.push(response.data[obj])
+          }
+          console.log("here")
+          setinvoices(list)
+      }).catch((e) => {
+        console.log(e);
+      })
+    }
+    useEffect(() => {
+        getAllres();
+    }, [])
+
+
+    const dopay = async (event) => {
+        console.log("pay")
+        event.preventDefault();
+        const paymethod = document.getElementById("method").value;
+        const url = `http://localhost:8080/api/payment/add`
+        await axios.post(url, 
+            {
+                "invoice": {
+                    "id":invoiceid
+                },
+              "paymentAmount":amount,
+              "method": paymethod,
+              "cardHolderFullName":cardholdername
+              
+            },
+            config).then(
+            (res) => {
+              const result = res.data;
+              console.log("success");
+            }
+          ).catch(async (error) => {
+            console.log(error);    
+          })
     }
 
     return(
@@ -40,46 +72,40 @@ function Payment(){
             <h1>Payment</h1>
             </header>
 
+
+            <ul>
+            {invoices.map((invoice) => {
+
+            
+            return (
+            <li key={invoice.id}>
+                rental id: {invoice.id}
+                total amount:{invoice.amount}
+            
+                {/* money paid: {getpayments} */}
+            </li>
+            );
+            })}
+            </ul>
+
+
             <div>
-                <label>
+                {/* <label>
                     total amount : {totalamount}
-                </label>
-
-                <form className='Pay'>
-                <label>
-                    Cash:
-                </label>
-                <input type="text" id="myPaymemt" placeholder="type amount.." value = {cashamount} onChange={(e) => setcashamount(e.target.value)}></input>
-                <input type="text" id="myPaymemt" placeholder="type name.." value = {cashname} onChange={(e) => setcashname(e.target.value)}></input>
-                {/* <button onClick = {submitcashamount} type="submit"><i class="fa fa-search">confirm</i></button> */}
-
-                <label>
-                    Credit card amount:
-                </label>
-                <input type="text" id="myPaymemt" placeholder="type amount.." value = {creditcardamount} onChange={(e) => setcreditcardamount(e.target.value)}></input>
-                <input type="text" id="myPaymemt" placeholder="type name.." value = {creditcardname} onChange={(e) => setcreditcardname(e.target.value)}></input>
-                {/* <button onClick = {submitcreditcardamount} type="submit"><i class="fa fa-search">confirm</i></button> */}
-
-                <label>
-                    debit card amount:
-                </label>
-                <input type="text" id="myPaymemt" placeholder="type amount.." value = {debitcardamount} onChange={(e) => setdebitcardamount(e.target.value)}></input>
-                <input type="text" id="myPaymemt" placeholder="type name.." value = {debitcardname} onChange={(e) => setdebitcardname(e.target.value)}></input>
-                {/* <button onClick = {submitdebitcardamount} type="submit"><i class="fa fa-search">confirm</i></button> */}
-
-                <label>
-                    paypal amount:
-                </label>
-                <input type="text" id="myPaymemt" placeholder="type amount.." value = {paypalamount} onChange={(e) => setpaypalamount(e.target.value)}></input>
-                <input type="text" id="myPaymemt" placeholder="type name.." value = {paypalname} onChange={(e) => setpaypalname(e.target.value)}></input>
-                {/* <button onClick = {submitpaypalamount} type="submit"><i class="fa fa-search">confirm</i></button> */}
-
-
-                <button onClick = {submit} type="submit"><i class="fa fa-search">Place order</i></button>
-
-                </form>
-                
-
+                </label> */}
+                <select name="method" id="method" > 
+                <option value="cash">cash</option>
+                <option value="creditcard">credit card</option>
+                <option value="debitcard">debit card</option>
+                <option value="paypal">pay pal</option>
+                onChange={(e) => setpaymenttype(e.target.value)}
+                </select>
+                <input type="number" id="myInput" placeholder="invoice id.." value = {invoiceid} onChange={(e) => setinvoiceid(e.target.value)}></input>
+                <input type="number" id="myInput" placeholder="type amount.." value = {amount} onChange={(e) => setpaymentamount(e.target.value)}></input>
+                <input type="text" id="myInput" placeholder="card holder name" value = {cardholdername} onChange={(e) => setcardholdername(e.target.value)}></input>
+            <div>
+            <button onClick={dopay}>pay</button>
+            </div>
             </div>
         </div>
 
