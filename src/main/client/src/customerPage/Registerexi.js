@@ -9,6 +9,7 @@ function Registerexi() {
   const [targetexibition, settargetexibition] = useState();
   const [exibitionid, setregiexibition] = useState();
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

@@ -42,6 +42,7 @@ export default function EmployeeRegister() {
     }
 
     const navigateToLogIn = event => {
+        localStorage.clear();
         navigate('/', {replace: true});
     }
 

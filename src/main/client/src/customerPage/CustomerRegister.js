@@ -69,6 +69,7 @@ export default function CustomerRegister() {
     }
 
     const navigateToLogIn = () => {
+        localStorage.clear();
         navigate('/', {replace: true});
     }
 

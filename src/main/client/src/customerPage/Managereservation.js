@@ -6,6 +6,7 @@ function Managereservation() {
   const navigate = useNavigate();
   const [reserveid, setcancelreserve] = useState();
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

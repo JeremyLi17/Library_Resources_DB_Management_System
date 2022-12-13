@@ -9,6 +9,7 @@ function Newreservation() {
   const [date, setdate] = useState();
   const [studyroomid, setreservationid] = useState();
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

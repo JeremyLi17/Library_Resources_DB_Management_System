@@ -10,6 +10,7 @@ function Exibitionsystem() {
         navigate('/customer/exibition/manage/*');
     }
     const navigatetologin = () =>{
+        localStorage.clear();
         navigate('/*');
     }
     const navigatetohome = () =>{

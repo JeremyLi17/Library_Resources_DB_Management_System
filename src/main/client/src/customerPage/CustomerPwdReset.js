@@ -37,6 +37,7 @@ export default function CustomerPwdReset() {
     }
 
     const navigateToLogIn = event => {
+        localStorage.clear();
         navigate('/', {replace: true});
     }
 

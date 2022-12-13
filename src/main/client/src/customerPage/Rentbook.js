@@ -11,6 +11,7 @@ function Rentbook() {
   const [booknum,setbooknum] = useState();
   const [returndate, setreturndate] = useState();
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

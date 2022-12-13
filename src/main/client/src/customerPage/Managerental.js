@@ -8,6 +8,7 @@ function Managerental() {
   const [returnid, setreturnid] = useState();
 
   const navigatetologin = () =>{
+    localStorage.clear();
     navigate('/*');
   }
   const navigatetohome = () =>{

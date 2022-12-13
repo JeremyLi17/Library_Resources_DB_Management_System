@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import './Login.css';
-import Employee from './employeePage/EmployeeDashboard'
 import {useState} from 'react';
-import userRequest from './request/user-request';
 import axios from 'axios';
 
 export default function Login() {
@@ -49,12 +46,6 @@ export default function Login() {
 
     };
 
-    //     const res2 = await axios.get(
-    //         "http://localhost:8080/api/customer/list",
-    //     )
-
-    //     console.log(res2);
-
     const employeeLogInRequest = async (e) => {
         // 👇️ prevent page refresh
         e.preventDefault();
@@ -84,7 +75,6 @@ export default function Login() {
             localStorage.setItem("emp_email", res.data['email']);
             localStorage.setItem("emp_role", res.data['role']);
             
-            sessionStorage.removeItem('err');
             navigateToEmployeeDashboard();
         }).catch((e) => {
             setLogin_err(e.response.data['message']);
@@ -103,12 +93,10 @@ export default function Login() {
 
     const handleChangeUsername = event => {
         setUsername(event.target.value);
-        // console.log('username is:', event.target.value);
-      };
+    };
     
     const handleChangePwd = event => {
         setPwd(event.target.value);
-        // console.log('password is:', event.target.value);
     };
     
     const navigateToCustomerDashBoard = () => {
@@ -129,6 +117,14 @@ export default function Login() {
     const navigateToCustomerPwdReset = () => {
         
         navigate('/Customer-pwd-reset/*');
+    }
+
+    if (localStorage.getItem('token') !== null) {
+        if (localStorage.getItem("customer_username") === null) {
+            navigateToEmployeeDashboard();
+        } else {
+            navigateToCustomerDashBoard();
+        }
     }
 
     return (

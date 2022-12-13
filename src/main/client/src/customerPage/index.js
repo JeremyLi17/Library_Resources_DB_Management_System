@@ -35,8 +35,6 @@ root.render(
             <Route path = "/exibition/register/*" element = {<Registerexi/>}/>
             <Route path = "/exibition/manage/*" element = {<Manageexi/>}/>
             <Route path = "/book/rent/payment/*" element = {<Payment/>}/>
-
-            
         </Routes>
     </Router>
 
