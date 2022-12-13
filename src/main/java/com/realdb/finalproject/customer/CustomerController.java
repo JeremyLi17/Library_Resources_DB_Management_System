@@ -5,6 +5,7 @@ import com.realdb.finalproject.domain.UserPrincipal;
 import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
+import com.realdb.finalproject.utility.EmailService;
 import com.realdb.finalproject.utility.JWTProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Optional;
 import java.util.List;
 
@@ -33,15 +35,18 @@ public class CustomerController {
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
+    private final EmailService emailService;
 
     @Autowired
     public CustomerController(CustomerService customerService,
                               @Qualifier("authManagerForCustomer")
                                       AuthenticationManager authenticationManager,
-                              JWTProvider jwtProvider) {
+                              JWTProvider jwtProvider,
+                              EmailService emailService) {
         this.customerService = customerService;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
+        this.emailService = emailService;
     }
 
     @GetMapping(path ="/list")
@@ -89,9 +94,10 @@ public class CustomerController {
     }
 
     @PostMapping("/resetpassword")
-    public ResponseEntity<Customer> resetPassword(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> resetPassword(@RequestBody Customer customer) throws MessagingException {
         Customer updateCustomer = customerService.resetPassword(customer.getUsername(),
                 customer.getPassword());
+        emailService.sendNewPasswordEmail(updateCustomer.getUsername(), updateCustomer.getPassword(), updateCustomer.getEmail());
         return new ResponseEntity<>(updateCustomer, ACCEPTED);
     }
 

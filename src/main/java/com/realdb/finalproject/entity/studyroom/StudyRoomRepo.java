@@ -12,5 +12,5 @@ public interface StudyRoomRepo extends JpaRepository <StudyRoom, Integer>{
             "WHERE s.id NOT IN " +
             "(SELECT r.studyRoom.id FROM Reservation r " +
             "WHERE r.date = ?1 AND r.timeslot = ?2)")
-    List<StudyRoom> findAvailableRoomByDate(LocalDate date, Integer timeslot);
+    List<StudyRoom> findAvailableRoomByDate(LocalDate date, String timeslot);
 }
