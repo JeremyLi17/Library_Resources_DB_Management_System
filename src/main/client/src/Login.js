@@ -33,11 +33,12 @@ export default function Login() {
             console.log('success');
             localStorage.setItem("token", res.headers["jwt-token"]);
             localStorage.setItem("currentUser", res.data);
+            sessionStorage.removeItem('err');
             navigateToCustomerDashBoard();
         }).catch((e) => {
-            console.log(e.response.data['message']);
-            sessionStorage.setItem('err', res.response.data['message'])
-            navigateToPwd_error();
+            // console.log(e.response.data['message']);
+            sessionStorage.setItem('err', e.response.data['message'])
+            navigateToError();
         })
 
     };
@@ -51,6 +52,8 @@ export default function Login() {
     const employeeLogInRequest = async (e) => {
         // 👇️ prevent page refresh
         e.preventDefault();
+
+        sessionStorage.setItem('emp_pressed', true);
 
         setUsername(e.target.value);
         setPwd(e.target.value);
@@ -69,16 +72,21 @@ export default function Login() {
             console.log('success');
             localStorage.setItem("token", res.headers["jwt-token"]);
             localStorage.setItem("currentUser", res.data);
+            sessionStorage.removeItem('err');
             navigateToEmployeeDashboard();
         }).catch((e) => {
             console.log(e.response.data['message']);
-            sessionStorage.setItem('err', res.response.data['message'])
-            navigateToPwd_error();
+            sessionStorage.setItem('err', e.response.data['message'])
+            navigateToError();
         })
     };
 
     const navigateToCustomerRegistration = () => {
-        navigate('/customer-register/*')
+        navigate('/customerRegister/*')
+    }
+
+    const navigateToEmployeeRegistration = () => {
+        navigate('/employeeRegister/*')
     }
 
     const handleChangeUsername = event => {
@@ -90,10 +98,6 @@ export default function Login() {
         setPwd(event.target.value);
         console.log('password is:', event.target.value);
     };
-
-    const navigateToPwd_error = () => {
-        navigate('/wrong_pwd/*', {replace: true});
-    }
     
     const navigateToCustomerDashBoard = () => {
         navigate('/customer/*');
@@ -146,28 +150,14 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <button onClick={registerForCustomer}>Register for Customer</button>
-                        <button onClick={registerForEmployee}>Register for Employee</button>
+                        <button onClick={navigateToCustomerRegistration}>Register for Customer</button>
+                        <button onClick={navigateToEmployeeRegistration}>Register for Employee</button>
                     </div>
 
-                    <Routes>
-                        <Route path="/wrong_pwd/*" element={<Pwd_error />} />
-                    </Routes>
+                    <h1 className="wrong_pwd">{sessionStorage.getItem('err')}</h1>
 
                 </div>
             </form>
         </div>
     )
-}
-
-function Employee_DashBoard() {
-    return <Employee />;
-}
-
-function Pwd_error() {
-    return <h2 className="wrong_pwd">{sessionStorage.getItem('err')}</h2>;
-}
-
-function Home() {
-    return <h2></h2>;
 }
