@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {Routes, Route, useNavigate} from 'react-router-dom';
-import '../layout_attributes/Login.css';
-import Employee from './Employee'
+import './Login.css';
+import Employee from './employeePage/EmployeeDashboard'
 import {useState} from 'react';
-import userRequest from '../request/user-request';
+import userRequest from './request/user-request';
 import axios from 'axios';
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
@@ -29,45 +29,24 @@ export default function Login() {
         const res = await axios.post(
             "http://localhost:8080/api/customer/login",
             data
-        )
-
-        if (res.status === 200) {
+        ).then((res)=> {
+            console.log('success');
             localStorage.setItem("token", res.headers["jwt-token"]);
-            // TODO: Add customer navigation
-        }
+            localStorage.setItem("currentUser", res.data);
+            navigateToCustomerDashBoard();
+        }).catch((e) => {
+            console.log(e.response.data['message']);
+            sessionStorage.setItem('err', res.response.data['message'])
+            navigateToPwd_error();
+        })
 
     };
-
-    // const onclick = async (e) => {
-    //     e.preventDefault();
-        
-    //     const data = {
-    //         username: '1210test',
-    //         password: 'password'
-    //     }
-
-    //     const res = await axios.post(
-    //         "http://localhost:8080/api/customer/login",
-    //         data
-    //     )
-
-
-    //     console.log(res);
-    //     localStorage.setItem("token", res.headers["jwt-token"]);
-    //     // console.log(localStorage.getItem("token"));
-
-    //     // const config = {
-    //     //     headers: {
-    //     //         "Authorization": `Bearer ${localStorage.getItem("token")}`
-    //     //     }
-    //     // };
 
     //     const res2 = await axios.get(
     //         "http://localhost:8080/api/customer/list",
     //     )
 
     //     console.log(res2);
-    // }
 
     const employeeLogInRequest = async (e) => {
         // 👇️ prevent page refresh
@@ -96,14 +75,11 @@ export default function Login() {
             sessionStorage.setItem('err', res.response.data['message'])
             navigateToPwd_error();
         })
-
-        
-        // if (res.status === 200) {
-        //     localStorage.setItem("token", res.headers["jwt-token"]);
-        //     localStorage.setItem("currentUser", res.data);
-        //     navigateToEmployeeDashboard();
-        // }
     };
+
+    const navigateToCustomerRegistration = () => {
+        navigate('/customer-register/*')
+    }
 
     const handleChangeUsername = event => {
         setUsername(event.target.value);
@@ -118,9 +94,13 @@ export default function Login() {
     const navigateToPwd_error = () => {
         navigate('/wrong_pwd/*', {replace: true});
     }
+    
+    const navigateToCustomerDashBoard = () => {
+        navigate('/customer/*');
+    }
 
     const navigateToEmployeeDashboard = () => {
-        navigate('/dashboard/*');
+        navigate('/employee/*');
     }
 
     return (
@@ -157,7 +137,7 @@ export default function Login() {
                     onChange={handleChangePwd}/>
 
                     <div>
-                        <button onClick={onclick}>Customer Sign in</button>
+                        <button onClick={customerLogInRequest}>Customer Sign in</button>
                         <button onClick={employeeLogInRequest}>Employee Sign in</button>
                     </div>
 
@@ -166,8 +146,8 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <button>Register for Customer</button>
-                        <button>Register for Employee</button>
+                        <button onClick={registerForCustomer}>Register for Customer</button>
+                        <button onClick={registerForEmployee}>Register for Employee</button>
                     </div>
 
                     <Routes>

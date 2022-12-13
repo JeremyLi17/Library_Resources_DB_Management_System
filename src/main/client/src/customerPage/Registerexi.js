@@ -12,10 +12,10 @@ function Registerexi() {
     navigate('/*');
   }
   const navigatetohome = () =>{
-    navigate('/*');
+    navigate('/customer/*');
   }
   const navigatetoback = () =>{
-    navigate('/exibition/*');
+    navigate('/customer/exibition/*');
   }
   const searchresult = event => {
     event.preventDefault;

@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router';
 function Exibitionsystem() {
     const navigate = useNavigate();
     const navigatetoregister = () =>{
-        navigate('/exibition/register/*');
+        navigate('/customer/exibition/register/*');
       }
     const navigatetomanagereg = () =>{
-        navigate('/exibition/manage/*');
+        navigate('/customer/exibition/manage/*');
     }
     const navigatetologin = () =>{
         navigate('/*');
     }
     const navigatetohome = () =>{
-        navigate('/*');
+        navigate('/customer/*');
     }
   return (
     <div className="Exibitionsystem">

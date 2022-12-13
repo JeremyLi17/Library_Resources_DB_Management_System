@@ -4,16 +4,16 @@ import './customerstudyroom.css';
 function customerstudyroom() {
     const navigate = useNavigate();
     const navigatetoreservation = () =>{
-        navigate('/studyroom/reserve/*');
+        navigate('/customer/studyroom/reserve/*');
       }
     const navigatetomanagere = () =>{
-        navigate('/studyroom/manage/*');
+        navigate('/customer/studyroom/manage/*');
     }
     const navigatetologin = () =>{
         navigate('/*');
     }
     const navigatetohome = () =>{
-        navigate('/*');
+        navigate('/customer/*');
     }
   return (
     <div className="customerstudyroom">

@@ -4,16 +4,16 @@ import './Bookrentalsystem.css';
 function BookrentalSystem() {
     const navigate = useNavigate();
     const navigatetorental = () =>{
-        navigate('/book/rent/*');
+        navigate('/customer/book/rent/*');
       }
     const navigatetomanage = () =>{
-        navigate('/book/manage/*');
+        navigate('/customer/book/manage/*');
     }
     const navigatetologin = () =>{
         navigate('/*');
     }
     const navigatetohome = () =>{
-        navigate('/*');
+        navigate('/customer/*');
     }
 
   return (

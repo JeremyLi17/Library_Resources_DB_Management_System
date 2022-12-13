@@ -1,4 +1,4 @@
-import '../layout_attributes/Employee.css';
+import '../employeePageAttribute/EmployeeDashboard.css';
 import {useState} from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
@@ -6,7 +6,7 @@ const emp_first_name = "Michael"
 const emp_middle_name = "Kun"
 const emp_last_name = "Xiao"
 
-export default function Employee() {
+export default function EmployeeDashboard() {
 
   const navigate = useNavigate();
 
