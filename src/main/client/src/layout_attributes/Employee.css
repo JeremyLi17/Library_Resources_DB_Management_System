@@ -23,74 +23,7 @@
   width: 100%;
   height: 500px;
   display: flex;
-  /* z-index: 4; */
   justify-content: space-between;
-  box-sizing: border-box;
-}
-
-.Home_Reservation {
-  position: relative;
-  top: 48px;
-  min-width: 100%;
-  height: 800px;
-  /* display: flex; */
-
-  /* z-index: 4; */
-  justify-content: space-between;
-  box-sizing: border-box;
-}
-
-.Home_Reservation_List {
-  position: relative;
-  /* top: 10px; */
-  /* left: 5%; */
-  min-width: 100%;
-  height: 100px;
-  /* display: flex; */
-  /* y-index: 4; */
-  /* justify-content: space-between; */
-  box-sizing: border-box;
-}
-
-.Home_Reservation_Info {
-  position: relative;
-  /* top: 10px; */
-  left: 2%;
-  width: 96%;
-  height: 100px;
-  /* display: flex; */
-  /* y-index: 4; */
-  /* justify-content: space-between; */
-  box-sizing: border-box;
-}
-
-.Home_Reservation_Info_Line {
-  position: relative;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  /* y-index: 4; */
-  /* justify-content: space-between; */
-  box-sizing: border-box;
-}
-
-.Home_Reservation_Info_Block {
-  position: relative;
-  top: 5px;
-  width: 100%;
-  height: 40px;
-  /* display: flex; */
-  /* y-index: 4; */
-  /* justify-content: space-between; */
-  box-sizing: border-box;
-}
-
-.Home_Reservation_Info_Text {
-  position: relative;
-  top: 5px;
-  width: 100%;
-  height: 30px;
-  font-size: 25px;
   box-sizing: border-box;
 }
 
@@ -99,9 +32,6 @@
   top: 0px;
   width: 100%;
   height: 500px;
-  /* display: flex; */
-
-  /* z-index: 4; */
   justify-content: space-between;
   box-sizing: border-box;
 }
@@ -111,7 +41,6 @@
   left: 5%;
   top: 10px;
   width: 90%;
-  /* display: flex; */
   height: 480px;
 }
 
@@ -120,18 +49,13 @@
   left: 5%;
   top: 10px;
   width: 90%;
-  /* display: flex; */
-  /* justify-content: space-between; */
   height: 150px;
 }
 
 .Home_Customer_Detail_Input_Frame {
   position: relative;
-  /* left: 5%; */
   top: 10px;
   width: 100%;
-  /* display: flex; */
-  /* justify-content: space-between; */
   height: 25px;
 }
 
@@ -140,7 +64,6 @@
   left: 5%;
   top: 0px;
   width: 90%;
-  /* justify-content: space-between; */
   height: 300px;
 }
 
@@ -229,7 +152,6 @@
   cursor: inherit;
   border-right-color: white;
   border-right-style: solid;
-  /* border-right: 1px; */
 }
 
 .Home_RightBar {
@@ -300,7 +222,6 @@
 .Home_LeftBar_Emp_Detail {
   position: relative;
   top: 8px;
-  /* bottom: 8px; */
   width: 241px;
   height: 32px;
   margin: 0;
@@ -317,7 +238,6 @@
 .Home_RightBar_Emp_Detail {
   position: relative;
   top: 8px;
-  /* bottom: 8px; */
   width: 241px;
   height: 32px;
   margin: 0;
@@ -353,7 +273,3 @@
   font-size: 24px;
   color: #bab7b7;
 }
-
-/* .wrapper {
-  padding: 20px;
-} */

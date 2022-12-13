@@ -1,7 +1,7 @@
 import './Rentbook.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
-
+import userRequest from "../request/user-request"
 // import TextField from '@material-ui/core/TextField';
 
 function Rentbook() {
@@ -31,13 +31,28 @@ function Rentbook() {
     console.log("submitted!")
   }
   const dorent = event => {
+    navigate('/book/rent/payment/*')
     //need to submitted to backend
-    event.preventDefault;
+    event.preventDefault();
     console.log(targetbookname);
     console.log(bookname)
     // setbookname(targetbookname);
     console.log("book name is: ", bookname);
     console.log("submitted!")
+  }
+
+  const { doRequest, errors } = userRequest({
+    url: "/api/users/signin",
+    method: "post",
+    body: {
+      email,
+      password,
+    },
+    onSuccess: () => Router.push("/"),
+  });
+
+  const onsubmit = () => {
+
   }
 
     return (

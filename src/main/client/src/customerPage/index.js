@@ -17,6 +17,7 @@ import Registerexi from './Registerexi';
 import Manageexi from './Manageexi';
 import Managerental from './Managerental';
 import Exibitionsystem from './Exibitionsystem';
+import Payment from './Payment';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -33,6 +34,7 @@ root.render(
             <Route path = "/exibition/*" element = {<Exibitionsystem/>}/>
             <Route path = "/exibition/register/*" element = {<Registerexi/>}/>
             <Route path = "/exibition/manage/*" element = {<Manageexi/>}/>
+            <Route path = "/book/rent/payment/*" element = {<Payment/>}/>
 
             
         </Routes>

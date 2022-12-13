@@ -6,6 +6,7 @@ import com.realdb.finalproject.exception.domain.EmailExistException;
 import com.realdb.finalproject.exception.domain.UserNotFoundException;
 import com.realdb.finalproject.exception.domain.UsernameExistException;
 import com.realdb.finalproject.utility.JWTProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/customer")
+@Slf4j
 public class CustomerController {
 
     public static final String CUSTOMER_DELETED_SUCCESSFULLY = "Customer deleted successfully";
@@ -71,6 +73,7 @@ public class CustomerController {
 
     @PostMapping("/login")
     public ResponseEntity<Customer> login(@RequestBody Customer customer) {
+
         authenticate(customer.getUsername(),customer.getPassword());
         Customer loginCustomer = customerService
                 .findCustomerByUsername(customer.getUsername()).get();

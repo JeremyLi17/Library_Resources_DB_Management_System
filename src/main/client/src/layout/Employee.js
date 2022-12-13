@@ -1,4 +1,4 @@
-import './Employee.css';
+import '../layout_attributes/Employee.css';
 import {useState} from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
@@ -55,6 +55,14 @@ export default function Employee() {
   const handleChangeIdNumber = event => {
     setIdNumber(event.target.value);
   }
+
+  const navigateToReservation = () => {
+    navigate('/dashboard/reservation/*');
+  }
+
+  const navigateToRental = () => {
+    navigate('/dashboard/rental/*');
+  }
   
   const handleSearch = event => {
     // 👇️ prevent page refresh
@@ -65,6 +73,21 @@ export default function Employee() {
     setFirstName(targetFirstName);
     setLastName(targetLastName);
   };
+
+  const handleUpdate = event => {
+    event.preventDefault();
+
+    setFirstName(event.target.value);
+    setLastName(event.target.value);
+    setEmail(event.target.value);
+    setPhoneNumber(event.target.value);
+    setIdType(event.target.value);
+    setIdNumber(event.target.value);
+
+    console.log("update completed");
+    console.log("email: ", email);
+    console.log("phone: ", phoneNumber);
+  }
 
   return (
       
@@ -158,13 +181,13 @@ export default function Employee() {
               onChange={handleChangeIdNumber}/>
             </div>
             <div className='Customer_Others'>
-              <button>
+              <button onClick={navigateToRental}>
                 Rental Info
               </button>
-              <button>
+              <button onClick={navigateToReservation}>
                 Reservation Info
               </button>
-              <button>
+              <button onClick={handleUpdate}>
                 Update All
               </button>
             </div>
