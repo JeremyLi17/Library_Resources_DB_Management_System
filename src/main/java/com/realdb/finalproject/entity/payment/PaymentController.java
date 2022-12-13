@@ -34,6 +34,12 @@ public class PaymentController {
         return new ResponseEntity<>(payment, CREATED);
     }
 
+    @GetMapping("/totalPaymentAmount/{invoiceId}")
+    public ResponseEntity<BigDecimal> getTotalPaymentById(@PathVariable("invoiceId") Integer id) {
+        BigDecimal totalPayment = paymentService.getTotalPaymentById(id);
+        return new ResponseEntity<>(totalPayment, OK);
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<HttpResponse> deletePayment(@RequestParam("id") Integer id) {
         paymentService.deletePayment(id);

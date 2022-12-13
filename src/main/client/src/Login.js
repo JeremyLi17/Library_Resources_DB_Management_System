@@ -12,6 +12,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
+    const [login_err, setLogin_err] = useState("");
 
     const customerLogInRequest = async (e) => {
         e.preventDefault();
@@ -30,13 +31,20 @@ export default function Login() {
         ).then((res)=> {
             console.log(res.data);
             localStorage.setItem("token", res.headers["jwt-token"]);
-            localStorage.setItem("currentUser", res.data);
+            localStorage.setItem("customer_username", res.data['username']);
+            localStorage.setItem("customer_email", res.data['email']);
+            localStorage.setItem("customer_firstName", res.data['firstName']);
+            localStorage.setItem("customer_lastName", res.data['lastName']);
+            localStorage.setItem("customer_phoneNo", res.data['phoneNo']);
+            localStorage.setItem("customer_idType", res.data['idType']);
+            localStorage.setItem("customer_idNo", res.data['idNo']);
+            localStorage.setItem("customer_id", res.data['id']);
+            
             sessionStorage.removeItem('err');
             navigateToCustomerDashBoard();
         }).catch((e) => {
-            // console.log(e.response.data['message']);
-            sessionStorage.setItem('err', e.response.data['message'])
-            navigateToError();
+            console.log(e.response.data['message']);
+            setLogin_err(e.response.data['message']);
         })
 
     };
@@ -55,6 +63,8 @@ export default function Login() {
 
         setUsername(e.target.value);
         setPwd(e.target.value);
+
+        console.log(sessionStorage.getItem('login_err'));
         
         console.log(username);
         console.log(pwd);
@@ -78,36 +88,48 @@ export default function Login() {
 
             navigateToEmployeeDashboard();
         }).catch((e) => {
-            console.log(e.response.data['message']);
-            sessionStorage.setItem('err', e.response.data['message'])
-            navigateToError();
+            setLogin_err(e.response.data['message']);
         })
     };
 
     const navigateToCustomerRegistration = () => {
+        
         navigate('/customerRegister/*')
     }
 
     const navigateToEmployeeRegistration = () => {
+        
         navigate('/employeeRegister/*')
     }
 
     const handleChangeUsername = event => {
         setUsername(event.target.value);
-        console.log('username is:', event.target.value);
+        // console.log('username is:', event.target.value);
       };
     
     const handleChangePwd = event => {
         setPwd(event.target.value);
-        console.log('password is:', event.target.value);
+        // console.log('password is:', event.target.value);
     };
     
     const navigateToCustomerDashBoard = () => {
+        
         navigate('/customer/*');
     }
 
     const navigateToEmployeeDashboard = () => {
+        
         navigate('/employee/*');
+    }
+
+    const navigateToEmployeePwdReset = () => {
+
+        navigate('/employee-pwd-reset/*');
+    }
+
+    const navigateToCustomerPwdReset = () => {
+        
+        navigate('/Customer-pwd-reset/*');
     }
 
     return (
@@ -149,7 +171,8 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <button>Forgot Password</button>
+                        <button onClick={navigateToCustomerPwdReset}>Forgot Password (Customer)</button>
+                        <button onClick={navigateToEmployeePwdReset}>Forgot Password (Employee)</button>
                     </div>
 
                     <div>
@@ -157,7 +180,7 @@ export default function Login() {
                         <button onClick={navigateToEmployeeRegistration}>Register for Employee</button>
                     </div>
 
-                    <h1 className="wrong_pwd">{sessionStorage.getItem('err')}</h1>
+                    <h1 className="wrong_pwd">{login_err}</h1>
 
                 </div>
             </form>

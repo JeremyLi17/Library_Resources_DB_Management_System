@@ -24,6 +24,7 @@ export default function CustomerRegister() {
     const [idNumber, setIdNumber] = useState();
     const [username, setUsername] = useState();
     const [pwd, setPwd] = useState();
+    const [cust_signup_error, setCust_signup_error] = useState("");
 
     const handleChangeFirstName = event => {
         setFirstName(event.target.value);
@@ -67,20 +68,14 @@ export default function CustomerRegister() {
         navigate('/customer/*', {replace: true});
     }
 
+    const navigateToLogIn = () => {
+        navigate('/', {replace: true});
+    }
+
     const registerRequest = async (e) => {
         e.preventDefault();
 
         sessionStorage.setItem('reg_pressed', true);
-
-        setFirstName(e.target.value);
-        setLastName(e.target.value);
-        setFirstName(e.target.value);
-        setEmail(e.target.value);
-        setPwd(e.target.value);
-        setUsername(e.target.value);
-        setPhoneNumber(e.target.value);
-        setIdType(e.target.value);
-        setIdNumber(e.target.value);
 
         const registration = {
             firstName,
@@ -106,8 +101,7 @@ export default function CustomerRegister() {
             navigateToCustomerDashboard();
         }).catch((e) => {
             console.log(e.response.data['message']);
-            sessionStorage.setItem('err', e.response.data['message']);
-            // sessionStorage.setItem('reg_pressed', true);
+            setCust_signup_error(e.response.data['message']);
         })
 
         console.log('here3');
@@ -238,8 +232,11 @@ export default function CustomerRegister() {
                         <button onClick={registerRequest}>
                             Register
                         </button>
+                        <button onClick={navigateToLogIn}>
+                            back
+                        </button>
                     </div>
-                    <h2 className="wrong_pwd">{sessionStorage.getItem('err')}</h2>
+                    <h2 className="wrong_pwd">{cust_signup_error}</h2>
                 </div>
             </form>
         </div>

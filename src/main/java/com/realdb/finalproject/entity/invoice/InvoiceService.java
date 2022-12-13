@@ -4,6 +4,7 @@ import com.realdb.finalproject.exception.domain.InvoiceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,5 +25,10 @@ public class InvoiceService {
             throw new InvoiceNotFoundException("Invoice with id: " + id + " not found");
         }
         return invoiceOpt.get();
+    }
+
+    public List<Invoice> findAllInvoiceByCustomerId(Long id) {
+        List<Invoice> invoices = invoiceRepo.findAllInvoiceByCustomerId(id);
+        return invoices;
     }
 }

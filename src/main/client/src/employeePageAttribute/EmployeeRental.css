@@ -5,12 +5,6 @@
   background-color: white;
 }
 
-.Back {
-  position: relative;
-  background-color: black;
-  top: 70%;
-}
-
 .Home_Bar {
   position: fixed;
   width: 100%;
@@ -23,7 +17,7 @@
   box-sizing: border-box;
 }
 
-.Home_Reservation {
+.Home_Rental {
   position: relative;
   top: 48px;
   min-width: 100%;
@@ -32,14 +26,14 @@
   box-sizing: border-box;
 }
 
-.Home_Reservation_List {
+.Home_Rental_List {
   position: relative;
   min-width: 100%;
   height: 100px;
   box-sizing: border-box;
 }
 
-.Home_Reservation_Info {
+.Home_Rental_Info {
   position: relative;
   left: 2%;
   width: 96%;
@@ -47,7 +41,7 @@
   box-sizing: border-box;
 }
 
-.Home_Reservation_Info_Line {
+.Home_Rental_Info_Line {
   position: relative;
   width: 100%;
   height: 90px;
@@ -55,7 +49,7 @@
   box-sizing: border-box;
 }
 
-.Home_Reservation_Info_Block {
+.Home_Rental_Info_Block {
   position: relative;
   top: 5px;
   width: 100%;
@@ -63,7 +57,7 @@
   box-sizing: border-box;
 }
 
-.Home_Reservation_Info_Text {
+.Home_Rental_Info_Text {
   position: relative;
   top: 35px;
   width: 100%;
@@ -79,7 +73,7 @@
   position: relative;
   width: 223px;
   overflow: hidden;
-  color: white;
+  color: #ffffff;
 }
 
 .Home_LeftBar {
@@ -193,7 +187,7 @@
   letter-spacing: inherit;
   text-decoration: none;
   cursor: inherit;
-  background-color: #2c2c2c;
+  background-color: black;
 }
 
 .Home_Header {
@@ -202,12 +196,6 @@
   left: 20px;
   font-size: 10px;
   color: #a47070;
-}
-
-.Customer_Profile {
-  position: relative;
-  background-color: rgb(74, 50, 18);
-  height: 300px;
 }
 
 .Profile_Header {

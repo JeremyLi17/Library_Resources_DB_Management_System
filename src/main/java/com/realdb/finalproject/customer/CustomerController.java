@@ -97,7 +97,7 @@ public class CustomerController {
     public ResponseEntity<Customer> resetPassword(@RequestBody Customer customer) throws MessagingException {
         Customer updateCustomer = customerService.resetPassword(customer.getUsername(),
                 customer.getPassword());
-        emailService.sendNewPasswordEmail(updateCustomer.getUsername(), updateCustomer.getPassword(), updateCustomer.getEmail());
+//        emailService.sendNewPasswordEmail(updateCustomer.getUsername(), updateCustomer.getPassword(), updateCustomer.getEmail());
         return new ResponseEntity<>(updateCustomer, ACCEPTED);
     }
 

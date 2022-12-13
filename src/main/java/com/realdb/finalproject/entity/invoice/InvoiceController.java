@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.*;
 
 /**
@@ -27,5 +29,12 @@ public class InvoiceController {
             throws InvoiceNotFoundException {
         Invoice invoice = invoiceService.findInvoiceById(id);
         return new ResponseEntity<>(invoice, OK);
+    }
+
+     @GetMapping("/list/{id}")
+    public ResponseEntity<List<Invoice>> findAllInvoiceByCustomerId(@PathVariable("id") Long id)
+            throws InvoiceNotFoundException {
+        List<Invoice> invoices = invoiceService.findAllInvoiceByCustomerId(id);
+        return new ResponseEntity<>(invoices, OK);
     }
 }

@@ -1,6 +1,6 @@
 .Employee {
   position: relative;
-  height: 548px;
+  height: 1000px;
   width: 100%;
   background-color: white;
 }
@@ -54,7 +54,7 @@
 
 .Home_Customer_Detail_Input_Frame {
   position: relative;
-  top: 10px;
+  top: 0px;
   width: 100%;
   height: 25px;
 }
@@ -67,9 +67,27 @@
   height: 300px;
 }
 
+.Customer_Username {
+  position: relative;
+  top: 0px;
+  min-width: 100%;
+  display: flex;
+  height: 40px;
+  font-size: 30px;
+}
+
 .Customer_First_Name {
   position: relative;
-  top: 15px;
+  top: 10px;
+  min-width: 100%;
+  display: flex;
+  height: 40px;
+  font-size: 30px;
+}
+
+.Customer_Middle_Name {
+  position: relative;
+  top: 20px;
   min-width: 100%;
   display: flex;
   height: 40px;
@@ -78,7 +96,7 @@
 
 .Customer_Last_Name {
   position: relative;
-  top: 15px;
+  top: 30px;
   min-width: 100%;
   display: flex;
   font-size: 30px;
@@ -87,7 +105,7 @@
 
 .Customer_Email {
   position: relative;
-  top: 15px;
+  top: 40px;
   min-width: 100%;
   display: flex;
   font-size: 30px;
@@ -96,7 +114,7 @@
 
 .Customer_Phone_Number {
   position: relative;
-  top: 15px;
+  top: 50px;
   min-width: 100%;
   display: flex;
   font-size: 30px;
@@ -105,7 +123,7 @@
 
 .Customer_Id_Type {
   position: relative;
-  top: 15px;
+  top: 60px;
   min-width: 100%;
   display: flex;
   font-size: 30px;
@@ -114,7 +132,7 @@
 
 .Customer_Id_Number {
   position: relative;
-  top: 15px;
+  top: 70px;
   min-width: 100%;
   display: flex;
   font-size: 30px;
@@ -123,11 +141,12 @@
 
 .Customer_Others {
   position: relative;
-  top: 15px;
+  top: 80px;
   min-width: 100%;
   display: flex;
   font-size: 30px;
   height: 40px;
+  justify-content: space-between;
 }
 
 .Home_RightBar_Emp_Detail_SignOut {
@@ -136,6 +155,7 @@
   width: 223px;
   overflow: hidden;
   color: #ffffff;
+  /* background-color: white; */
 }
 
 .Home_LeftBar {

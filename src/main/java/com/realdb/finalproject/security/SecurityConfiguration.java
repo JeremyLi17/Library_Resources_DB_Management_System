@@ -78,7 +78,10 @@ public class SecurityConfiguration {
                     .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                     .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                     .and()
-                    .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                    .headers().xssProtection()
+                    .and()
+                    .contentSecurityPolicy("script-src 'self'");
         }
     }
 
@@ -131,7 +134,10 @@ public class SecurityConfiguration {
                     .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                     .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                     .and()
-                    .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                    .headers().xssProtection()
+                    .and()
+                    .contentSecurityPolicy("script-src 'self'");
         }
     }
 }
