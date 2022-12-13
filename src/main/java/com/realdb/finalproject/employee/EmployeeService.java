@@ -88,6 +88,7 @@ public class EmployeeService implements UserDetailsService {
         }
         Employee employee = employeeOpt.get();
         employee.setPassword(passwordEncoder.encode(newpassword));
+        employee.setNotLocked(false);
         employeeRepo.save(employee);
         return employee;
     }
