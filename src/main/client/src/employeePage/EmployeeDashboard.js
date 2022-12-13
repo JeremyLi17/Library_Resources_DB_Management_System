@@ -9,10 +9,6 @@ const emp_role = localStorage.getItem('emp_role');
 
 export default function EmployeeDashboard() {
 
-  // console.log(localStorage.getItem("emp_username"));
-  // console.log(emp_email);
-  // console.log(emp_role);
-
   const navigate = useNavigate();
 
   const navigateToLogIn = () => {
@@ -26,15 +22,18 @@ export default function EmployeeDashboard() {
   }
 
   const [targetUsername, setTargetUsername] = useState();
-  
+  const [search_err, setSearch_err] = useState('');
   const [username, setUsername] = useState();
+  const [uploadResponse, setUploadResponse] = useState('');
+  const [middleName, setMiddleName] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const [idType, setIdType] = useState();
   const [idNumber, setIdNumber] = useState();
-  const [id, setId] = useState();
+  const [id, setId] = useState("");
+
 
   const handleChangeTargetUsername = event => {
     setTargetUsername(event.target.value);
@@ -46,6 +45,10 @@ export default function EmployeeDashboard() {
 
   const handleChangeFirstName = event => {
     setFirstName(event.target.value);
+  }
+
+  const handleChangeMiddleName = event => {
+    setMiddleName(event.target.value);
   }
 
   const handleChangeLastName = event => {
@@ -68,22 +71,47 @@ export default function EmployeeDashboard() {
     setIdNumber(event.target.value);
   }
 
-  
-
   const navigateToReservation = async (e) => {
-    const res = await axios.get(
-      "http://localhost:8080/api/reservation/list/" + id,
-      config
-    ).then((res) => {
-      localStorage.setItem("reserveList", res.data);
-      navigate('/employee/reservation/*');
-    }).catch((e) => {
-      
-    })
+    e.preventDefault();
+    // console.log(id);
+    if (id !== "") {
+      const res = await axios.get(
+        "http://localhost:8080/api/reservation/list/" + id,
+        config
+      ).then((res) => {
+        // console.log(JSON.stringify(res.data));
+        if (res.data !== null && res.data.length > 0) {
+          localStorage.setItem("reserveList", JSON.stringify(res.data));
+          console.log(JSON.parse(localStorage.getItem("reserveList")));
+        
+          navigate('/employee/reservation/*');
+        } else {
+          sessionStorage.setItem("emptyReserveErr", "Customer " + firstName + " " + lastName + "'s reservation is empty")
+        }
+      }).catch((e) => {
+      });
+    }
   }
 
-  const navigateToRental = () => {
-    navigate('/employee/rental/*');
+  const navigateToRental = async (e) => {
+    e.preventDefault();
+    console.log(id);
+    if (id !== "") {
+      const res = await axios.get(
+        "http://localhost:8080/api/rental/list/" + id,
+        config
+      ).then((res) => {
+        // console.log(JSON.stringify(res.data));
+
+        if (res.data !== null && res.data.length > 0) {
+          localStorage.setItem("rentalList", JSON.stringify(res.data));
+          console.log(JSON.parse(localStorage.getItem("rentalList")));
+          // navigate('/employee/rental/*');
+        } else {
+          sessionStorage.setItem("emptyRentalErr", "Customer " + firstName + lastName + "'s rentals is empty")
+        }
+      })
+    }
   }
   
   const handleSearch = async (e) => {
@@ -97,32 +125,64 @@ export default function EmployeeDashboard() {
       "http://localhost:8080/api/customer/find/" + targetUsername,
       config
     ).then((res) => {
-      // console.log(res);
-      setUsername(res.data['username']);
-      setFirstName(res.data['firstName']);
-      setLastName(res.data['lastName']);
-      setEmail(res.data['email']);
-      setPhoneNumber(res.data['phoneNo']);
-      setIdType(res.data['idType']);
-      setIdNumber(res.data['idNo']);
-      setId(res.data['customerId']);
+      // console.log(res.data['middleName']);
+      if (res.data !== null) {
+        setUsername(res.data['username'] === null ? "" : res.data['username']);
+        setFirstName(res.data['firstName'] === null ? "" : res.data['firstName']);
+        setLastName(res.data['lastName'] === null ? "" : res.data['lastName']);
+        setEmail(res.data['email'] === null ? "" : res.data['email']);
+        setPhoneNumber(res.data['phoneNo'] === null ? "" : res.data['phoneNo']);
+        setIdType(res.data['idType'] === null ? "" : res.data['idType']);
+        setIdNumber(res.data['idNo'] === null ? "" : res.data['idNo']);
+        setId(res.data['id']);
+        setMiddleName(res.data['middleName'] === null ? "" : res.data['middleName']);
+
+        setSearch_err('');
+      }
+    }).catch((e) => {
+      e.response.data['message'];
+        setUsername("");
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPhoneNumber("");
+        setIdType("");
+        setIdNumber("");
+        setId("");
     })
-    //     console.log(res2);
   };
 
-  const handleUpdate = event => {
+  const handleUpdate = async event => {
     event.preventDefault();
-
-    setFirstName(event.target.value);
-    setLastName(event.target.value);
-    setEmail(event.target.value);
-    setPhoneNumber(event.target.value);
-    setIdType(event.target.value);
-    setIdNumber(event.target.value);
 
     console.log("update completed");
     console.log("email: ", email);
     console.log("phone: ", phoneNumber);
+
+    const upload = {
+      newUsername: username,
+      newFirstName: firstName,
+      newLastName: lastName,
+      newEmail: email,
+      newIdType: idType,
+      newIdNo: idNumber,
+      newPhoneNo: phoneNumber,
+      newMiddleName: middleName
+    };
+
+    // setUploadResponse("");
+
+    const res = await axios.put(
+      "http://localhost:8080/api/customer/update?currentUsername=" + targetUsername,
+      upload,
+      config
+    ).then((res) => {
+      setUploadResponse('Uploaded successfully on ' + username);
+    }).catch((e) => {
+      setUploadResponse(e.response.data['message']);
+    });
+
+    // setSearch_err("");
   }
 
   return (
@@ -151,12 +211,13 @@ export default function EmployeeDashboard() {
             <div className='Home_Customer_Detail_Input_Frame'>
               <button>
                 Search
-                <div>{}</div>
               </button>
+              <h1>{}</h1>
+              <h1>{uploadResponse}</h1>
             </div>
           </form>
           <form className='Home_Customer_Detail_List'>
-            <div className='Customer_First_Name'>
+            <div className='Customer_Username'>
               Customer Username:
               <input
               type="text"
@@ -172,6 +233,15 @@ export default function EmployeeDashboard() {
               name="first_name"
               value={firstName}
               onChange={handleChangeFirstName}
+              />
+            </div>
+            <div className='Customer_Middle_Name'>
+              Customer Middle Name:
+              <input
+              type="text"
+              name="middle_name"
+              value={middleName}
+              onChange={handleChangeMiddleName}
               />
             </div>
             <div className='Customer_Last_Name'>
@@ -221,10 +291,14 @@ export default function EmployeeDashboard() {
             </div>
             <div className='Customer_Others'>
               <button onClick={navigateToRental}>
+                <div>
                 Rental Info
+                </div>
               </button>
               <button onClick={navigateToReservation}>
+                <div>
                 Reservation Info
+                </div>
               </button>
               <button onClick={handleUpdate}>
                 Update All
@@ -262,6 +336,7 @@ function Signout() {
   const navigate = useNavigate();
 
   const navigateToLogIn = () => {
+    localStorage.clear();
     navigate('/', {replace: true});
   }
 
@@ -274,5 +349,3 @@ function Signout() {
             </button>
           </form>);
 }
-
-// export default App;
