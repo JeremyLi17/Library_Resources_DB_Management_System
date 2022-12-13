@@ -20,6 +20,8 @@ import Managerental from './customerPage/Managerental';
 import Exibitionsystem from './customerPage/Exibitionsystem';
 import Payment from './customerPage/Payment';
 import EmployeeRental from './employeePage/EmployeeRental';
+import CustomerPwdReset from './customerPage/CustomerPwdReset';
+import EmployeePwdReset from './employeePage/EmployeePwdReset';
 
 
 const rootElement = document.getElementById('root');
@@ -30,6 +32,8 @@ root.render(
     <Routes>
       <Route path = "/*" element={<Login />}/>
       <Route path = "/customerRegister/*" element={<CustomerRegister/>}/>
+      <Route path = "/Customer-pwd-reset/*" element={<CustomerPwdReset/>}/>
+      <Route path = "/Employee-pwd-reset/*" element={<EmployeePwdReset/>}/>
       <Route path = "/employeeRegister/*" element={<EmployeeRegister/>}/>
       <Route path = "/employee/*" element={<EmployeeDashboard />}/>
       <Route path = "/employee/reservation/*" element={<EmployeeReservation/>}/>

@@ -16,11 +16,10 @@ export default function EmployeePwdReset() {
     const navigate = useNavigate();
     
     const [email, setEmail] = useState();
-    const [role, setRole] = useState();
     const [username, setUsername] = useState();
     const [pwd, setPwd] = useState();
     const [confirm_pwd, setConfirm_Pwd] = useState();
-    const [emp_signup_error, setEmp_signup_error] = useState('');
+    const [emp_reset_error, setEmp_reset_error] = useState('');
 
     const handleChangeEmail = event => {
         setEmail(event.target.value);
@@ -38,7 +37,7 @@ export default function EmployeePwdReset() {
         setConfirm_Pwd(event.target.value);
     }
 
-    const navigateToCustomerDashboard = () => {
+    const navigateToEmployeeDashboard = () => {
         navigate('/employee/*', {replace: true});
     }
 
@@ -52,25 +51,27 @@ export default function EmployeePwdReset() {
         sessionStorage.setItem('reg_pressed', true);
 
         const registration = {
-            email,
             username,
             password: pwd
         }
 
         console.log('here');
-        const res = await axios.post(
-            "http://localhost:8080/api/employee/resetpassword",
-            registration
-        ).then((res) => {
-            console.log('success');
-            localStorage.setItem("token", res.headers["jwt-token"]);
-            localStorage.setItem("currentUser", res.data);
-            sessionStorage.removeItem('err');
-            navigateToCustomerDashboard();
-        }).catch((e) => {
-            console.log(e.response.data['message']);
-            setEmp_signup_error(e.response.data['message']);
-        })
+        if (pwd === confirm_pwd) {
+            const res = await axios.post(
+                "http://localhost:8080/api/employee/resetpassword",
+                registration
+            ).then((res) => {
+                console.log('success');
+                localStorage.setItem("token", res.headers["jwt-token"]);
+                localStorage.setItem("currentUser", res.data);
+                navigateToEmployeeDashboard()
+            }).catch((e) => {
+                console.log(e.response.data['message']);
+                setEmp_reset_error(e.response.data['message']);
+            })
+        } else {
+            setEmp_reset_error('New Password Mismatched: Please Try Again');
+        }
 
         console.log('here3');
     }
@@ -79,23 +80,11 @@ export default function EmployeePwdReset() {
         <div className="Form-Page">
             <header className="Sign_in_Title">
                 <h1>
-                    Sign Up for Customer
+                    Password Reset for Employee
                 </h1>
             </header>
             <form className='Input'>
                 <div className="InputBox">
-                    <div>
-                        <label>Email Address</label>
-                    </div>
-
-                    <input
-                    type="text"
-                    name="email"
-                    placeholder= "email"
-                    className="InputBox"
-                    value={email}
-                    onChange={handleChangeEmail}/>
-
                     <div>
                         <label> Username </label>
                     </div>
@@ -133,14 +122,14 @@ export default function EmployeePwdReset() {
                     onChange={handleChangeConfirm_Pwd}/>
 
                     <div>
-                        <button onClick={registerRequest}>
+                        <button onClick={resetRequest}>
                             Register
                         </button>
                         <button onClick={navigateToLogIn}>
                             back
                         </button>
                     </div>
-                    <h2 className="wrong_pwd">{emp_signup_error}</h2>
+                    <h2 className="wrong_pwd">{emp_reset_error}</h2>
                 </div>
             </form>
         </div>
