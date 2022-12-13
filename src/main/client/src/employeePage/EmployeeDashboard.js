@@ -3,13 +3,15 @@ import {useState} from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-const emp_first_name = "Michael"
-const emp_middle_name = "Kun"
-const emp_last_name = "Xiao"
-
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
+const emp_username = localStorage.getItem('emp_username');
+const emp_email = localStorage.getItem('emp_email');
+const emp_role = localStorage.getItem('emp_role');
 
 export default function EmployeeDashboard() {
+
+  // console.log(localStorage.getItem("emp_username"));
+  // console.log(emp_email);
+  // console.log(emp_role);
 
   const navigate = useNavigate();
 
@@ -17,22 +19,29 @@ export default function EmployeeDashboard() {
     navigate('/', {replace: true});
   }
 
-  const [targetFirstName, setTargetFirstName] = useState();
-  const [targetLastName, setTargetLastName] = useState();
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+  }
+
+  const [targetUsername, setTargetUsername] = useState();
   
+  const [username, setUsername] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const [idType, setIdType] = useState();
   const [idNumber, setIdNumber] = useState();
+  const [id, setId] = useState();
 
-  const handleChangeTargetFirstName = event => {
-    setTargetFirstName(event.target.value);
+  const handleChangeTargetUsername = event => {
+    setTargetUsername(event.target.value);
   }
 
-  const handleChangeTargetLastName = event => {
-    setTargetLastName(event.target.value);
+  const handleChangeUsername = event => {
+    setUsername(event.target.value);
   }
 
   const handleChangeFirstName = event => {
@@ -59,9 +68,12 @@ export default function EmployeeDashboard() {
     setIdNumber(event.target.value);
   }
 
+  
+
   const navigateToReservation = async (e) => {
     const res = await axios.get(
-      "http://localhost:8080/api/reservation/list",
+      "http://localhost:8080/api/reservation/list/" + id,
+      config
     ).then((res) => {
       localStorage.setItem("reserveList", res.data);
       navigate('/employee/reservation/*');
@@ -74,14 +86,28 @@ export default function EmployeeDashboard() {
     navigate('/employee/rental/*');
   }
   
-  const handleSearch = event => {
-    // 👇️ prevent page refresh
-    event.preventDefault();
-    // console.log('username is: ', username);
-    // console.log('pwd is: ', pwd);
-    // console.log('form submitted ✅');
-    setFirstName(targetFirstName);
-    setLastName(targetLastName);
+  const handleSearch = async (e) => {
+
+    e.preventDefault();
+
+    // setTargetUsername(e.target.value);
+    
+    console.log(targetUsername);
+    const res = await axios.get(
+      "http://localhost:8080/api/customer/find/" + targetUsername,
+      config
+    ).then((res) => {
+      // console.log(res);
+      setUsername(res.data['username']);
+      setFirstName(res.data['firstName']);
+      setLastName(res.data['lastName']);
+      setEmail(res.data['email']);
+      setPhoneNumber(res.data['phoneNo']);
+      setIdType(res.data['idType']);
+      setIdNumber(res.data['idNo']);
+      setId(res.data['customerId']);
+    })
+    //     console.log(res2);
   };
 
   const handleUpdate = event => {
@@ -111,44 +137,42 @@ export default function EmployeeDashboard() {
         <div className='Home_Customer_Detail'>
           <form className='Home_Customer_Detail_Input' onSubmit={handleSearch}>
             <div className='Home_Customer_Detail_Input_Frame'>
-              <label>First Name</label>
+              <label>Username</label>
             </div>
             <div className='Home_Customer_Detail_Input_Frame'>
               <input
               type="text"
-              name="first_name"
-              placeholder="first name"
-              value={targetFirstName}
-              onChange={handleChangeTargetFirstName}
+              name="targetUsername"
+              placeholder="username"
+              value={targetUsername}
+              onChange={handleChangeTargetUsername}
               />
-            </div>
-            <div className='Home_Customer_Detail_Input_Frame'>
-            <label>Last Name</label>
-            </div>
-            <div className='Home_Customer_Detail_Input_Frame'>
-            <input
-            type="text"
-            name="last_name"
-            placeholder="last name"
-            value={targetLastName}
-            onChange={handleChangeTargetLastName}
-            />
             </div>
             <div className='Home_Customer_Detail_Input_Frame'>
               <button>
                 Search
-                <div>{firstName}</div>
+                <div>{}</div>
               </button>
             </div>
           </form>
           <form className='Home_Customer_Detail_List'>
+            <div className='Customer_First_Name'>
+              Customer Username:
+              <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={handleChangeUsername}
+              />
+            </div>
             <div className='Customer_First_Name'>
               Customer First Name:
               <input
               type="text"
               name="first_name"
               value={firstName}
-              onChange={handleChangeFirstName}/>
+              onChange={handleChangeFirstName}
+              />
             </div>
             <div className='Customer_Last_Name'>
               Customer Last Name:
@@ -156,7 +180,8 @@ export default function EmployeeDashboard() {
               type="text"
               name="last_name"
               value={lastName}
-              onChange={handleChangeLastName}/>
+              onChange={handleChangeLastName}
+              />
             </div>
             <div className='Customer_Email'>
               Customer Email:
@@ -164,7 +189,8 @@ export default function EmployeeDashboard() {
               type="text"
               name="email"
               value={email}
-              onChange={handleChangeEmail}/>
+              onChange={handleChangeEmail}
+              />
             </div>
             <div className='Customer_Phone_Number'>
               Customer Mobile Phone:
@@ -172,7 +198,8 @@ export default function EmployeeDashboard() {
               type="text"
               name="phone"
               value={phoneNumber}
-              onChange={handleChangePhoneNumber}/>
+              onChange={handleChangePhoneNumber}
+              />
             </div>
             <div className='Customer_Id_Type'>
               Customer ID:
@@ -180,7 +207,8 @@ export default function EmployeeDashboard() {
               type="text"
               name="id"
               value={idType}
-              onChange={handleChangeIdType}/>
+              onChange={handleChangeIdType}
+              />
             </div>
             <div className='Customer_Id_Number'>
               Customer ID Number:
@@ -188,7 +216,8 @@ export default function EmployeeDashboard() {
               type="text"
               name="id_number"
               value={idNumber}
-              onChange={handleChangeIdNumber}/>
+              onChange={handleChangeIdNumber}
+              />
             </div>
             <div className='Customer_Others'>
               <button onClick={navigateToRental}>
@@ -215,12 +244,12 @@ function Emp_profile() {
               <div className='Home_LeftBar_Emp_Detail_Name_Email'>
                 <div className='Home_LeftBar_Emp_Detail_Name'>
                   <span className='Home_LeftBar_Emp_Detail_Name_Span'>
-                    {emp_first_name} {emp_last_name}
+                    {emp_username} ({emp_role})
                   </span>
                 </div>
                 <div className='Home_LeftBar_Emp_Detail_Email'>
                   <span className='Home_LeftBar_Emp_Detail_Email_Span'>
-                    kxiao855@gmail.com
+                    {emp_email}
                   </span>
                 </div>
               </div>
