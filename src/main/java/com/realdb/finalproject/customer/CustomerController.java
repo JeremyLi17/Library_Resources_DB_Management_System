@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -49,8 +50,13 @@ public class CustomerController {
     }
 
     @GetMapping("/find/{username}")
-    public Optional<Customer> findCustomerByUsername(@PathVariable("username") String username) {
-        return customerService.findCustomerByUsername(username);
+    public ResponseEntity<Customer> findCustomerByUsername(@PathVariable("username") String username)
+            throws UserNotFoundException {
+        Optional<Customer> customerByUsername = customerService.findCustomerByUsername(username);
+        if (customerByUsername.isEmpty()) {
+            throw new UserNotFoundException("User: " + username + " not found");
+        }
+        return new ResponseEntity<>(customerByUsername.get(), OK);
     }
 
     @PostMapping("/register")
