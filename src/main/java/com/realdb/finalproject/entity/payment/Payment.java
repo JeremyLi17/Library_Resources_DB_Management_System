@@ -1,11 +1,13 @@
 package com.realdb.finalproject.entity.payment;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.realdb.finalproject.entity.Invoice;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.fasterxml.jackson.annotation.JsonFormat.Feature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -28,6 +30,10 @@ public class Payment {
     private String method;
 
     @Column(name = "PAYMENT_DATE", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd",
+            without = {ADJUST_DATES_TO_CONTEXT_TIME_ZONE}
+    )
     private LocalDate paymentDate;
 
     @Column(name = "CARD_HOLDER_FULLNAME", length = 30)

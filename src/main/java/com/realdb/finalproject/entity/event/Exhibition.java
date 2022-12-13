@@ -1,6 +1,8 @@
 package com.realdb.finalproject.entity.event;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -25,6 +27,7 @@ public class Exhibition {
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "EVENT_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Event event;
 
     @Column(name = "EXPENSE", nullable = false, precision = 15, scale = 2)

@@ -1,5 +1,6 @@
 package com.realdb.finalproject.relation.customerExhibition;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.realdb.finalproject.customer.Customer;
 import com.realdb.finalproject.entity.event.Exhibition;
 
@@ -14,10 +15,12 @@ public class CustomerExhibition {
     @MapsId("customerId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "EXHIBITION_EVENT_ID", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Exhibition exhibitionEvent;
 
     public CustomerExhibitionId getId() {

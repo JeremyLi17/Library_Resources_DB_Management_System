@@ -34,7 +34,7 @@ public class RentalService {
         if (rentalOpt.isEmpty()) {
             throw new RentalNotFoundException("Rental with id: " + id + " not found");
         }
-
+        rentalOpt.get().getCopy().setCopyStatus("Y");
         // mark as return
         Rental rental = rentalOpt.get();
         rental.setStatus("R");
@@ -55,7 +55,7 @@ public class RentalService {
             throw new CopyNotFoundException("Copy with id:" + copyId + " not found");
         }
         rental.setCopy(copyOpt.get());
-
+        copyOpt.get().setCopyStatus("N");
 
         rental.setBorrowDate(LocalDate.now());
         rental.setStatus("B");
