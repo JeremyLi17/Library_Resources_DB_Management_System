@@ -48,8 +48,8 @@ public class BookAuthorController {
             @RequestBody BookAuthor bookAuthor)
             throws AuthorNotFoundException, BookNotFoundException {
         bookAuthorService.addBookAuthor(
-                bookAuthor.getAuthor().getAFname(),
-                bookAuthor.getAuthor().getALname(),
+                bookAuthor.getAuthor().getFirstName(),
+                bookAuthor.getAuthor().getLastName(),
                 bookAuthor.getBook().getBookName()
         );
         return new ResponseEntity<>(bookAuthor, CREATED);

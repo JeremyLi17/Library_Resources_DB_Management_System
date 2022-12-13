@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.realdb.finalproject.utility.BuildResponse.build;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 /**
  * @author jeremy on 2022/12/2
@@ -42,8 +41,16 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public void saveAuthor(@RequestBody Author author) {
-        authorService.saveAuthor(author);
+    public ResponseEntity<Author> saveAuthor(@RequestBody Author author) {
+        Author createdAuthor = authorService.saveAuthor(
+                author.getEmail(),
+                author.getFirstName(),
+                author.getLastName(),
+                author.getStreet(),
+                author.getCity(),
+                author.getCountry(),
+                author.getZipcode());
+        return new ResponseEntity<>(createdAuthor, CREATED);
     }
 
     // /api/author?id=1

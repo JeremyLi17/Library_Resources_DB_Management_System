@@ -1,6 +1,7 @@
 package com.realdb.finalproject.customer;
 
 import com.realdb.finalproject.domain.User;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -8,6 +9,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "CUSTOMER")
+@ToString
 public class Customer extends User {
     @Id
     @GeneratedValue(

@@ -25,6 +25,7 @@ public class BookController {
     @GetMapping("/find/{bookName}")
     public ResponseEntity<Book> getBookByName(@PathVariable String bookName)
             throws BookNotFoundException {
+
         Book book = bookService.getBookByName(bookName);
         return new ResponseEntity<>(book, OK);
     }

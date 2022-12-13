@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +30,14 @@ import static org.springframework.http.HttpStatus.*;
  */
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public static final String EVENT_NOT_FOUND = "Event not found";
     public static final String SPONSOR_NOT_FOUND = "Sponsor not found";
     public static final String ORGANIZATION_SPONSOR_NOT_FOUND = "Organization Sponsor not found";
     public static final String INDIVIDUAL_SPONSOR_NOT_FOUND = "Individual Sponsor not found";
     public static final String RESERVATION_NOT_FOUND = "Reservation not found";
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
+    public static final String USERNAME_NOT_FOUND = "Username not found";
     public static final String RENTAL_NOT_FOUND = "Rental not found";
     public static final String CUSTOMER_NOT_FOUND = "Customer not found";
     public static final String COPY_NOT_FOUND = "Copy not found";
@@ -176,6 +178,11 @@ public class ExceptionHandling implements ErrorController {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<HttpResponse> userNotFoundException(UserNotFoundException exception) {
         return createHttpResponse(BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<HttpResponse> usernameNotFoundException() {
+        return createHttpResponse(BAD_REQUEST, USERNAME_NOT_FOUND);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)

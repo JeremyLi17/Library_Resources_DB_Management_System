@@ -1,6 +1,7 @@
 package com.realdb.finalproject.entity.copy;
 
 import com.realdb.finalproject.domain.HttpResponse;
+import com.realdb.finalproject.exception.domain.BookNotFoundException;
 import com.realdb.finalproject.utility.BuildResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class CopyController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Copy> addCopy(@RequestBody Copy copy) {
-        Copy newCopy = copyService.addCopy(copy);
+    public ResponseEntity<Copy> addCopy(@RequestBody Copy copy) throws BookNotFoundException {
+        Copy newCopy = copyService.addCopy(copy.getCopyStatus(), copy.getBook().getBookName());
         return new ResponseEntity<>(newCopy, CREATED);
     }
 

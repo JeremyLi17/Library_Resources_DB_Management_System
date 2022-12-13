@@ -24,7 +24,7 @@ public class Event {
     private String name;
 
     @Column(name = "EVENT_TYPE", nullable = false)
-    private Boolean type = false;
+    private String type;
 
     @Column(name = "START_DATETIME", nullable = false)
     private LocalDate startAt;
@@ -53,11 +53,11 @@ public class Event {
         this.name = name;
     }
 
-    public Boolean getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(String type) {
         this.type = type;
     }
 
