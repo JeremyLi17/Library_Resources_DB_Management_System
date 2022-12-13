@@ -98,12 +98,11 @@ public class CustomerService implements UserDetailsService {
         if (StringUtils.isNotBlank(newUsername)) currentCustomer.setUsername(newUsername);
         if (StringUtils.isNotBlank(newFirstName)) currentCustomer.setFirstName(newFirstName);
         if (StringUtils.isNotBlank(newLastName)) currentCustomer.setLastName(newLastName);
-        if (StringUtils.isNotBlank(newMiddleName)) currentCustomer.setEmail(newMiddleName);
-        if (StringUtils.isNotBlank(newEmail)) currentCustomer.setIdNo(newEmail);
+        if (StringUtils.isNotBlank(newMiddleName)) currentCustomer.setMiddleName(newMiddleName);
+        if (StringUtils.isNotBlank(newEmail)) currentCustomer.setEmail(newEmail);
         if (StringUtils.isNotBlank(newPhoneNo)) currentCustomer.setPhoneNo(newPhoneNo);
         if (StringUtils.isNotBlank(newIdType)) currentCustomer.setIdType(newIdType);
         if (StringUtils.isNotBlank(newIdNo)) currentCustomer.setIdNo(newIdNo);
-
         customerRepo.save(currentCustomer);
         return currentCustomer;
     }
