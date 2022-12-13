@@ -7,7 +7,8 @@ function customerstudyroom() {
     const navigatetoreservation = () =>{
         navigate('/customer/studyroom/reserve/*');
       }
-    const navigatetomanagere = () =>{
+    const navigatetomanagere =  () =>{
+    
         navigate('/customer/studyroom/manage/*');
     }
     const navigatetologin = () =>{

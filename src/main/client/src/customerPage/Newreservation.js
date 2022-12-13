@@ -2,15 +2,14 @@ import './Newreservation.css';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import axios from 'axios';
-// import TextField from '@material-ui/core/TextField';
-//  axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+import moment from 'moment';
+
 function Newreservation() {
   const navigate = useNavigate();
-  const [timeperiod, settimeperiod] = useState();
   const [date, setdate] = useState();
   const [studyroomid, setreservationid] = useState();
-  const [studyrooms, setStudyRooms] = useState(null);
-  const now = moment().tz('America/New_York');
+  const [studyrooms, setStudyRooms] = useState([]);
+  const now = moment().format('YYYY-MM-DD');  
 
   const navigatetologin = () =>{
     navigate('/*');
@@ -22,13 +21,17 @@ function Newreservation() {
     navigate('/customer/studyroom/*');
   }
   const searchresult = async (event) => {
-    event.preventDefault;
+    event.preventDefault();
+    console.log("here");
     // setbookname(targetbookname);
-    console.log(timeperiod);
-    console.log(date);
-    const url =  `http://localhost:8080/api/studyroom/list?date=${date}&timeslot=${timeperiod}`
+
+    // console.log(date);
+    const slot = document.getElementById("timeperiod").value;
+    console.log(slot);
+    
+    const url =  `http://localhost:8080/api/studyroom/list?date=${String(date)}&timeslot=${slot}`
     const config = {
-      Headers: {
+      headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
     }
@@ -46,41 +49,44 @@ function Newreservation() {
 
   const doreserve = async (event) => {
     //need to submitted to backend
-    event.preventDefault;
-    const url =  `http://localhost:8080/api/resercation/add`
+    event.preventDefault();
+    const slot = document.getElementById("timeperiod").value;
+
+    const url =  `http://localhost:8080/api/reservation/add`
     const config = {
-      Headers: {
+      headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
     }
+    const userID = localStorage.getItem("currentUsername")
     await axios.post(url, 
       {
         "customer": {
           "username": "test"
         },
         "date": date,
-        "timeslot": timeperiod,
+        "timeslot": slot,
         "studyRoom": {
           "id": studyroomid
       }
       },
       config).then(
       (res) => {
-        
         const result = res.data;
-
+        console.log("success");
       }
-    ).catch((error) => {
+    ).catch(async (error) => {
       console.log(error);
+      
     })
+
     
   }
   
     return (
       <div className="Newreservation"> 
           <label for="timeperiod">Choose a time period:</label>
-            <select name="timeperiod" id="timeperiod">
-                value = {timeperiod}
+            <select name="timeperiod" id="timeperiod" > 
                 <option value="A">8AM-10AM</option>
                 <option value="B">10AM-12PM</option>
                 <option value="C">2PM-4PM</option>
@@ -116,7 +122,7 @@ function Newreservation() {
         </form>
             <ul>
               {studyrooms.map((studyroom) => {
-                return <li key={studyroom.index}>
+                return <li key={studyroom.id}>
                   studyroomId: {studyroom.id}, capacity: {studyroom.capacity}
                 </li>
               })}

@@ -3,14 +3,17 @@ import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import axios from 'axios';
 import userRequest from "../request/user-request"
+import moment from 'moment';
 // import TextField from '@material-ui/core/TextField';
 // axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 function Rentbook() {
   const navigate = useNavigate();
+  const now = moment().format('YYYY-MM-DD');  
   const [bookname,setbookname] = useState();
   const [targetbookname, settargetbookname] = useState();
-  const [booknum,setbooknum] = useState();
-  const [returndate, setreturndate] = useState();
+  const [copyId,setcopynum] = useState();
+  const [expectedreturndate, setreturndate] = useState();
+  const [copies,setCopies] = useState([]);
   const navigatetologin = () =>{
     navigate('/*');
   }
@@ -23,38 +26,66 @@ function Rentbook() {
   const navigatetorentbook = () =>{
     navigate('/customer/book/rent/*')
   }
-  const searchresult = event => {
-    event.preventDefault;
-    console.log(targetbookname);
-    console.log(bookname)
-    // setbookname(targetbookname);
-    console.log("book name is: ", bookname);
-    console.log("submitted!")
+
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
   }
-  const dorent = event => {
-    
-    //need to submitted to backend
+  const searchresult = async(event) => {
     event.preventDefault();
-    console.log(targetbookname);
-    console.log(bookname)
-    // setbookname(targetbookname);
-    console.log("book name is: ", bookname);
-    console.log("submitted!")
+    const url =  `http://localhost:8080/api/copy/list/${bookname}`
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+    await axios.get(url, config).then(
+      (res) => {
+        console.log(res);
+        const result = res.data;
+        setCopies(result);
+        // setcapacity(result.ROOM_CAPACITY);
+      }
+    ).catch((error) => {
+      console.log(error);
+    })
+
+    
   }
+  const dorent = async(event)=> {
+    event.preventDefault();
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+    const url = `http://localhost:8080/api/rental/add`
+    const userID = localStorage.getItem("currentUsername")
+    await axios.post(url, 
+      {
+        "copy":{
+          "id" : copyId
+        },
+        "customer": {
+          "id": userID
+        },
 
-  const { doRequest, errors } = userRequest({
-    url: "/api/users/signin",
-    method: "post",
-    body: {
-      email,
-      password,
-    },
-    onSuccess: () => Router.push("/"),
-  });
-  const now = moment().tz('America/New_York')
-
-  const onsubmit = () => {
-
+        "expReturnDate": String(expectedreturndate)
+        
+      
+      },
+      config).then(
+      (res) => {
+        const result = res.data;
+        console.log("success");
+      }
+    ).catch(async (error) => {
+      console.log(error);
+      
+    })
+    
+    
   }
 
     return (
@@ -81,14 +112,26 @@ function Rentbook() {
 
           </form>
 
+
+          <ul>
+            <h2>
+              AVALABLIE Copy Number:
+            </h2>
+              {copies.map((copy) => {
+                return <li key={copy.id}>
+                   {copy.id}
+                </li>
+              })}
+            </ul>
+
           <form className = "rent">
             <div>
-            <label for="choosetorent">Choose the book to rent</label>
-            <input type="text" id="myInput"  placeholder="type the number ..." value = {booknum} onChange={(e) => setbooknum(e.target.value)}></input>
+            <label for="choosetorent">Choose the Copy to rent</label>
+            <input type="text" id="myInput"  placeholder="type the number ..." value = {copyId} onChange={(e) => setcopynum(e.target.value)}></input>
               <label for="end">Choose a date to return:</label>
              <input type="date" id="end" name="end"
             // value="2011-07-22"
-              value = {returndate}
+              value = {expectedreturndate}
               min= {now}
               onChange={(e) => setreturndate(e.target.value)}
             />
