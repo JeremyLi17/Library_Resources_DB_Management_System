@@ -7,8 +7,6 @@ import {useState} from 'react';
 import userRequest from './request/user-request';
 import axios from 'axios';
 
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
-
 export default function Login() {
 
     const navigate = useNavigate();
@@ -30,7 +28,7 @@ export default function Login() {
             "http://localhost:8080/api/customer/login",
             data
         ).then((res)=> {
-            console.log('success');
+            console.log(res.data);
             localStorage.setItem("token", res.headers["jwt-token"]);
             localStorage.setItem("currentUser", res.data);
             sessionStorage.removeItem('err');
@@ -69,9 +67,13 @@ export default function Login() {
             "http://localhost:8080/api/employee/login",
             data
         ).then((res)=> {
-            console.log('success');
+            console.log(res.data);
+
             localStorage.setItem("token", res.headers["jwt-token"]);
-            localStorage.setItem("currentUser", res.data);
+            localStorage.setItem("emp_username", res.data['username']);
+            localStorage.setItem("emp_email", res.data['email']);
+            localStorage.setItem("emp_role", res.data['role']);
+            
             sessionStorage.removeItem('err');
             navigateToEmployeeDashboard();
         }).catch((e) => {
