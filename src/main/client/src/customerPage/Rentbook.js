@@ -1,6 +1,6 @@
 import './Rentbook.css';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useState,  } from 'react';
 import axios from 'axios';
 import userRequest from "../request/user-request"
 import moment from 'moment';
@@ -62,7 +62,7 @@ function Rentbook() {
       }
     }
     const url = `http://localhost:8080/api/rental/add`
-    const userID = localStorage.getItem("currentUsername")
+    const userID = localStorage.getItem("currentUserId")
     await axios.post(url, 
       {
         "copy":{

@@ -32,7 +32,7 @@ root.render(
     <Routes>
       <Route path = "/*" element={<Login />}/>
       <Route path = "/customerRegister/*" element={<CustomerRegister/>}/>
-      <Route path = "/Customer-pwd-reset/*" element={<CustomerPwdReset/>}/>
+      <Route path = "/customer-pwd-reset/*" element={<CustomerPwdReset/>}/>
       <Route path = "/Employee-pwd-reset/*" element={<EmployeePwdReset/>}/>
       <Route path = "/employeeRegister/*" element={<EmployeeRegister/>}/>
       <Route path = "/employee/*" element={<EmployeeDashboard />}/>

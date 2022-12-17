@@ -16,7 +16,7 @@ function Managerental() {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
     }
-    const customerId = Number(localStorage.getItem("currentCustomerId"));
+    const customerId = Number(localStorage.getItem("currentUser"));
   
     axios.get(`http://localhost:8080/api/rental/list/${customerId}`, config).then((response) => {
       setrentals([])

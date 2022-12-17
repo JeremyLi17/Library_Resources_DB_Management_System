@@ -24,7 +24,7 @@ function BookrentalSystem() {
         </header>
 
         <form className = "Menubar1">
-            <div>
+            <div >
                 
                 <button onClick = {navigatetorental} >Rent Book</button>
             </div>
