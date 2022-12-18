@@ -60,10 +60,28 @@
   background: #ffffff;
 }
 
+.Signup_Page {
+  position: relative;
+  width: 1007px;
+  height: 200vh;
+  margin: auto;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+}
+
 .Login_Frame {
   position: absolute;
   width: 430px;
   height: 850px;
+  left: 288px;
+  top: 0px;
+}
+
+.Signup_Frame {
+  position: absolute;
+  width: 430px;
+  height: 1400px;
   left: 288px;
   top: 0px;
 }
@@ -234,7 +252,25 @@
   color: #000000;
 }
 
-.Login_Area_Customer_No_Error {
+.Signup_Area_Customer_No_Error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* padding: 29px 36px; */
+  gap: 10px;
+
+  position: absolute;
+  width: 347px;
+  height: 930px;
+  left: 43px;
+  top: 230px;
+
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 5px;
+}
+
+.Signup_Area_Employee_No_Error {
   box-sizing: border-box;
 
   /* Auto layout */
@@ -247,7 +283,7 @@
 
   position: absolute;
   width: 347px;
-  height: 350px;
+  height: 600px;
   left: 41px;
   top: 230px;
 
@@ -256,7 +292,7 @@
   border-radius: 5px;
 }
 
-.Login_Area_Employee_No_Error {
+.Signup_Area_Customer_Error {
   box-sizing: border-box;
 
   /* Auto layout */
@@ -269,29 +305,7 @@
 
   position: absolute;
   width: 347px;
-  height: 350px;
-  left: 41px;
-  top: 230px;
-
-  border: 1px solid rgba(128, 128, 128, 0.5);
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 5px;
-}
-
-.Login_Area_Customer_Error {
-  box-sizing: border-box;
-
-  /* Auto layout */
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /* padding: 29px 36px; */
-  gap: 10px;
-
-  position: absolute;
-  width: 347px;
-  height: 350px;
+  height: 930px;
   left: 43px;
   top: 394px;
 
@@ -300,8 +314,7 @@
   border-radius: 5px;
 }
 
-
-.Login_Area_Employee_Error {
+.Signup_Area_Employee_Error {
   box-sizing: border-box;
 
   /* Auto layout */
@@ -314,7 +327,7 @@
 
   position: absolute;
   width: 347px;
-  height: 350px;
+  height: 600px;
   left: 43px;
   top: 394px;
 
@@ -323,10 +336,10 @@
   border-radius: 5px;
 }
 
-.Login_Form {
+.Signup_Form_Employee {
   position: relative;
   width: 275px;
-  height: 300px;
+  height: 500px;
   left: 36px;
   top: 29px;
   /* Inside auto layout */
@@ -336,20 +349,98 @@
   flex-grow: 0;
 }
 
-.Submission_Frame {
+.Signup_Form_Customer {
+  position: relative;
+  width: 275px;
+  height: 880px;
+  left: 36px;
+  top: 29px;
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.Submission_Frame_Employee {
   position: absolute;
   width: 275px;
-  height: 200px;
+  height: 430px;
   left: 0px;
   top: 100px;
 }
 
-.Username_Title {
+.Submission_Frame_Customer {
+  position: absolute;
+  width: 275px;
+  height: 794px;
+  left: 0px;
+  top: 86px;
+}
+
+.Submission_Area_Customer {
+  position: absolute;
+  width: 275px;
+  height: 743px;
+  left: 0px;
+  top: 6px;
+}
+
+.Submission_Area_Employee {
+  position: absolute;
+  width: 275px;
+  height: 424px;
+  left: 0px;
+  top: 6px;
+}
+
+.Back_Button_Customer {
+  position: absolute;
+  width: 275px;
+  height: 35px;
+  left: 0px;
+  top: 759px;
+
+  background: rgba(0, 128, 0, 0.8);
+  border-radius: 5px;
+}
+
+.Back_Button_Employee {
+  position: absolute;
+  width: 275px;
+  height: 35px;
+  left: 0px;
+  top: 375px;
+
+  background: rgba(0, 128, 0, 0.8);
+  border-radius: 5px;
+}
+
+.Back_Button_Customer_Title {
+  position: absolute;
+  width: 275px;
+  height: 35px;
+  left: 0px;
+  top: 0px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 32.5px;
+  /* display: flex; */
+  /* align-items: center; */
+  text-align: center;
+
+  color: #ffffff;
+}
+
+.First_Name_Title {
   position: absolute;
   width: 275px;
   height: 19px;
   left: 0px;
-  top: 13px;
+  top: 0px;
 
   /* font-family: "Tienne"; */
   font-style: normal;
@@ -361,12 +452,439 @@
   color: #000000;
 }
 
+.First_Name_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 28px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Username_Employee_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 0px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Username_Employee_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 28px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Middle_Name_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 77px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Middle_Name_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 105px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Password_Employee_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 77px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Password_Employee_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 105px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Last_Name_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 161px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Last_Name_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 189px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Role_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 161px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Role_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 189px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Email_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 238px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Email_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 266px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Email_Employee_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 238px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Email_Employee_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 266px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Phone_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 315px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Phone_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 343px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.IdType_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 391px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.IdType_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 418px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.IdNo_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 466px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.IdNo_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 493px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Username_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 541px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Username_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 568px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
+.Password_Title {
+  position: absolute;
+  width: 275px;
+  height: 19px;
+  left: 0px;
+  top: 616px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.Password_Input {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 275px;
+  height: 40px;
+  left: 0px;
+  top: 643px;
+
+  background: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  border-radius: 7px;
+}
+
 .Selection_Frame {
   position: absolute;
   width: 275px;
   height: 86px;
   left: 0px;
   top: 0px;
+}
+
+.Signup_Button {
+  position: absolute;
+  width: 275px;
+  height: 35px;
+  left: 0px;
+  top: 708px;
+
+  background: rgba(0, 128, 0, 0.8);
+  border-radius: 5px;
+}
+
+.Signup_Button_Employee {
+  position: absolute;
+  width: 275px;
+  height: 35px;
+  left: 0px;
+  top: 330px;
+
+  background: rgba(0, 128, 0, 0.8);
+  border-radius: 5px;
+}
+
+.Signup_Button_Title {
+  position: absolute;
+  width: 275px;
+  height: 35px;
+  left: 0px;
+  top: 0px;
+
+  /* font-family: "Tienne"; */
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 32.5px;
+  /* display: flex; */
+  /* align-items: center; */
+  text-align: center;
+
+  color: #ffffff;
 }
 
 .Selection_Title {
@@ -511,32 +1029,4 @@
   /* identical to box height */
 
   color: #000000;
-}
-
-.Username_Input {
-  box-sizing: border-box;
-
-  position: absolute;
-  width: 275px;
-  height: 40px;
-  left: 0px;
-  top: 41px;
-
-  background: #ffffff;
-  border: 1px solid rgba(128, 128, 128, 0.5);
-  border-radius: 7px;
-}
-
-.Password_Input {
-  box-sizing: border-box;
-
-  position: absolute;
-  width: 275px;
-  height: 40px;
-  left: 0px;
-  top: 116px;
-
-  background: #ffffff;
-  border: 1px solid rgba(128, 128, 128, 0.5);
-  border-radius: 7px;
 }

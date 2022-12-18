@@ -310,7 +310,7 @@
   top: 100px;
 }
 
-.Username_Title {
+.Username_Title_Login {
   position: absolute;
   width: 275px;
   height: 19px;
@@ -479,7 +479,7 @@
   color: #000000;
 }
 
-.Username_Input {
+.Username_Input_Login {
   box-sizing: border-box;
 
   position: absolute;
@@ -493,7 +493,7 @@
   border-radius: 7px;
 }
 
-.Password_Input {
+.Password_Input_Login {
   box-sizing: border-box;
 
   position: absolute;

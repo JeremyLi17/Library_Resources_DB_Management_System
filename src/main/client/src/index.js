@@ -30,8 +30,10 @@ const root = createRoot(rootElement);
 root.render(
   <Router>
     <Routes>
-      <Route path = "/*" element={<Login />}/>
-      <Route path = "/customerRegister/*" element={<CustomerRegister/>}/>
+      <Route path = "/" element={<Login />}/>
+      <Route path = "/Session" element={<Login/>}/>
+      <Route path = "/register/session" element={<CustomerRegister/>}/>
+      <Route path = "/register" element={<CustomerRegister/>}/>
       <Route path = "/customer-pwd-reset/*" element={<CustomerPwdReset/>}/>
       <Route path = "/Employee-pwd-reset/*" element={<EmployeePwdReset/>}/>
       <Route path = "/employeeRegister/*" element={<EmployeeRegister/>}/>

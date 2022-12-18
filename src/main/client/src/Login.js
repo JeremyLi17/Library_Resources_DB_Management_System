@@ -6,7 +6,7 @@ import axios from 'axios';
 import Logo from './library-svgrepo-com.svg'
 import "@fontsource/abel";
 
-export default function Login(props) {
+export default function Login() {
 
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
@@ -49,6 +49,7 @@ export default function Login(props) {
         }).catch((e) => {
             console.log(e.response.data['message']);
             setLogin_err(e.response.data['message']);
+            navigate('/session');
         })
 
     };
@@ -86,6 +87,7 @@ export default function Login(props) {
             })
         }).catch((e) => {
             setLogin_err(e.response.data['message']);
+            navigate('/session');
         })
     };
     
@@ -100,15 +102,9 @@ export default function Login(props) {
         }
     }
 
-    const navigateToCustomerRegistration = () => {
+    const navigateToRegistration = () => {
         useEffect(() => {
-            navigate('/customerRegister/*');
-        })
-    }
-
-    const navigateToEmployeeRegistration = () => {
-        useEffect(() => {
-            navigate('/employeeRegister/*');
+            navigate('/register/*');
         })
     }
 
@@ -214,11 +210,11 @@ export default function Login(props) {
                                 ) : null}
                             </div>
                             <form onSubmit={logInRequest} className='Submission_Frame'>
-                                <label className='Username_Title'>
+                                <label className='Username_Title__Login'>
                                     Username
                                 </label>
                                 <input 
-                                className='Username_Input'
+                                className='Username_Input_Login'
                                 type='text'
                                 value={username}
                                 onChange={handleChangeUsername}
@@ -232,7 +228,7 @@ export default function Login(props) {
                                     </a>
                                 </div>
                                 <input
-                                className='Password_Input'
+                                className='Password_Input_Login'
                                 type='password'
                                 name="Password"
                                 value={pwd}
@@ -270,11 +266,11 @@ export default function Login(props) {
                                 ) : null}
                             </div>
                             <form onSubmit={logInRequest} className='Submission_Frame'>
-                                <label className='Username_Title'>
+                                <label className='Username_Title_Login'>
                                     Username
                                 </label>
                                 <input 
-                                className='Username_Input'
+                                className='Username_Input_Login'
                                 type='text'
                                 value={username}
                                 onChange={handleChangeUsername}
@@ -288,7 +284,7 @@ export default function Login(props) {
                                     </a>
                                 </div>
                                 <input
-                                className='Password_Input'
+                                className='Password_Input_Login'
                                 type='password'
                                 name="Password"
                                 value={pwd}
@@ -308,14 +304,14 @@ export default function Login(props) {
                     window.location.pathname !== '/session' ? (
                         <div className='Register_Frame_No_Error'>
                             <div className='Register_Title'>New to Real?</div>
-                            <a href={customer ? 'http://localhost:3000/customerRegister/*' : 'http://localhost:3000/employeeRegister/*'} className='Registration'>
+                            <a href={customer ? 'http://localhost:3000/register' : 'http://localhost:3000/employeeRegister/*'} className='Registration'>
                                 Create an account
                             </a>
                         </div>
                     ) : (
                         <div className='Register_Frame_Error'>
                             <div className='Register_Title'>New to Real?</div>
-                            <a href={customer ? 'http://localhost:3000/customerRegister/*' : 'http://localhost:3000/employeeRegister/*'} className='Registration'>
+                            <a href={customer ? 'http://localhost:3000/register' : 'http://localhost:3000/employeeRegister/*'} className='Registration'>
                                 Create an account
                             </a>
                         </div>
